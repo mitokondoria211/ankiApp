@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>カード編集</title>
+</head>
+<body>
+    <div th:insert="~{common/sourceList :: sourceList}"></div>
+    <div th:replace="~{common/header :: header}"></div>
+    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
+    <div class = "container-fluid mx-auto text-center">
+        <h2 class="text-center mt-5">デッキ編集</h2>
+<!--        <a href="" class="btn btn-primary">デッキ作成</a>-->
+<!--        <img src="images/yuusya_game.png">-->
+<!--        <form class="form-group text-center" th:action ="@{/deckInfo}" enctype="multipart/form-data" method="post" th:object = "${deckForm}">-->
+<!--            <div class="text-center mt-4">-->
+<!--                <div>-->
+<!--                    <label>タイトル:</label><br>-->
+<!--                    <input class="col-6"  type="text" th:field="*{title}">-->
+<!--                </div>-->
+<!--                <div class="mt-3">-->
+<!--                    <p><label>説明:</label><br>-->
+<!--                    <textarea class="col-6" th:field="*{description}"></textarea>-->
+<!--                </div>-->
+<!--                <div class="mt-3">-->
+<!--                    <p><label>画像:</label><br>-->
+<!--                    <input type="file" th:field="*{imageFile}">-->
+<!--                </div>-->
+<!--                <input class="btn btn-primary" type ="submit" value="作成">-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+    
+    <div class="mb-5 mt-5">
+        <a th:href="@{/deckInfo}" class="btn btn-secondary">デッキ作成</a>
+        <a th:href="@{/deckList}" class="btn btn-secondary">デッキ管理</a>
+        <a th:href="@{/login}" class="btn btn-secondary">ログイン画面</a>
+    </div>
+    <div></div>
+</body>
+</html>

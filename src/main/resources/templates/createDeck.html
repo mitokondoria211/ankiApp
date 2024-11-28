@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>デッキ作成</title>
+</head>
+<body>
+    <div th:insert="~{common/sourceList :: sourceList}"></div>
+    <div th:replace="~{common/header :: header}"></div>
+    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
+    <div class = "container-fluid mx-auto text-center">
+        <h2 class="text-center mt-5">デッキ作成</h2>
+<!--        <a href="" class="btn btn-primary">デッキ作成</a>-->
+<!--        <img src="images/yuusya_game.png">-->
+        <form class="form-group text-center" th:action ="@{/deckInfo}" enctype="multipart/form-data" method="post" th:object = "${deckForm}">
+            <div class="mx-auto mt-4">
+                <div>
+                    <p><label class="fw-bold">タイトル:</label><br>
+                    <input class="col-6"  type="text" th:field="*{title}">
+                    <div class="text-danger" th:errors="*{title}"></div>
+                </div>
+                <div class="mt-4">
+                    <p><label class="fw-bold">説明:</label><br>
+                    <textarea class="col-6" th:field="*{description}"></textarea>
+                </div>
+                <div class="mt-4 mb-4">
+                    <p><label class="fw-bold">画像:</label><br>
+                    <input type="file" th:field="*{imageFile}">
+                </div>
+                <input class="btn btn-primary" type ="submit" value="作成">
+            </div>
+        </form>
+    </div>
+    
+    <div class="mb-5 mt-5"><a th:href="@{/menu}">▶ トップメニュー画面はこちら</a></div>
+    <div><a th:href="@{/login}" >▶ ログイン画面はこちら</a></div>
+</body>
+</html>

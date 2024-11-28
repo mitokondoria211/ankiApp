@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>問題挑戦</title>
+<style>
+        /* 初期状態で回答を非表示にする */
+        #answerSection {
+            display: none;
+        }
+</style>
+</head>
+<body>
+    <div th:insert="~{common/sourceList :: sourceList}"></div>
+    <div th:replace="~{common/header :: header}"></div>
+    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
+    <div class = "container mx-auto text-center content">
+        <h2 class="text-center">開始</h2>
+        <img src="images/yuusya_game.png" class="img-fluid mt-3" style="width: 20%; height: 20%; object-fit: cover;">
+<!--        <form class="form-group text-center mx-auto" th:action="@{/cardDisplay}" method="post" th:object = "${cardDisplayForm}">-->
+<!--        </form>-->
+<!--        <form class="form-group text-center mx-auto" th:action="@{/cardDisplay}" method="post" th:object = "${cardDisplayForm}">-->
+<!--            <div class="text-center mt-4">-->
+<!--                <div>-->
+<!--                    <label>デッキ選択：</label>-->
+<!--                    <select name="deckId" th:field="*{deckId}" class="col-4">-->
+<!--                        <option th:each="deck : ${deckInfos}" th:value="${deck.deckId}" th:text="${deck.title}" th:selected="${deck.deckId == cardDisplayForm.deckId}">デッキ名</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--                <div class="mt-3">-->
+<!--                    <label>問題選択：</label>-->
+<!--                    <select name="cardId" th:field="*{cardId}" class="col-4">-->
+<!--                    <option th:each="card : ${cardInfos}" th:value="${card.cardId}" th:text="${card.cardName}" th:selected="${card.cardId == cardDisplayForm.cardId}">カード名</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+                
+<!--                <div><button type="submit" class="mt-3 btn btn-primary">表示</button></div>-->
+<!--                <div class="col-6 mx-auto mt-3 ">-->
+<!--                    <p  th:utext="${deckName}">問題内容</p>-->
+<!--                    <p id="problemSection" th:utext="${problem}">問題内容</p>-->
+<!--                      ボタンを追加 -->
+<!--                    <button id="showAnswerButton" type="button">解答を表示</button>-->
+<!--                    <p id="answerSection" th:utext="${answer}">解答内容</p>-->
+<!--                </div>-->
+                                       
+<!--            </div>-->
+<!--        </form>   -->
+        <form class="form-group text-center mx-auto" th:action="@{/cardDisplay}" method="get" th:object = "${cardDisplayForm}">
+            <div class="text-center mt-4">
+                <div>
+                    <label>デッキ選択：</label>
+                    <select name="deckId" th:field="*{deckId}" class="col-4">
+                        <option th:each="deck : ${deckInfos}" th:value="${deck.deckId}" th:text="${deck.title}" th:selected="${deck.deckId == cardDisplayForm.deckId}">デッキ名</option>
+                    </select>
+                </div>
+                <div class="mt-3">
+                    <label>問題選択：</label>
+                    <select name="cardId" th:field="*{cardId}" class="col-4">
+                    <option th:each="card : ${cardInfos}" th:value="${card.cardId}" th:text="${card.cardName}" th:selected="${card.cardId == cardDisplayForm.cardId}">カード名</option>
+                    </select>
+                </div>
+                
+                <div><button type="submit" class="mt-3 btn btn-primary">表示</button></div>               
+            </div>
+        </form>
+        <div class="col-6 mx-auto mt-3 ">
+<!--            <p  th:utext="${deckName}">問題内容</p>-->
+            <p id="problemSection" th:utext="${problem}">問題内容</p>
+             <!-- ボタンを追加 -->
+            <button id="showAnswerButton" type="button">解答を表示</button>
+            <p id="answerSection" th:utext="${answer}">解答内容</p>
+        </div>
+    </div>
+    <script type="text/javascript" th:src="@{/js/cardDisplay.js}"></script>
+<!--    <script type="text/javascript" th:src="@{/js/cardDisplay.js}"></script>-->
+</body>
+</html>

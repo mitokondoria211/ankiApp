@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ユーザー一覧</title>
+<style>
+        .search-group {
+            display: none;
+        }
+        .search-group.active {
+            display: flex;
+        }
+</style>
+</head>
+<body>
+<div th:insert="~{common/sourceList :: sourceList}"></div>
+<div th:replace="~{common/menuHeader :: menuHeader}"></div>
+<div th:replace="~{common/header :: header}"></div>
+<div th:replace="~{common/messageIcon :: messageIcon}"></div>
+<script type="text/javascript" th:src="@{/js/cardList.js}"></script>
+<!--<script type="text/javascript" th:src="@{/js/deckList.js}"></script>-->
+<div class="container-fluid mx-auto mt-5 content w-75">
+    <div class="alert  d-flex align-items-center mt-3 w-50 mx-auto"  role="alert"th:classappend="${isError ? 'alert-danger' : 'alert-primary'}" th:if="${message != null}">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+                <use xlink:href="#exclamation-triangle-fill" th:if="${isError}"/>
+                <use xlink:href="#info-fill" th:unless="${isError}"/>
+            </svg>
+            <span th:text="${message}"></span>
+    </div>
+    <h2 class="mt-2 text-center">カード管理</h2>
+    <div th:text="${message}"></div>
+    <form th:action="@{/cardList}" method="post" th:object="${cardListForm}"
+    id="searchForm">
+        <div class="mt-1">
+            <div class="my-3">
+                <span>＜絞り込み検索条件＞</span>
+            </div>
+            <div class="select-group mb-3">
+                <p>＜検索項目を選択してください＞</p>
+                <select id="searchTypeSelect" onchange="showSearchField(this.value)">
+                    <option value="">検索項目を選択</option>
+                    <option value="cardName">カード名</option>
+                    <option value="question">問題</option>
+                    <option value="answer">回答</option>
+                    <option value="rating">カード評価</option>
+                    <option value="deckName">デッキ名</option>
+                </select>
+            </div>
+
+            <div class="search-group"  id="cardNameSearch">
+                <div class="row g-3 align-items-center mb-3">
+                  <div class="col-auto">
+                    <label class="col-form-label" for="cardName">カード名：</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="text" id="cardName" class="form-control" th:field="*{cardName}">
+                  </div>
+                  <div class="col-auto">
+                    <span class="form-text">※部分一致</span>
+                  </div>
+                </div>
+            </div>
+
+            <div class="search-group"  id="questionSearch">
+                <div class="row g-3 align-items-center mb-3">
+                  <div class="col-auto">
+                    <label class="col-form-label" for="question">問題：</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="text" id="question" class="form-control" th:field="*{question}">
+                  </div>
+                  <div class="col-auto">
+                    <span class="form-text">※部分一致</span>
+                  </div>
+                </div>
+            </div>
+
+            <div class="search-group" id="answerSearch">
+                <div class="row g-3 align-items-center mb-3">
+                  <div class="col-auto">
+                    <label class="col-form-label" for="answer">解答：</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="text" id="answer" class="form-control" th:field="*{answer}">
+                  </div>
+                  <div class="col-auto">
+                    <span class="form-text">※部分一致</span>
+                  </div>
+                </div>
+            </div>
+
+            <div class="search-group" id="ratingSearch">
+                <div class=" align-items-center d-flex flex-row mb-3">
+                   <label class="col-form-label" for="cardResult">カード評価：</label>
+                    <div class="col-auto">
+                        <select th:field="*{cardResult}" class="form-select" id="cardResult">
+                            <option value="" selected>未選択</option>
+                            <option th:each="cardResult : ${cardResults}"
+                            th:value="${cardResult}"
+                            th:text="${cardResult.rating}"
+                            >
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-group" id="deckNameSearch">
+                <div class=" align-items-center d-flex flex-row mb-3">
+                   <label class="col-form-label" for="deckInfo">デッキ名：</label>
+                    <div class="col-auto">
+                        <select th:field="*{deckId}" class="form-select" id="deckInfo">
+                            <option value="" selected>未選択</option>
+                            <option th:each="deckInfo : ${deckInfos}"
+                            th:value="${deckInfo.deckId}"
+                            th:text="${deckInfo.title}">
+                            </option>
+                        </select>
+                    </div>
+                </div>           
+            </div>
+
+            
+            
+            <div class="align-items-center d-flex flex-row mb-3">
+               <label class="col-form-label">並び替え：</label>
+                <div class="col-3">
+                    <select th:field="*{sortType}" class="form-select">
+                        <option th:each="sortType : ${sortTypes}"
+                        th:value="${sortType}"
+                        th:text="${sortType.sortTypeDisplay}"
+                        th:selected="${sortType == cardListForm.sortType}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="mt-3">
+                <input type="submit" class="btn btn-primary mt-3" name="search" value="検索">
+            </div>
+        </div>
+
+        
+        <div class="mt-3">
+                <table class="table table-striped" id="cardList">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col" hidden>カードid</th>
+                            <th scope="col">カード名</th>
+                            <th scope="col">問題</th>
+                            <th scope="col">解答</th>
+                            <th scope="col">カード評価</th>
+                            <th scope="col">デッキタイトル</th>
+                            <th scope="col">作成日</th>
+                            <th scope="col">更新日</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="card, stat  : ${cardList}">
+                            <th scope="row" th:text="${stat.count}"></th>
+                            <td th:id="|cardId_${stat.count}|" hidden><span th:text="${card.cardId}" hidden></span></td>
+                            <td th:id="|cardName_${stat.count}|"><span th:text="${#strings.length(card.cardName) > 10 ? #strings.substring(card.cardName,0,10) + '...' : card.cardName}"></span></td>
+                            <td th:id="|question_${stat.count}|"><span th:text="${#strings.length(card.question) > 20 ? #strings.substring(card.question,0,20) + '...' : card.question}"></span></td>
+                            <td th:id="|answer_${stat.count}|"><span th:text="${#strings.length(card.answer) > 20 ? #strings.substring(card.answer,0,20) + '...' : card.answer}"></span></td>
+                            <td th:id="|cardResult_${stat.count}|"><span th:text="${card.cardResult.rating} "></span></td>
+                            <td th:id="|deckInfo.title_${stat.count}|"><span th:text="${#strings.length(card.deckInfo.title) > 10 ? #strings.substring(card.deckInfo.title,0,10) + '...' : card.deckInfo.title}"></span></td>
+                            <td th:id="|createdAt_${stat.count}|"><span th:text="${#temporals.format(card.createdAt, 'yyyy-MM-dd HH:mm')}"></span></td>
+                            <td th:id="|updatedAt_${stat.count}|"><span th:text="${#temporals.format(card.updatedAt, 'yyyy-MM-dd HH:mm')}"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="text" th:field="*{selectedCardId}" hidden>
+                <input type="submit" class="btn btn-secondary" id="editBtn" name="edit" value="編集" disabled>
+                <input type="button" class="btn btn-danger" id="deleteDummyBtn" data-bs-toggle="modal" data-bs-target="#deleteConfirm" value="削除" disabled>
+                <input type="submit" id="deleteBtn" name="delete" hidden>
+            <div class="mt-3">
+                <a th:href="@{/menu}">▶トップメニューへ戻る</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+        function showSearchField(type) {
+            // すべての検索フィールドを非表示
+            document.querySelectorAll('.search-group').forEach(function(elem) {
+                elem.classList.remove('active');
+            });
+            
+            // 選択された検索フィールドのみ表示（typeが空でない場合のみ）
+            if (type) {
+                document.getElementById(type + 'Search').classList.add('active');
+            }
+        }
+    </script>
+
+<!-- 削除確認モーダルの設定 -->
+<div class="modal fade" id="deleteConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">削除前確認</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                本当に削除してもよろしいですか？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary" id="deleteOkBtn">削除する</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

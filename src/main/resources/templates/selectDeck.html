@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>デッキ選択</title>
+</head>
+<body>
+    <div th:insert="~{common/sourceList :: sourceList}"></div>
+    <div th:replace="~{common/header :: header}"></div>
+    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
+    <div class = "container mx-auto text-center content w-75">
+        <h2 class="mt-5">デッキ選択</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center d-flex flex-wrap" >
+            <div th:each="deck, iterStat : ${deckInfos}" class="card me-3 mx-auto mt-3 mb-3" style="width: 18rem; height: 24rem;">
+                <img th:src="${deckImages[iterStat.index]}" alt="Deck Image" 
+                class="mx-auto mb-2" style="width: 200px;"/>
+                  <div class="card-body">
+                    <h5 class="card-title" th:text="${#strings.length(deck.title) > 10 ? #strings.substring(deck.title,0,10) + '...' : deck.title}"></h5>
+                    <p class="card-text" th:text="${#strings.length(deck.description) > 10 ? #strings.substring(deck.description,0,10) + '...' : deck.description}"></p>
+                    <p class="card-text fw-bold">出題数: <span class="fw-normal text-success" th:text="${deckCardSizes[iterStat.index]}"></span>問</p>
+<!--                    <a th:href="@{/cardChallenge(deckId=${deck.deckId})}" class="btn btn-primary">挑戦する</a>-->
+                    <a th:if="${deckCardSizes[iterStat.index] > 0}" th:href="@{/cardChallenge/{deckId}(deckId=${deck.deckId})}" class="btn btn-primary">挑戦する</a>
+                  </div>
+            </div>
+        </div>
+        
+<!--        <form th:action="@{/cardChallenge}" method="get">-->
+<!--            <div class="text-center mx-auto w-25 mt-5">-->
+<!--                <select name="deckId" id="deckSelect" class="form-select ">-->
+<!--                    <option th:each="deck : ${deckInfos}" th:value="${deck.deckId}" th:text="${deck.title}"></option>-->
+                    
+<!--                </select>-->
+<!--                <button type="submit" class="btn btn-outline-primary mt-3">挑戦する</button>-->
+<!--            </div>-->
+<!--        </form>-->
+    </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>デッキ編集</title>
+</head>
+<body>
+    <div th:insert="~{common/sourceList :: sourceList}"></div>
+    <div th:replace="~{common/header :: header}"></div>
+    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
+    <div class = "container-fluid mx-auto text-center w-75">
+        <h2 class="text-center mt-5">デッキ更新</h2>
+        <h3 th:text="${title} + 'デッキの更新'" class="text-center"></h3>
+        <form th:action="@{/updateDeck}" method="post" enctype="multipart/form-data" th:object="${updateDeckForm}">
+            <input type="hidden" th:field="*{deckId}" />
+            <div class="mt-3 " th:each="deck: ${updateDeck}">
+                <div class="mx-auto col-5 text-start">
+                    <label th:text="'変更前タイトル:  ' + (${deck.title})" class="form-label"></label>
+                    <input type="text"class="form-control" th:field="*{title}">
+                </div>
+                <div class="mx-auto col-5 text-start mt-3 mb-3">
+                    <label th:text="'変更前説明:  ' + ${deck.description}" class="form-label"></label>
+                    <textarea class="form-control" th:field="*{description}"></textarea>
+                </div>
+                <div class="mt-4 mb-4">
+                    <div>
+                        <img th:src="${deckImage}" alt="Deck Image"
+                                                class="mx-auto mb-4"/>
+                    </div>
+                        <p><label class="fw-bold">画像:</label><br>
+                        <input type="file" th:field="*{imageFile}">
+                </div>
+                <input type="submit" class="btn btn-primary" value="更新">
+            </div>
+        </form>
+        
+    
+    <div class="mb-5 mt-5"><a th:href="@{/menu}">▶ トップメニュー画面はこちら</a></div>
+    <div><a th:href="@{/login}" >▶ ログイン画面はこちら</a></div>
+</body>
+</html>

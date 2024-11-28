@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ユーザー編集</title>
+</head>
+<body>
+<div th:insert="~{common/sourceList :: sourceList}"></div>
+
+<div class="container-fuild">
+    <p>エラーが発生しました。前の画面に戻ってやり直してください。</p>
+    
+    <p><span class="text-danger" th:text="${message}"></span></p>
+    <p><a th:href="@{/userList}">>前の画面に戻る</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ログイン画面</title>
+</head>
+<body>
+    <div th:insert="~{common/sourceList :: sourceList}"></div>
+    <div th:replace="~{common/messageIcon :: messageIcon}"></div>
+    <div class="container-fluid text-center">
+        <h2 class="mb-3 mt-3">ログイン画面</h2>
+		<div class="alert  d-flex align-items-center mx-auto " th:classappend='alert-danger' role="alert" th:if="${errorMsg != null}" style="width: 250px;">
+			<svg class="bi flex-shrink-0 me-2" width="24" height="24">
+				<use xlink:href="#exclamation-triangle-fill"/>
+			</svg>
+			<span th:text="${errorMsg}"></span>
+		</div>
+		<form class="form-group text-center" th:action ="@{/login}" method="post" th:object = "${loginForm}">
+			<div class="col-3 col-md-2 col-xxl-1 text-start mx-auto">
+				<p><label for="loginId">ログインID：</label>
+				<input class="form-control" type ="text" th:field="*{loginId}">
+			</div>
+			<div class="col-3 col-md-2 col-xxl-1 text-start mx-auto">
+				<p><label for="password">パスワード：</label>
+				<input class="form-control" type ="password" th:field="*{password}">
+                <lable>
+                    <input type="checkbox" id="showPassword" onclick="togglePassword()">
+                    パスワードを表示する
+                </lable>
+			</div>
+			<div>
+				<p><input class="btn btn-primary" type ="submit" value="ログイン">
+			</div>
+		</form>
+		<a th:href="@{/signup}">▶ ユーザー登録はこちら</a>
+        <script th:inline="javascript">
+                function togglePassword() {
+                    var passwordField = document.getElementById("password");
+                    if (passwordField.type === "password") {
+                        passwordField.type = "text ";
+                    } else {
+                        passwordField.type = "password";
+                    }
+                }
+        </script>
+	</div>
+</body>
+</html>

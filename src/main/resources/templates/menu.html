@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+	<title>メニュー画面</title>
+</head>
+<body>
+	<div th:insert="~{common/sourceList :: sourceList}"></div>
+	<div th:replace="~{common/header :: header}"></div>
+    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
+    <div class = "container-fluid mx-auto text-center">
+        <h2>トップメニュー</h2>
+        <div class="mt-3">
+            暗記カード・デッキ作成はこちら
+        </div>
+        <a th:href="@{/deckInfo}" class="btn btn-secondary">デッキ作成画面へ</a>
+        <a th:href="@{/cardEditor}" class="btn btn-success">暗記カード作成画面へ</a>
+        <th:block th:if="${hasUserManageAuth}">
+            <div class="mt-3">
+                ユーザー情報管理はこちら
+            </div>
+            <a th:href="@{/userList}" class="btn btn-danger">ユーザー管理一覧へ</a>
+        </th:block>
+    </div>
+	<a th:href="@{/login}">▶ ログイン画面はこちら</a>
+</body>
+</html>
