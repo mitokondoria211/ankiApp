@@ -54,4 +54,16 @@ public class UrlConst {
     public static final String CARD_LIST = "/cardList";
     
     public static final String UPDATE_CARD = "/updateCard";
+    
+    public static final String CHALLENGE_COMPLETE = "/challengeComplete";
+    
+    public static final String SELECT_DECK = "/selectDeck";
+    
+    public static final String CARD_CHALLENGE= "/cardChallenge";
+    
+    public static final String CREATE_DECK = "/createDeck";
+    
+    
+    
+
 }

@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.example.ankiapp.constant.MessageConst;
 import com.example.ankiapp.constant.SessionKeyConst;
 import com.example.ankiapp.constant.SignupResult;
 import com.example.ankiapp.constant.UrlConst;
@@ -88,7 +89,7 @@ public class SignupController {
 	   @PostMapping(UrlConst.SIGNUP)
 	   public String signup(@Validated SignupForm form, BindingResult bdResult, RedirectAttributes redirectAttributes) {
 	       if(bdResult.hasErrors()) {
-	           editGuideMessage(form, bdResult, FORM_CLASS_NAME, redirectAttributes);
+	           editGuideMessage(form, bdResult, MessageConst.FORM_ERROR, redirectAttributes);
 	           return AppUtility.doRedirect(UrlConst.SIGNUP);
 	       }
 	       

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +16,7 @@ import com.example.ankiapp.repository.DeckInfoRepository;
 import com.example.ankiapp.repository.UserInfoRepository;
 import com.example.ankiapp.utilty.AppUtility;
 import lombok.RequiredArgsConstructor;
+import lombok.var;
 
 
 
@@ -84,7 +86,9 @@ public class CardDisplayServiceImpl implements CardDisplayService{
     public List<CardEditorInfo> findCardEditorByDeckId(Long deckId) {
         var userInfo = userRepository.findByLoginId(getUserName());
         var deckInfo = deckRepository.findByDeckId(deckId);
-        return repository.findByUserInfoAndDeckInfoOrderByCardId(userInfo, deckInfo);
+        var cardInfos = repository.findByUserInfoAndDeckInfoOrderByCardId(userInfo, deckInfo);
+//        Collections.shuffle(cardInfos);
+        return cardInfos;
     }
 
     @Override

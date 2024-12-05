@@ -31,7 +31,7 @@ public class MenuController {
     public String view(@AuthenticationPrincipal User user, Model model) {
         var hasUserManageAuth = user.getAuthorities().stream()
                 .allMatch(authority -> authority.getAuthority()
-                        .equals(AuthorityKind.ITEM_AND_USER_MANAGER.getCode()));
+                        .equals(AuthorityKind.ANKI_AND_USER_MANAGER.getCode()));
         model.addAttribute("hasUserManageAuth", hasUserManageAuth);
 
         return ViewNameConst.MENU;

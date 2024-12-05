@@ -12,7 +12,7 @@
         <h2 class="text-center mt-5">デッキ作成</h2>
 <!--        <a href="" class="btn btn-primary">デッキ作成</a>-->
 <!--        <img src="images/yuusya_game.png">-->
-        <form class="form-group text-center" th:action ="@{/deckInfo}" enctype="multipart/form-data" method="post" th:object = "${deckForm}">
+        <form class="form-group text-center" th:action ="@{/createDeck}" enctype="multipart/form-data" method="post" th:object = "${deckForm}">
             <div class="mx-auto mt-4">
                 <div>
                     <p><label class="fw-bold">タイトル:</label><br>

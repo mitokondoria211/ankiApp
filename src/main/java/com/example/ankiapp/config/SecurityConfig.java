@@ -73,7 +73,7 @@ public class SecurityConfig{
 //						.passwordParameter("password")
 						//ログイン成功時のリダイレクト先を指定
 						.defaultSuccessUrl(UrlConst.MENU, true))
-				.logout(logout -> logout.logoutSuccessUrl(UrlConst.SIGNUP))
+				.logout(logout -> logout.logoutSuccessUrl(UrlConst.LOGIN))
 				.requestCache(cache -> cache
 		                .requestCache(new NullRequestCache())  // リクエストキャッシュを無効化
 		      );

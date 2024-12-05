@@ -14,15 +14,12 @@ public enum AuthorityKind {
 
     /** 登録内容が不正 */
     UNKNOWN("", "登録内容が不正"),
-    
-    /** 商品情報の確認が可能 */
-    ITEM_WATCHER("user1", "商品情報の確認が可能"),
 
-    /** 商品情報の確認、更新が可能 */
-    ITEM_MANEGER("user2", " 商品情報の確認、更新が可能"),
+    /** アプリの使用が可能 */
+    ANKI_MANEGER("user1", "アプリの使用が可能"),
 
-    /** 商品情報の確認、更新、全ユーザー情報の管理が可能 */
-    ITEM_AND_USER_MANAGER("user3", "商品情報の確認、更新、全ユーザー情報の管理が可能");
+    /** アプリの使用、全ユーザー情報の管理が可能 */
+    ANKI_AND_USER_MANAGER("user2", "アプリの使用が可能、全ユーザー情報の管理が可能");
 
     /**コード値*/
     private String code;

@@ -10,10 +10,5 @@ public interface DeckEditService {
     
      DeckInfo updateDeck(DeckInfo deckInfo ,DeckUpdateForm form) throws IOException;
     
-    List <DeckInfo> findDeckInfo();
-    
-    DeckInfo findDeckInfoByDeckId(Long deckId);
-//    public Deck resistDeck(DeckForm form);
-    
-    public String deckImage(Long deckId) throws IOException;
+  
 }

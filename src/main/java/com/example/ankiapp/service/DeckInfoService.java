@@ -15,5 +15,5 @@ public interface DeckInfoService {
     DeckInfo findDeckInfoByDeckId(Long deckId);
 //    public Deck resistDeck(DeckForm form);
     
-    public String deckImage(Long deckId) throws IOException;
+    
 }

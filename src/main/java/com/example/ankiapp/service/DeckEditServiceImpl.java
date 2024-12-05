@@ -65,23 +65,7 @@ public class DeckEditServiceImpl implements DeckEditService{
         return deckInfo;
     }
 
-    @Override
-    public List<DeckInfo> findDeckInfo() {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
-    }
 
-    @Override
-    public DeckInfo findDeckInfoByDeckId(Long deckId) {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
-    }
-
-    @Override
-    public String deckImage(Long deckId) throws IOException {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
-    }
     
     private String searchFileName(Long deckId) {
         String searchFileName = "deck_" + deckId + imgExtract;

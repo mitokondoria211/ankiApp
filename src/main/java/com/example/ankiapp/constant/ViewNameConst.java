@@ -50,5 +50,11 @@ public class ViewNameConst {
     
     public static final String DECK_LIST = "deckList";
     
+    public static final String CHALLENGE_COMPLETE = "challengeComplete";
+    
+    public static final String SELECT_DECK = "selectDeck";
+    
+    public static final String CARD_CHALLENGE= "cardChallenge";
+    
     
 }

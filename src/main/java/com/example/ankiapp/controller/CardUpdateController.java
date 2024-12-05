@@ -26,14 +26,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CardUpdateController {
     
-    private final DeckInfoService deckInfoService;
-    
     private final CardEditorService cardEditorService;
     
     private final ImageStorageService imageStorageService;
     
     
-    private final DeckEditService deckEditService;
     /**Dozer Mapper*/
     private final Mapper mapper;
     /**

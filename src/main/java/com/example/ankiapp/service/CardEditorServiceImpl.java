@@ -64,6 +64,8 @@ public class CardEditorServiceImpl implements CardEditorService{
         cardEditorInfo.setCardResult(CardAnswerResult.UNRATED);
         cardEditorInfo.setUserInfo(userInfo);
         cardEditorInfo.setDeckInfo(deckInfo);
+        cardEditorInfo.setCreatedAt(LocalDateTime.now());
+        cardEditorInfo.setUpdatedAt(LocalDateTime.now());
         try {
             cardEditorInfo = repository.save(cardEditorInfo);
         }catch(DataIntegrityViolationException e) {
@@ -89,8 +91,7 @@ public class CardEditorServiceImpl implements CardEditorService{
 
         // TODO 自動生成されたメソッド・スタブ
        
-        cardEditorInfo.setCreatedAt(LocalDateTime.now());
-        cardEditorInfo.setUpdatedAt(LocalDateTime.now());
+      
 //        cardEditorInfo.setQuestion(form.getQuestion());
 //        cardEditorInfo.setAnswer(form.getAnswer());
         try {
@@ -98,7 +99,7 @@ public class CardEditorServiceImpl implements CardEditorService{
         }catch(DataIntegrityViolationException e) {
             System.out.println("重複しています");
         }
-        return null;
+        return cardEditorInfo;
     }
     
     public UserInfo getUserInfo() {

@@ -77,6 +77,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * 
      * @param event 認証失敗時のイベント情報
      */
+
     @EventListener
     public void handle(AuthenticationFailureBadCredentialsEvent event) {
         var loginId = event.getAuthentication().getName();

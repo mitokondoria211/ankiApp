@@ -45,13 +45,12 @@ dependencies {
     implementation 'org.webjars:bootstrap:5.3.3'
     implementation 'org.webjars:jquery:3.7.1'
     implementation 'org.webjars:webjars-locator:0.52'
-
     // Other Dependencies
     implementation 'com.github.dozermapper:dozer-core:7.0.0'
 
     // Database
     runtimeOnly 'org.postgresql:postgresql'
-
+    
     // Development Tools
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     compileOnly 'org.projectlombok:lombok'

@@ -51,6 +51,10 @@ public class DeckInfoServiceImpl implements DeckInfoService{
 
         var userInfo = getUserInfo();
         var deckInfo = mapper.map(form, DeckInfo.class);
+        
+        deckInfo.setUserInfo(userInfo);
+        deckInfo.setCreatedAt(LocalDateTime.now());
+        deckInfo.setUpdatedAt(LocalDateTime.now());
         deckInfo = repository.save(deckInfo);
         Long nowId = deckInfo.getDeckId();
         if(!form.getImageFile().isEmpty()) {
@@ -66,20 +70,12 @@ public class DeckInfoServiceImpl implements DeckInfoService{
         }else {
             deckInfo.setImagePath(imgdefault + imgExtract);
         }
-       
-        deckInfo.setUserInfo(userInfo);
-        deckInfo.setCreatedAt(LocalDateTime.now());
-        deckInfo.setUpdatedAt(LocalDateTime.now());
         repository.save(deckInfo);
     }
 
     @Override
     public List<DeckInfo> findDeckInfo() {
         return repository.findByUserInfoOrderByDeckId(getUserInfo());
-    }
-    
-    private String createImgFolder(String userName) {
-        return imgFolder + "/" + userName;
     }
     
     private UserInfo getUserInfo() {
@@ -89,14 +85,6 @@ public class DeckInfoServiceImpl implements DeckInfoService{
     @Override
     public DeckInfo findDeckInfoByDeckId(Long deckId) {
         return repository.findByDeckId(deckId);
-    }
-
-    @Override
-    public String deckImage(Long deckId) throws IOException {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
-    }
-
-    
+    }    
 
 }

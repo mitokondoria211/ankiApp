@@ -40,7 +40,7 @@ public class DeckEditController {
      * @param form 入力情報
      * @return デッキ作成画面
      */
-    @GetMapping(UrlConst.DECK_INFO)
+    @GetMapping(UrlConst.CREATE_DECK)
     public String editView(Model model) {
         model.addAttribute("deckForm", new DeckForm());
         return ViewNameConst.CREATE_DECK;
@@ -53,7 +53,7 @@ public class DeckEditController {
      * @param form 入力情報
      * @return デッキ作成画面
      */
-    @PostMapping(UrlConst.DECK_INFO)
+    @PostMapping(UrlConst.CREATE_DECK)
     public String resistCard(Model model,@Valid @ModelAttribute DeckForm form,
             BindingResult bindingResult) throws IOException{
         if(bindingResult.hasErrors()) {

@@ -66,7 +66,7 @@ public class SignupServiceImpl implements SignupService {
 		var encodedPassword = passwordEncoder.encode(form.getPassword());
 		userInfo.setPassword(encodedPassword);
 		userInfo.setUserStatusKind(UserStatusKind.ENABLED);
-		userInfo.setAuthorityKind(AuthorityKind.ITEM_WATCHER);
+		userInfo.setAuthorityKind(AuthorityKind.ANKI_MANEGER);
 		userInfo.setCreateTime(LocalDateTime.now());
 		userInfo.setUpdateTime(LocalDateTime.now());
 		userInfo.setUpdateUser(form.getLoginId());
@@ -133,7 +133,7 @@ public class SignupServiceImpl implements SignupService {
       userInfo.setOneTimeCode(passwordEncoder.encode(oneTimeCode));
       userInfo.setOneTimeCodeSendTime(LocalDateTime.now());
       userInfo.setUserStatusKind(UserStatusKind.ENABLED);
-      userInfo.setAuthorityKind(AuthorityKind.ITEM_WATCHER);
+      userInfo.setAuthorityKind(AuthorityKind.ANKI_MANEGER);
       userInfo.setSignupCompleted(false);
       userInfo.setCreateTime(LocalDateTime.now());
       userInfo.setUpdateTime(LocalDateTime.now());

@@ -9,39 +9,38 @@
     <div th:replace="~{common/header :: header}"></div>
     <div th:replace="~{common/menuHeader :: menuHeader}"></div>
     <div class = "container-fluid mx-auto text-center">
-        <h2 class="text-center">カード編集</h2>
-        <img src="images/yuusya_game.png">
+        <h2 class="text-center mt-5">カード編集</h2>
         <form class="form-group text-center" th:action ="@{/cardEditor}" enctype="multipart/form-data" method="post" th:object = "${cardEditorForm}">
             
             <div class="text-center mt-4">
                 <div>
-                    <label>デッキ選択：</label>
+                    <label class="fw-bold">デッキ選択：</label>
                     <select name="deckId" th:field="*{deckId}" class="col-4">
                         <option th:each="deck : ${deckInfos}" th:value="${deck.deckId}" th:text="${deck.title}" 
                         th:selected="${deck.deckId == cardEditorForm.deckId}">デッキ名</option>
                     </select>
                 </div>
                 <div class="mt-3">
-                     <label>タイトル:</label><br>
+                     <label class="fw-bold">タイトル:</label><br>
                      <input class="col-6"  type="text" th:field="*{cardName}">
                      <div class="text-danger" th:errors="*{cardName}"></div>
                  </div>
                 <div class="mt-3">
-                    <label>問題:</label><br>
+                    <label class="fw-bold">問題:</label><br>
                     <textarea class="col-6"  th:field="*{question}"></textarea>
                     <div class="text-danger" th:errors="*{question}"></div>
                 </div>
                 <div class="mt-3">
-                    <p><label>問題画像:</label><br>
+                    <p><label class="fw-bold">問題画像:</label><br>
                     <input type="file" th:field="*{questionImageFile}">
                 </div>
                 <div class="mt-3">
-                    <p><label>解答:</label><br>
+                    <p><label class="fw-bold">解答:</label><br>
                     <textarea class="col-6" th:field="*{answer}"></textarea>
                     <div class="text-danger" th:errors="*{answer}"></div>
                 </div>
                 <div class="mt-3">
-                    <p><label>解答画像:</label><br>
+                    <p><label class="fw-bold">解答画像:</label><br>
                     <input type="file" th:field="*{answerImageFile}">
                 </div>
                 
