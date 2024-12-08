@@ -3,8 +3,6 @@ package com.example.ankiapp.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.ankiapp.constant.UrlConst;
 import com.example.ankiapp.constant.ViewNameConst;
 import com.example.ankiapp.constant.db.CardAnswerResult;
-import com.example.ankiapp.entitiy.CardEditorInfo;
+import com.example.ankiapp.entitiy.CardInfo;
 import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.form.CardDisplayForm;
 import com.example.ankiapp.service.CardDisplayService;
@@ -243,7 +241,7 @@ public class CardDisplayController {
         var cardInfos = cardDisplayService.findCardEditorByDeckId(deckId);
         int [] cardResults = new int[CardAnswerResult.values().length];
         
-        for (CardEditorInfo card : cardInfos) {
+        for (CardInfo card : cardInfos) {
             CardAnswerResult result = card.getCardResult();
             if (result != null) {
                 int index = result.ordinal();

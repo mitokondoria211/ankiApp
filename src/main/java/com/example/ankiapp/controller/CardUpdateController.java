@@ -11,11 +11,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.ankiapp.constant.UrlConst;
 import com.example.ankiapp.constant.db.CardAnswerResult;
 import com.example.ankiapp.dto.CardUpdateInfo;
-import com.example.ankiapp.entitiy.CardEditorInfo;
+import com.example.ankiapp.entitiy.CardInfo;
 import com.example.ankiapp.form.CardUpdateForm;
 import com.example.ankiapp.service.CardEditorService;
-import com.example.ankiapp.service.DeckEditService;
-import com.example.ankiapp.service.DeckInfoService;
 import com.example.ankiapp.service.ImageStorageService;
 import com.example.ankiapp.utilty.AppUtility;
 import com.github.dozermapper.core.Mapper;
@@ -46,7 +44,7 @@ public class CardUpdateController {
   public String cardView(@PathVariable Long cardId, Model model) throws IOException {
 //      var deckList =  deckListService.editDeckList();
       
-      CardEditorInfo cardInfo = cardEditorService.findCardInfoByCardId(cardId);
+      CardInfo cardInfo = cardEditorService.findCardInfoByCardId(cardId);
       CardUpdateInfo updateInfo = mapper.map(cardInfo, CardUpdateInfo.class);
       String userName = AppUtility.getUsername();
       Long deckId = cardInfo.getDeckInfo().getDeckId();
@@ -71,7 +69,7 @@ public class CardUpdateController {
     
     @PostMapping(UrlConst.UPDATE_CARD)
     public String updateDeck(@ModelAttribute CardUpdateForm form, Model model, RedirectAttributes attributes) throws IOException {
-        CardEditorInfo cardInfo = cardEditorService.findCardInfoByCardId(form.getCardId());
+        CardInfo cardInfo = cardEditorService.findCardInfoByCardId(form.getCardId());
         cardInfo = cardEditorService.updateCardEditorInfo(cardInfo, form);
         CardUpdateInfo updateInfo = mapper.map(cardInfo, CardUpdateInfo.class);
         String userName = AppUtility.getUsername();

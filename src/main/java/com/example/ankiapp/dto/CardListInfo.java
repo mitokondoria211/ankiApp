@@ -5,7 +5,6 @@ import lombok.Data;
 import com.example.ankiapp.constant.*;
 import com.example.ankiapp.constant.db.CardAnswerResult;
 import com.example.ankiapp.entitiy.DeckInfo;
-import com.example.ankiapp.repository.DeckInfoRepository;
 /**
  * ユーザー一覧検索用DTOクラス
  */

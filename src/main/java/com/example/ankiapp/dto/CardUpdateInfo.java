@@ -1,9 +1,7 @@
 package com.example.ankiapp.dto;
 
 import org.springframework.web.multipart.MultipartFile;
-import com.example.ankiapp.constant.db.AuthorityKind;
 import com.example.ankiapp.constant.db.CardAnswerResult;
-import com.example.ankiapp.constant.db.UserStatusKind;
 import lombok.Data;
 
 

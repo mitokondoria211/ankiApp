@@ -1,7 +1,5 @@
 package com.example.ankiapp.dto;
 
-import com.example.ankiapp.constant.db.AuthorityKind;
-import com.example.ankiapp.constant.db.UserStatusKind;
 import lombok.Data;
 
 

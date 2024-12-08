@@ -14,7 +14,6 @@ import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.form.DeckUpdateForm;
 import com.example.ankiapp.service.DeckEditService;
 import com.example.ankiapp.service.DeckInfoService;
-import com.example.ankiapp.service.DeckListService;
 import com.example.ankiapp.service.ImageStorageService;
 import com.example.ankiapp.utilty.AppUtility;
 import com.github.dozermapper.core.Mapper;
@@ -27,7 +26,7 @@ public class DeckUpdateController {
     
     private final DeckInfoService deckInfoService;
     
-    private final DeckListService deckListService;
+//    private final DeckListService deckListService;
     
     private final ImageStorageService imageStorageService;
     

@@ -3,7 +3,6 @@ package com.example.ankiapp.form;
 import com.example.ankiapp.constant.SortType;
 import com.example.ankiapp.constant.db.CardAnswerResult;
 import com.example.ankiapp.entitiy.DeckInfo;
-import com.example.ankiapp.repository.DeckInfoRepository;
 import lombok.Data;
 
 @Data

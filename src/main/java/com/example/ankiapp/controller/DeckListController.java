@@ -9,7 +9,6 @@ import com.example.ankiapp.constant.UrlConst;
 import com.example.ankiapp.constant.ViewNameConst;
 import com.example.ankiapp.dto.DeckSearchInfo;
 import com.example.ankiapp.form.DeckListForm;
-import com.example.ankiapp.service.DeckInfoService;
 import com.example.ankiapp.service.DeckListService;
 import com.example.ankiapp.utilty.AppUtility;
 import com.github.dozermapper.core.Mapper;
@@ -20,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DeckListController {
     
-    private final DeckInfoService deckInfoService;
+//    private final DeckInfoService deckInfoService;
     
     private final DeckListService deckListService;
     

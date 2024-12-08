@@ -8,16 +8,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import com.example.ankiapp.constant.db.CardAnswerResult;
-import com.example.ankiapp.entitiy.CardEditorInfo;
+import com.example.ankiapp.entitiy.CardInfo;
 import com.example.ankiapp.entitiy.UserInfo;
 import com.example.ankiapp.form.CardEditorForm;
 import com.example.ankiapp.form.CardUpdateForm;
-import com.example.ankiapp.repository.CardEditorInfoRepository;
+import com.example.ankiapp.repository.CardInfoRepository;
 import com.example.ankiapp.repository.DeckInfoRepository;
 import com.example.ankiapp.repository.UserInfoRepository;
 import com.example.ankiapp.utilty.AppUtility;
 import com.github.dozermapper.core.Mapper;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -27,19 +26,14 @@ import lombok.RequiredArgsConstructor;
 public class CardEditorServiceImpl implements CardEditorService{
 
     /** ログイン情報テーブルDIO*/
-    private final CardEditorInfoRepository repository;
+    private final CardInfoRepository repository;
     
     private final UserInfoRepository userInfoRepository;
     
     private final DeckInfoRepository deckInfoRepository;
     
-    private final HttpSession session;
-    
-    private String imageFolder;
-    
     private final ImageStorageService imageService;
-    /** ログイン情報テーブルDIO*/
-//    private final UserInfoRepository userInfoRepository;
+ 
     /**Dozer Mapper*/
     private final Mapper mapper;
     
@@ -56,50 +50,44 @@ public class CardEditorServiceImpl implements CardEditorService{
     private String imgdefault;
     
     @Override
-    public CardEditorInfo createCardEditorInfo(@Valid CardEditorForm form) throws IOException {
+    public void createCardInfo(@Valid CardEditorForm form) throws IOException {
         var userInfo = getUserInfo();
         var deckId = form.getDeckId();
         var deckInfo = deckInfoRepository.findByDeckId(deckId);
-        var cardEditorInfo = mapper.map(form, CardEditorInfo.class);
-        cardEditorInfo.setCardResult(CardAnswerResult.UNRATED);
-        cardEditorInfo.setUserInfo(userInfo);
-        cardEditorInfo.setDeckInfo(deckInfo);
-        cardEditorInfo.setCreatedAt(LocalDateTime.now());
-        cardEditorInfo.setUpdatedAt(LocalDateTime.now());
+        var cardInfo = mapper.map(form, CardInfo.class);
+        cardInfo.setCardResult(CardAnswerResult.UNRATED);
+        cardInfo.setUserInfo(userInfo);
+        cardInfo.setDeckInfo(deckInfo);
+        cardInfo.setCreatedAt(LocalDateTime.now());
+        cardInfo.setUpdatedAt(LocalDateTime.now());
         try {
-            cardEditorInfo = repository.save(cardEditorInfo);
+            cardInfo = repository.save(cardInfo);
         }catch(DataIntegrityViolationException e) {
             System.out.println("重複しています");
         }
         
-        Long nowId = cardEditorInfo.getCardId();
+        Long nowId = cardInfo.getCardId();
         if(!form.getQuestionImageFile().isEmpty()) {
             /**保存する画像ファイルの設定*/
             String saveFileName = imageService.saveQuestionCardImage(form.getQuestionImageFile(), AppUtility.getUsername(), deckId, nowId);
-            cardEditorInfo.setQuestionImagePath(saveFileName);
+            cardInfo.setQuestionImagePath(saveFileName);
         }else {
-            cardEditorInfo.setQuestionImagePath(imgdefault + imgExtract);
+            cardInfo.setQuestionImagePath(imgdefault + imgExtract);
         }
         
         if(!form.getAnswerImageFile().isEmpty()) {
             /**保存する画像ファイルの設定*/
             String saveFileName = imageService.saveAnswerCardImage(form.getAnswerImageFile(), AppUtility.getUsername(), deckId, nowId);
-            cardEditorInfo.setAnswerImagePath(saveFileName);
+            cardInfo.setAnswerImagePath(saveFileName);
         }else {
-            cardEditorInfo.setAnswerImagePath(imgdefault + imgExtract);
+            cardInfo.setAnswerImagePath(imgdefault + imgExtract);
         }
 
-        // TODO 自動生成されたメソッド・スタブ
-       
-      
-//        cardEditorInfo.setQuestion(form.getQuestion());
-//        cardEditorInfo.setAnswer(form.getAnswer());
         try {
-            return repository.save(cardEditorInfo);
+            repository.save(cardInfo);
         }catch(DataIntegrityViolationException e) {
             System.out.println("重複しています");
         }
-        return cardEditorInfo;
     }
     
     public UserInfo getUserInfo() {
@@ -107,13 +95,12 @@ public class CardEditorServiceImpl implements CardEditorService{
     }
 
     @Override
-    public CardEditorInfo findCardInfoByCardId(Long cardId) {
-        // TODO 自動生成されたメソッド・スタブ
+    public CardInfo findCardInfoByCardId(Long cardId) {
         return repository.findByCardId(cardId);
     }
 
     @Override
-    public CardEditorInfo updateCardEditorInfo(CardEditorInfo cardInfo, CardUpdateForm form) throws IOException {
+    public CardInfo updateCardEditorInfo(CardInfo cardInfo, CardUpdateForm form) throws IOException {
         if(form.getCardName() != null && !form.getCardName().trim().isEmpty()) {
             cardInfo.setCardName(form.getCardName());
         }

@@ -8,30 +8,29 @@ import com.example.ankiapp.constant.SortType;
 import com.example.ankiapp.constant.db.CardAnswerResult;
 import com.example.ankiapp.dto.CardListInfo;
 import com.example.ankiapp.dto.CardSearchInfo;
-import com.example.ankiapp.entitiy.CardEditorInfo;
+import com.example.ankiapp.entitiy.CardInfo;
 import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.entitiy.UserInfo;
-import com.example.ankiapp.repository.CardEditorInfoRepository;
+import com.example.ankiapp.repository.CardInfoRepository;
 import com.example.ankiapp.repository.DeckInfoRepository;
 import com.example.ankiapp.repository.UserInfoRepository;
 import com.example.ankiapp.utilty.AppUtility;
 import com.github.dozermapper.core.Mapper;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 
 
 /**
  * ユーザー登録画面 Service実装クラス
  */
-@Slf4j
+
 @Service
 @RequiredArgsConstructor
 public class CardListServiceImpl implements CardListService {
     
     private final UserInfoRepository userInfoRepository;
     private final DeckInfoRepository deckInfoRepository;
-    private final CardEditorInfoRepository repository;
+    private final CardInfoRepository repository;
     
     private final Mapper mapper;
     
@@ -41,23 +40,18 @@ public class CardListServiceImpl implements CardListService {
         return toCardListInfos(repository.findByUserInfoOrderByCardId(userInfo));
     }
     
-    private List<CardListInfo> toCardListInfos(List<CardEditorInfo> cardInfos) {
+    private List<CardListInfo> toCardListInfos(List<CardInfo> cardInfos) {
         List<CardListInfo> cardListInfos = new ArrayList<>();
         
-        for(CardEditorInfo cardInfo: cardInfos) {
+        for(CardInfo cardInfo: cardInfos) {
             var cardListInfo = mapper.map(cardInfo, CardListInfo.class);
-//            cardListInfo.setDeckId(cardInfo.getDeckInfo().getDeckId());
-//            cardListInfo.setDeckTitle(cardInfo.getDeckInfo().getTitle());
             cardListInfos.add(cardListInfo);
         }
         
         return cardListInfos;
     }
     
-    private List<CardEditorInfo> findCardInfoByParam(CardSearchInfo dto) {
-        log.debug("Search parameters - cardName: {}, question: {}, answer: {}, cardResult: {}, deckId: {}, sortType: {}",
-                dto.getCardName(), dto.getQuestion(), dto.getAnswer(), 
-                dto.getCardResult(), dto.getDeckId(), dto.getSortType());
+    private List<CardInfo> findCardInfoByParam(CardSearchInfo dto) {
         
         String userName = AppUtility.getUsername();
         UserInfo userInfo = userInfoRepository.findByLoginId(userName);
@@ -91,7 +85,7 @@ public class CardListServiceImpl implements CardListService {
         }
         return normalOrderBySortType(userInfo, sortType);
     }
-    private List<CardEditorInfo> normalOrderBySortType(UserInfo userInfo,SortType sortType) {
+    private List<CardInfo> normalOrderBySortType(UserInfo userInfo,SortType sortType) {
         switch(sortType) {
             case CREATED_AT_ASC:
                 return repository.findByUserInfoOrderByCreatedAt(userInfo);
@@ -101,10 +95,12 @@ public class CardListServiceImpl implements CardListService {
                 return repository.findByUserInfoOrderByUpdatedAt(userInfo);
             case UPDATED_AT_DESC:
                 return repository.findByUserInfoOrderByUpdatedAtDesc(userInfo);
+            default:
+                return repository.findByUserInfoOrderByCardId(userInfo);
         }
-        return repository.findByUserInfoOrderByCardId(userInfo);
+        
     }
-    private List<CardEditorInfo> cardNameOrderBySortType(
+    private List<CardInfo> cardNameOrderBySortType(
             UserInfo userInfo, String cardName ,SortType sortType) {
         switch(sortType) {
             case CREATED_AT_ASC:
@@ -121,7 +117,7 @@ public class CardListServiceImpl implements CardListService {
         return repository.findByUserInfoAndCardNameLikeOrderByCardId(userInfo, cardName);
     }
     
-    private List<CardEditorInfo> questionOrderBySortType(
+    private List<CardInfo> questionOrderBySortType(
             UserInfo userInfo, String question ,SortType sortType) {
         switch(sortType) {
             case CREATED_AT_ASC:
@@ -138,7 +134,7 @@ public class CardListServiceImpl implements CardListService {
         return repository.findByUserInfoAndQuestionLikeOrderByCardId(userInfo, question);
     }
     
-    private List<CardEditorInfo> answerOrderBySortType(
+    private List<CardInfo> answerOrderBySortType(
             UserInfo userInfo, String answer ,SortType sortType) {
         switch(sortType) {
             case CREATED_AT_ASC:
@@ -155,7 +151,7 @@ public class CardListServiceImpl implements CardListService {
         return repository.findByUserInfoAndAnswerLikeOrderByCardId(userInfo, answer);
     }
     
-    private List<CardEditorInfo> cardResultOrderBySortType(
+    private List<CardInfo> cardResultOrderBySortType(
             UserInfo userInfo, CardAnswerResult cardResult ,SortType sortType) {
         switch(sortType) {
             case CREATED_AT_ASC:
@@ -172,7 +168,7 @@ public class CardListServiceImpl implements CardListService {
         return repository.findByUserInfoAndCardResultOrderByCardId(userInfo, cardResult);
     }
     
-    private List<CardEditorInfo> deckInfoOrderBySortType(
+    private List<CardInfo> deckInfoOrderBySortType(
             UserInfo userInfo, DeckInfo deckInfo ,SortType sortType) {
         switch(sortType) {
             case CREATED_AT_ASC:

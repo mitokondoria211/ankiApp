@@ -4,14 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
-import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import com.example.ankiapp.entitiy.CardEditorInfo;
-import com.example.ankiapp.form.CardDisplayForm;
-import com.example.ankiapp.repository.CardEditorInfoRepository;
+import com.example.ankiapp.entitiy.CardInfo;
+import com.example.ankiapp.repository.CardInfoRepository;
 import com.example.ankiapp.repository.DeckInfoRepository;
 import com.example.ankiapp.repository.UserInfoRepository;
 import com.example.ankiapp.utilty.AppUtility;
@@ -25,7 +23,7 @@ import lombok.var;
 public class CardDisplayServiceImpl implements CardDisplayService{
 
     /** ログイン情報テーブルDIO*/
-    private final CardEditorInfoRepository repository;
+    private final CardInfoRepository repository;
     
     /** ログイン情報テーブルDIO*/
     private final UserInfoRepository userRepository;
@@ -46,19 +44,19 @@ public class CardDisplayServiceImpl implements CardDisplayService{
     private String imgdefault;
     
     @Override
-    public CardEditorInfo findCardEditorByCardId(Long cardId) {
+    public CardInfo findCardEditorByCardId(Long cardId) {
         var userInfo = userRepository.findByLoginId(getUserName());
         return repository.findByUserInfoAndCardId(userInfo, cardId);
     }
 
     @Override
-    public List<CardEditorInfo> findCardEditor() {
+    public List<CardInfo> findCardEditor() {
         var userInfo = userRepository.findByLoginId(getUserName());
         return repository.findByUserInfo(userInfo);
     }
 
     @Override
-    public CardEditorInfo findCardEditorByCardName(String name) {
+    public CardInfo findCardEditorByCardName(String name) {
         var userInfo = userRepository.findByLoginId(getUserName());
         return repository.findByUserInfoAndCardName(userInfo, name);
     }
@@ -83,18 +81,11 @@ public class CardDisplayServiceImpl implements CardDisplayService{
     }
 
     @Override
-    public List<CardEditorInfo> findCardEditorByDeckId(Long deckId) {
+    public List<CardInfo> findCardEditorByDeckId(Long deckId) {
         var userInfo = userRepository.findByLoginId(getUserName());
         var deckInfo = deckRepository.findByDeckId(deckId);
         var cardInfos = repository.findByUserInfoAndDeckInfoOrderByCardId(userInfo, deckInfo);
-//        Collections.shuffle(cardInfos);
         return cardInfos;
-    }
-
-    @Override
-    public List<CardEditorInfo> displayCards(CardDisplayForm form) {
-        
-        return null;
     }
 
     @Override
@@ -103,7 +94,7 @@ public class CardDisplayServiceImpl implements CardDisplayService{
     }
     
     @Override
-    public void saveCardEditorInfo(CardEditorInfo cardEditorInfo) {
+    public void saveCardEditorInfo(CardInfo cardEditorInfo) {
         repository.save(cardEditorInfo);
     }
 

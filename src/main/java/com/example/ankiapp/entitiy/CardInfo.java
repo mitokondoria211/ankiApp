@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.UpdateTimestamp;
 import com.example.ankiapp.constant.db.CardAnswerResult;
 import com.example.ankiapp.entitiy.converter.CardAnswerResultConverter;
-import com.example.ankiapp.entitiy.converter.UserAuthorityConverter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -27,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Table(
-        name = "card_editor_info",
+        name = "card_info",
         uniqueConstraints = {
             @UniqueConstraint(
                 name = "uk_deck_card_name",
@@ -35,11 +34,11 @@ import lombok.NoArgsConstructor;
             )
         }
     )
-public class CardEditorInfo {
+public class CardInfo {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cardEditor_id")
+    @Column(name = "card_id")
      private Long cardId;
     
     @ManyToOne

@@ -1,6 +1,5 @@
 package com.example.ankiapp.form;
 
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

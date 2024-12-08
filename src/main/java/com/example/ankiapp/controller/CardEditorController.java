@@ -66,7 +66,7 @@ public class CardEditorController {
 //        model.addAttribute("cardInfos", cardDisplayService.findCardEditor()); //再表示する
 //        model.addAttribute("cardEditorForm", form);
         
-        var cardInfo = service.createCardEditorInfo(form);
+        service.createCardInfo(form);
         
         model.addAttribute("cardEditorForm", new CardEditorForm());
         

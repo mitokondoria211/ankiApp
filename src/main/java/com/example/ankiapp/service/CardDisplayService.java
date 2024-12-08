@@ -2,25 +2,22 @@ package com.example.ankiapp.service;
 
 import java.io.IOException;
 import java.util.List;
-import com.example.ankiapp.entitiy.CardEditorInfo;
-import com.example.ankiapp.form.CardDisplayForm;
+import com.example.ankiapp.entitiy.CardInfo;
 
 
 public interface CardDisplayService {
     
-   CardEditorInfo findCardEditorByCardId(Long cardId);
+   CardInfo findCardEditorByCardId(Long cardId);
    
-   CardEditorInfo findCardEditorByCardName(String name);
+   CardInfo findCardEditorByCardName(String name);
    
-   List<CardEditorInfo> findCardEditor();
+   List<CardInfo> findCardEditor();
    
-   List<CardEditorInfo> findCardEditorByDeckId(Long deckId);
-   
-   List<CardEditorInfo> displayCards(CardDisplayForm form);
+   List<CardInfo> findCardEditorByDeckId(Long deckId);
    
    String deckImage(Long deckId) throws IOException;
 
-   void saveCardEditorInfo(CardEditorInfo cardEditorInfo);
+   void saveCardEditorInfo(CardInfo cardEditorInfo);
    
    Integer getCardCount(Long deckId);
    
