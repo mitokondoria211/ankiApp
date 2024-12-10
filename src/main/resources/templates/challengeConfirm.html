@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>チャレンジ確認画面</title>
+</head>
+<body>
+    <div th:insert="~{common/sourceList :: sourceList}"></div>
+    <div th:replace="~{common/header :: header}"></div>
+    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
+    <div class = "container mx-auto text-center content  w-75 bg-white">
+        <h1 th:text="${deck.title} + ' デッキ挑戦'" class="mt-5">挑戦確認</h1>
+        
+        
+            <div class="w-50 mx-auto border">
+                <form th:action="@{/challengeConfirm/{deckId}(deckId=${deck.deckId})}" 
+                post="get" th:object="${challengeConfirmForm}">
+                    <div class="mt-5 select-group d-flex align-items-center justify-content-center">
+                        <label class="fw-bold col-form-label">カード評価：</label>
+                        <div class="col-3">
+                            <select th:field="*{cardResult}" class="form-select">
+                                <option th:each="result: ${cardResults}"
+                                                     th:value="${result}"
+                                                     th:text="${result}"></option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-primary ms-3">選択</button>
+                    </div>
+                </form>
+                <div class="mt-5" th:if="${cardResult} != null">
+                    <form th:action="@{/cardChallenge/{deckId}/0(deckId=${deck.deckId})}" 
+                                       method="post" th:object="${challengeConfirmForm}">
+                            <p th:text="${name}"></p>
+                            <label class="fw-bold">出題数:  </label>
+                            <input type="hidden" name="cardResult" th:value="${cardResult}" th:field="*{cardResult}">
+                            <input type="number" th:min="1" th:max="${cardSize}" th:value="${cardSize}" th:field="*{size}">
+                            <div>
+                                <button type="submit" class="btn btn-outline-primary mt-3">挑戦</button>
+                            </div>
+                        
+                    </form>
+                </div>
+
+            </div>
+
+
+
+            
+        
+    </div>
+</body>
+</html>
