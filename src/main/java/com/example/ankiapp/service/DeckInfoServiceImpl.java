@@ -3,20 +3,21 @@ package com.example.ankiapp.service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.entitiy.UserInfo;
 import com.example.ankiapp.form.DeckForm;
+import com.example.ankiapp.repository.CardInfoRepository;
 import com.example.ankiapp.repository.DeckInfoRepository;
 import com.example.ankiapp.repository.UserInfoRepository;
 import com.example.ankiapp.utilty.AppUtility;
 import com.github.dozermapper.core.Mapper;
 //import jakarta.persistence.criteria.Path;
 import lombok.RequiredArgsConstructor;
-
-
+import lombok.var;
 
 
 @Service
@@ -28,6 +29,8 @@ public class DeckInfoServiceImpl implements DeckInfoService{
     
     /** ログイン情報テーブルDIO*/
     private final DeckInfoRepository repository;
+    
+    private final CardInfoRepository cardInfoRepository;
     
     private final ImageStorageService imageService;
 
@@ -75,6 +78,7 @@ public class DeckInfoServiceImpl implements DeckInfoService{
 
     @Override
     public List<DeckInfo> findDeckInfo() {
+//        var deckInfos = repository.findByUserInfo(getUserInfo())
         return repository.findByUserInfoOrderByDeckId(getUserInfo());
     }
     
@@ -85,6 +89,20 @@ public class DeckInfoServiceImpl implements DeckInfoService{
     @Override
     public DeckInfo findDeckInfoByDeckId(Long deckId) {
         return repository.findByDeckId(deckId);
+    }
+
+    @Override
+    public List<DeckInfo> filterDeckListByCardInfos() {
+        var deckInfos = findDeckInfo();
+        var iterator = deckInfos.iterator();
+        while(iterator.hasNext()) {
+            var deck = iterator.next();
+            var cardInfos = cardInfoRepository.findByUserInfoAndDeckInfoOrderByCardId(getUserInfo(), deck);
+            if(cardInfos.isEmpty()) {
+                iterator.remove();
+            }
+        }
+        return deckInfos;
     }    
 
 }

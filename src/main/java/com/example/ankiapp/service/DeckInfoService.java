@@ -12,6 +12,8 @@ public interface DeckInfoService {
     
     List <DeckInfo> findDeckInfo();
     
+    List<DeckInfo> filterDeckListByCardInfos();
+    
     DeckInfo findDeckInfoByDeckId(Long deckId);
 //    public Deck resistDeck(DeckForm form);
     

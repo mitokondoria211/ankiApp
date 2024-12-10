@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.ankiapp.constant.UrlConst;
 import com.example.ankiapp.constant.ViewNameConst;
 import com.example.ankiapp.form.CardEditorForm;
-import com.example.ankiapp.service.CardEditorService;
+import com.example.ankiapp.service.CardEditService;
 import com.example.ankiapp.service.DeckInfoService;
 import com.example.ankiapp.utilty.AppUtility;
 import jakarta.validation.Valid;
@@ -18,9 +18,9 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class CardEditorController {
+public class CardInfoController {
     
-    private final CardEditorService service;
+    private final CardEditService service;
     
     private final DeckInfoService deckService;
     

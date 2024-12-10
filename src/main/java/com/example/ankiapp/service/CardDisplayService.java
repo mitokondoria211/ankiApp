@@ -21,5 +21,9 @@ public interface CardDisplayService {
    
    Integer getCardCount(Long deckId);
    
+   List<CardInfo> findCardInfoByDeckIdAndCardResult(Long deckId, String cardResult);
+   
+   Integer getCardCountByCardResult(Long deckId, String result);
+   
    
 }

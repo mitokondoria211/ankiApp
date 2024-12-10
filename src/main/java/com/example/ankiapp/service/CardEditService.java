@@ -5,7 +5,7 @@ import com.example.ankiapp.entitiy.CardInfo;
 import com.example.ankiapp.form.CardEditorForm;
 import com.example.ankiapp.form.CardUpdateForm;
 
-public interface CardEditorService {
+public interface CardEditService {
     
     void createCardInfo(CardEditorForm form) throws IOException;
     

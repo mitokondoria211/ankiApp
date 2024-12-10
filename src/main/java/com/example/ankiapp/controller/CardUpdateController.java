@@ -13,7 +13,7 @@ import com.example.ankiapp.constant.db.CardAnswerResult;
 import com.example.ankiapp.dto.CardUpdateInfo;
 import com.example.ankiapp.entitiy.CardInfo;
 import com.example.ankiapp.form.CardUpdateForm;
-import com.example.ankiapp.service.CardEditorService;
+import com.example.ankiapp.service.CardEditService;
 import com.example.ankiapp.service.ImageStorageService;
 import com.example.ankiapp.utilty.AppUtility;
 import com.github.dozermapper.core.Mapper;
@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CardUpdateController {
     
-    private final CardEditorService cardEditorService;
+    private final CardEditService cardEditorService;
     
     private final ImageStorageService imageStorageService;
     

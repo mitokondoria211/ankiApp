@@ -3,11 +3,13 @@ package com.example.ankiapp.service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import com.example.ankiapp.constant.db.CardAnswerResult;
 import com.example.ankiapp.entitiy.CardInfo;
 import com.example.ankiapp.repository.CardInfoRepository;
 import com.example.ankiapp.repository.DeckInfoRepository;
@@ -104,5 +106,48 @@ public class CardDisplayServiceImpl implements CardDisplayService{
         var deckInfo = deckRepository.findByDeckId(deckId);
         Integer count = repository.findByUserInfoAndDeckInfoOrderByCardId(userInfo, deckInfo).size();
         return count;
+    }
+
+    @Override
+    public Integer getCardCountByCardResult(Long deckId, String result) {
+//        var userInfo = userRepository.findByLoginId(getUserName());
+//        var deckInfo = deckRepository.findByDeckId(deckId);
+//        Integer count  = 0;
+//        if(result.equals("未評価")) {
+//            count += repository.findByUserInfoAndDeckInfoAndCardResult(userInfo, deckInfo,CardAnswerResult.UNRATED).size();
+//            return count;
+//        }else if(result.equals("不正解")) {
+//            count += repository.findByUserInfoAndDeckInfoAndCardResult(userInfo, deckInfo,CardAnswerResult.AGAIN).size();
+//            count += repository.findByUserInfoAndDeckInfoAndCardResult(userInfo, deckInfo,CardAnswerResult.DIFFICULT).size();
+//            count += repository.findByUserInfoAndDeckInfoAndCardResult(userInfo, deckInfo,CardAnswerResult.INCORRECT).size();
+//            return count;
+//        }else if(result.equals("正解")) {
+//            count += repository.findByUserInfoAndDeckInfoAndCardResult(userInfo, deckInfo,CardAnswerResult.EASY).size();
+//            count += repository.findByUserInfoAndDeckInfoAndCardResult(userInfo, deckInfo,CardAnswerResult.CORRECT).size();
+//            return count;
+//        }
+        
+        return findCardInfoByDeckIdAndCardResult(deckId, result).size();
+    }
+
+    @Override
+    public List<CardInfo> findCardInfoByDeckIdAndCardResult(Long deckId, String cardResult) {
+        var userInfo = userRepository.findByLoginId(getUserName());
+        var deckInfo = deckRepository.findByDeckId(deckId);
+        var cardList = new ArrayList<CardInfo>();
+        if(cardResult.equals("未評価")) {
+            return repository.findByUserInfoAndDeckInfoAndCardResult(userInfo, deckInfo,CardAnswerResult.UNRATED);
+        }else if(cardResult.equals("不正解")) {
+            cardList.addAll(repository.findByUserInfoAndDeckInfoAndCardResult(userInfo, deckInfo,CardAnswerResult.AGAIN));
+            cardList.addAll(repository.findByUserInfoAndDeckInfoAndCardResult(userInfo, deckInfo,CardAnswerResult.DIFFICULT));
+            cardList.addAll(repository.findByUserInfoAndDeckInfoAndCardResult(userInfo, deckInfo,CardAnswerResult.INCORRECT));
+            return cardList;
+        }else if(cardResult.equals("正解")) {
+            cardList.addAll(repository.findByUserInfoAndDeckInfoAndCardResult(userInfo, deckInfo,CardAnswerResult.EASY));
+            cardList.addAll(repository.findByUserInfoAndDeckInfoAndCardResult(userInfo, deckInfo,CardAnswerResult.CORRECT));
+            return cardList;
+        }
+        
+        return findCardEditorByDeckId(deckId);
     }
 }

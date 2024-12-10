@@ -1,5 +1,7 @@
 package com.example.ankiapp.form;
 
+import java.util.List;
+import com.example.ankiapp.entitiy.CardInfo;
 import lombok.Data;
 
 /**
@@ -11,6 +13,8 @@ public class CardDisplayForm {
     private Long cardId;
     
     private Long deckId;
+    
+    private List<CardInfo> cards;
     
     private String imageFile;
 }

@@ -76,11 +76,5 @@ public class CardInfo {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-//    @Column(name="user_id")
-//    private String userId;
-    
-//    public CardEditorInfo() {
-//        
-//    }
     
 }

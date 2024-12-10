@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CardEditorServiceImpl implements CardEditorService{
+public class CardEditServiceImpl implements CardEditService{
 
     /** ログイン情報テーブルDIO*/
     private final CardInfoRepository repository;
