@@ -6,20 +6,26 @@
 </head>
 <body>
 	<div th:insert="~{common/sourceList :: sourceList}"></div>
-	<div th:replace="~{common/header :: header}"></div>
+    <div th:replace="~{common/header :: header}"></div>
     <div th:replace="~{common/menuHeader :: menuHeader}"></div>
-    <div class = "container-fluid mx-auto text-center">
-        <h2>トップメニュー</h2>
-        <div class="mt-3">
-            暗記カード・デッキ作成はこちら
+    <div class = "container-fluid mx-auto text-center w-75">
+        
+        <h1 class="mt-5 pt-3">トップメニュー</h1>
+        <div class="mt-5 mb-3">
+            <h2 class="h5 mb-3">暗記カード・デッキ作成はこちら</h2>
+            <a th:href="@{/deckInfo}" class="btn btn-secondary me-2">デッキ作成</a>
+            <a th:href="@{/cardEditor}" class="btn btn-success ms-2">カード作成</a>
         </div>
-        <a th:href="@{/deckInfo}" class="btn btn-secondary">デッキ作成画面へ</a>
-        <a th:href="@{/cardEditor}" class="btn btn-success">暗記カード作成画面へ</a>
+        
+        <div class="mt-5 mb-3">
+            <h2 class="h5 mb-3">暗記カード・デッキ管理はこちら</h2>
+            <a th:href="@{/deckList}" class="btn btn-secondary me-2">デッキ管理</a>
+            <a th:href="@{/cardList}" class="btn btn-success ms-2">カード管理</a>
+        </div>
+        
         <th:block th:if="${hasUserManageAuth}">
-            <div class="mt-3">
-                ユーザー情報管理はこちら
-            </div>
-            <a th:href="@{/userList}" class="btn btn-danger">ユーザー管理一覧へ</a>
+            <h2 class="mt-5 mb-3 h5">ユーザー情報管理はこちら</h2>
+            <a th:href="@{/userList}" class="btn btn-danger">ユーザー管理</a>
         </th:block>
     </div>
 	<a th:href="@{/login}">▶ ログイン画面はこちら</a>

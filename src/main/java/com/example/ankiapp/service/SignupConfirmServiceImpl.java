@@ -5,12 +5,14 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.example.ankiapp.constant.SignupConfirmStatus;
 import com.example.ankiapp.repository.UserInfoRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+//@Transactional
 public class SignupConfirmServiceImpl implements SignupConfirmService{
     
     /** ログイン情報テーブルDIO*/

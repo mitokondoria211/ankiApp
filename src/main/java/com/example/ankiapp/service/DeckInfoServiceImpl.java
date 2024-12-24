@@ -2,11 +2,15 @@ package com.example.ankiapp.service;
 
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
-import java.util.Iterator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.example.ankiapp.constant.CreateDeckResult;
 import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.entitiy.UserInfo;
 import com.example.ankiapp.form.DeckForm;
@@ -22,6 +26,7 @@ import lombok.var;
 
 @Service
 @RequiredArgsConstructor
+//@Transactional
 public class DeckInfoServiceImpl implements DeckInfoService{
 
 
@@ -50,7 +55,7 @@ public class DeckInfoServiceImpl implements DeckInfoService{
     private String imgdefault;
 
     @Override
-    public void createDeck(DeckForm form) throws IOException{
+    public CreateDeckResult createDeck(DeckForm form) throws IOException{
 
         var userInfo = getUserInfo();
         var deckInfo = mapper.map(form, DeckInfo.class);
@@ -58,22 +63,46 @@ public class DeckInfoServiceImpl implements DeckInfoService{
         deckInfo.setUserInfo(userInfo);
         deckInfo.setCreatedAt(LocalDateTime.now());
         deckInfo.setUpdatedAt(LocalDateTime.now());
-        deckInfo = repository.save(deckInfo);
-        Long nowId = deckInfo.getDeckId();
-        if(!form.getImageFile().isEmpty()) {
-            /**保存する画像ファイルの設定*/
-//            String saveFileName = AppUtility.getUsername() + "Deck" + nowId + imgExtract;
-            String saveFileName = imageService.saveDeckImage(form.getImageFile(), AppUtility.getUsername(), nowId);
-//            Path imgFilePath = Path.of(createImgFolder(AppUtility.getUsername()), saveFileName);
-         // ディレクトリが存在しない場合は作成する
-//            Files.createDirectories(Path.of(createImgFolder(AppUtility.getUsername())));
-//            Files.copy(form.getImageFile().getInputStream(), imgFilePath);
-//            deckInfo.setImagePath("data:image/jpg;base64," + outputImage(nowId));
-            deckInfo.setImagePath(saveFileName);
-        }else {
-            deckInfo.setImagePath(imgdefault + imgExtract);
+        
+        
+        try {
+            deckInfo = repository.save(deckInfo);
+            Long deckId = deckInfo.getDeckId();
+            try {
+                //カードの問題画像の処理
+                if(!form.getImageFile().isEmpty()) {
+//                Files.createDirectories(Path.of(createImgFolder(AppUtility.getUsername())));
+                    String saveFileName = imageService.saveDeckImage(form.getImageFile(), AppUtility.getUsername(), deckId);
+                    deckInfo.setImagePath(saveFileName);
+                }else {
+                    deckInfo.setImagePath(imgdefault + imgExtract);
+                }
+            }catch(IOException e) {
+                throw new RuntimeException();
+            }
+            repository.save(deckInfo);
+        }catch(DataIntegrityViolationException e) {
+            return CreateDeckResult.FAILURE_BY_DB_ERROR;
+        }catch(RuntimeException e) {
+            return CreateDeckResult.FAILURE_BY_IMAGE_ERROR;
         }
-        repository.save(deckInfo);
+        
+//        if(!form.getImageFile().isEmpty()) {
+//            /**保存する画像ファイルの設定*/
+////            String saveFileName = AppUtility.getUsername() + "Deck" + nowId + imgExtract;
+//            String saveFileName = imageService.saveDeckImage(form.getImageFile(), AppUtility.getUsername(), deckId);
+////            Path imgFilePath = Path.of(createImgFolder(AppUtility.getUsername()), saveFileName);
+//         // ディレクトリが存在しない場合は作成する
+////            Files.createDirectories(Path.of(createImgFolder(AppUtility.getUsername())));
+////            Files.copy(form.getImageFile().getInputStream(), imgFilePath);
+////            deckInfo.setImagePath("data:image/jpg;base64," + outputImage(nowId));
+//            deckInfo.setImagePath(saveFileName);
+//        }else {
+//            deckInfo.setImagePath(imgdefault + imgExtract);
+//        }
+//        repository.save(deckInfo);
+        
+        return CreateDeckResult.SUCCEED;
     }
 
     @Override

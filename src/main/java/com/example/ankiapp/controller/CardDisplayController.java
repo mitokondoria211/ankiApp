@@ -1,7 +1,6 @@
 package com.example.ankiapp.controller;
 
 import java.io.IOException;
-import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +24,7 @@ import com.example.ankiapp.constant.db.CardAnswerResult;
 import com.example.ankiapp.entitiy.CardInfo;
 import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.form.CardDisplayForm;
+import com.example.ankiapp.form.CardPracticeForm;
 import com.example.ankiapp.form.ChallengeConfirmForm;
 import com.example.ankiapp.service.CardDisplayService;
 import com.example.ankiapp.service.DeckInfoService;
@@ -55,51 +54,87 @@ public class CardDisplayController {
     @Value("${image.folder}")
     private String baseImageFolder;
     
-    @GetMapping(UrlConst.CARD_DISPLAY)
-    public String practiceView(Model model, @Valid CardDisplayForm form) {
+//    @GetMapping(UrlConst.CARD_DISPLAY)
+//    public String practiceForm(Model model, @Valid CardDisplayForm form) {
+//        var deckInfos = deckInfoService.findDeckInfo();
+//
+//        deckInfos = cardDisplayService.filterEmptyDecks(deckInfos);
+//       
+//        model.addAttribute("deckInfos", deckInfos);
+//        try {
+//            //デッキが選択されている場合、そのデッキに属するカードを取得
+//            if(form.getDeckId() != null) {
+//                  var cardInfos = cardDisplayService.findCardEditorByDeckId(form.getDeckId());
+//                  model.addAttribute("cardInfos", cardInfos);
+//                  
+//                  if(form.getCardId() != null) {
+//                      var cardInfo = cardDisplayService.findCardEditorByCardId(form.getCardId());
+//                      String questionImage = imageStorageService.displayQuestionCardImage(AppUtility.getUsername(), 
+//                              form.getDeckId(), form.getCardId());
+//                      String answerImage = imageStorageService.displayAnswerCardImage(AppUtility.getUsername(), 
+//                              form.getDeckId(), form.getCardId());
+//                      if(cardInfo.getQuestionImagePath() != null &&
+//                              !cardInfo.getQuestionImagePath().equals("default.jpg")) {
+//                          model.addAttribute("questionImage", questionImage);
+//                      }
+//                      if(cardInfo.getAnswerImagePath() != null &&
+//                              !cardInfo.getAnswerImagePath().equals("default.jpg")) {
+//                          model.addAttribute("answerImage", answerImage);
+//                      }
+//                      model.addAttribute("question", cardInfo.getQuestion());
+//                      model.addAttribute("answer", cardInfo.getAnswer());
+//                      model.addAttribute("cardInfos", null);
+//                      form.setDeckId(cardInfo.getDeckInfo().getDeckId());
+//                  }
+//            }
+//            
+//        }catch(Exception e) {
+//            model.addAttribute("error", "データ取得に失敗しました");
+//        }
+//        
+//        model.addAttribute("cardDisplayForm", form);
+//        return ViewNameConst.CARD_DISPLAY;
+//    }
+    
+    @GetMapping("/cardDisplay")
+    public String practiceFirstForm(Model model) {
         var deckInfos = deckInfoService.findDeckInfo();
-        Iterator<DeckInfo> iterator = deckInfos.iterator();
-        while(iterator.hasNext()) {
-            DeckInfo deckInfo = iterator.next();
-            var cardInfos = cardDisplayService.findCardEditorByDeckId(deckInfo.getDeckId());
-            if(cardInfos.size() == 0) {
-                iterator.remove();
-            }
-        }
-       
+        deckInfos = cardDisplayService.filterEmptyDecks(deckInfos);
         model.addAttribute("deckInfos", deckInfos);
+        model.addAttribute("practiceForm", new CardPracticeForm());
+        return "cardDisplay";
+    }
+    
+    @PostMapping("/cardDisplay/deck")
+    public String setDeck(Model model, CardPracticeForm form) {
+        var cardInfos = cardDisplayService.findCardEditorByDeckId(form.getDeckId());
+        model.addAttribute("cardInfos", cardInfos);
+        model.addAttribute("practiceForm", form);
+        model.addAttribute("deckId", form.getDeckId());
+        return ViewNameConst.CARD_DISPLAY;
+    }
+    
+    @PostMapping("/cardDisplay/card")
+    public String practiceCard(Model model, CardPracticeForm form) {
+        model.addAttribute("practiceForm", form);
+        var cardInfo = cardDisplayService.findCardEditorByCardId(form.getCardId());
         try {
-            //デッキが選択されている場合、そのデッキに属するカードを取得
-            if(form.getDeckId() != null) {
-                  var cardInfos = cardDisplayService.findCardEditorByDeckId(form.getDeckId());
-                  model.addAttribute("cardInfos", cardInfos);
-                  
-                  if(form.getCardId() != null) {
-                      var cardInfo = cardDisplayService.findCardEditorByCardId(form.getCardId());
-                      String questionImage = imageStorageService.displayQuestionCardImage(AppUtility.getUsername(), 
-                              form.getDeckId(), form.getCardId());
-                      String answerImage = imageStorageService.displayAnswerCardImage(AppUtility.getUsername(), 
-                              form.getDeckId(), form.getCardId());
-                      if(cardInfo.getQuestionImagePath() != null &&
-                              !cardInfo.getQuestionImagePath().equals("default.jpg")) {
-                          model.addAttribute("questionImage", questionImage);
-                      }
-                      if(cardInfo.getAnswerImagePath() != null &&
-                              !cardInfo.getAnswerImagePath().equals("default.jpg")) {
-                          model.addAttribute("answerImage", answerImage);
-                      }
-                      model.addAttribute("question", cardInfo.getQuestion());
-                      model.addAttribute("answer", cardInfo.getAnswer());
-                      model.addAttribute("cardInfos", null);
-                      form.setDeckId(cardInfo.getDeckInfo().getDeckId());
-                  }
+            if(!cardInfo.getQuestionImagePath().equals("default.jpg")) {
+                String questionImage = imageStorageService.displayQuestionCardImage(AppUtility.getUsername(), 
+                        form.getDeckId(), form.getCardId());
+                model.addAttribute("questionImage", questionImage);
             }
-            
+            if(!cardInfo.getAnswerImagePath().equals("default.jpg")) {
+                String answerImage = imageStorageService.displayAnswerCardImage(AppUtility.getUsername(), 
+                        form.getDeckId(), form.getCardId());
+                model.addAttribute("answerImage", answerImage);
+            }
         }catch(Exception e) {
-            model.addAttribute("error", "データ取得に失敗しました");
+            model.addAttribute("error", e);
         }
-        
-        model.addAttribute("cardDisplayForm", form);
+        model.addAttribute("name", cardInfo.getCardName());
+        model.addAttribute("question", cardInfo.getQuestion());
+        model.addAttribute("answer", cardInfo.getAnswer());
         return ViewNameConst.CARD_DISPLAY;
     }
     

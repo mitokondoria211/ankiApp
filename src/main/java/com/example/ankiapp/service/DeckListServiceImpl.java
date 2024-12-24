@@ -3,6 +3,7 @@ package com.example.ankiapp.service;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.example.ankiapp.constant.SortType;
 import com.example.ankiapp.dto.DeckListInfo;
 import com.example.ankiapp.dto.DeckSearchInfo;
@@ -22,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+//@Transactional
 public class DeckListServiceImpl implements DeckListService {
     
     private final UserInfoRepository userInfoRepository;

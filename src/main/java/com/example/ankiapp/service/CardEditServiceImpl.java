@@ -7,6 +7,10 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import com.example.ankiapp.constant.CreateCardResult;
+import com.example.ankiapp.constant.UpdateCardResult;
 import com.example.ankiapp.constant.db.CardAnswerResult;
 import com.example.ankiapp.entitiy.CardInfo;
 import com.example.ankiapp.entitiy.UserInfo;
@@ -19,10 +23,12 @@ import com.example.ankiapp.utilty.AppUtility;
 import com.github.dozermapper.core.Mapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.var;
 
 
 @Service
 @RequiredArgsConstructor
+//@Transactional
 public class CardEditServiceImpl implements CardEditService{
 
     /** ログイン情報テーブルDIO*/
@@ -49,8 +55,10 @@ public class CardEditServiceImpl implements CardEditService{
     @Value("${image.default}")
     private String imgdefault;
     
+    private Long maxImageSize = (long) (10 * 1024 * 1024);
+    
     @Override
-    public void createCardInfo(@Valid CardEditorForm form) throws IOException {
+    public CreateCardResult createCardInfo(@Valid CardEditorForm form) throws IOException {
         var userInfo = getUserInfo();
         var deckId = form.getDeckId();
         var deckInfo = deckInfoRepository.findByDeckId(deckId);
@@ -59,35 +67,73 @@ public class CardEditServiceImpl implements CardEditService{
         cardInfo.setUserInfo(userInfo);
         cardInfo.setDeckInfo(deckInfo);
         cardInfo.setCreatedAt(LocalDateTime.now());
-        cardInfo.setUpdatedAt(LocalDateTime.now());
-        try {
-            cardInfo = repository.save(cardInfo);
-        }catch(DataIntegrityViolationException e) {
-            System.out.println("重複しています");
-        }
+        cardInfo.setUpdatedAt(LocalDateTime.now()); 
         
-        Long nowId = cardInfo.getCardId();
-        if(!form.getQuestionImageFile().isEmpty()) {
-            /**保存する画像ファイルの設定*/
-            String saveFileName = imageService.saveQuestionCardImage(form.getQuestionImageFile(), AppUtility.getUsername(), deckId, nowId);
-            cardInfo.setQuestionImagePath(saveFileName);
-        }else {
-            cardInfo.setQuestionImagePath(imgdefault + imgExtract);
-        }
-        
-        if(!form.getAnswerImageFile().isEmpty()) {
-            /**保存する画像ファイルの設定*/
-            String saveFileName = imageService.saveAnswerCardImage(form.getAnswerImageFile(), AppUtility.getUsername(), deckId, nowId);
-            cardInfo.setAnswerImagePath(saveFileName);
-        }else {
-            cardInfo.setAnswerImagePath(imgdefault + imgExtract);
-        }
-
         try {
+           cardInfo = repository.save(cardInfo);
+           Long nowId = cardInfo.getCardId();
+            try {
+                
+                //カードの問題画像の処理
+                if(!form.getQuestionImageFile().isEmpty()) {
+                    
+                    String saveFileName = imageService.saveQuestionCardImage(form.getQuestionImageFile(), AppUtility.getUsername(), deckId, nowId);
+                    cardInfo.setQuestionImagePath(saveFileName);
+                }else {
+                    cardInfo.setQuestionImagePath(imgdefault + imgExtract);
+                }
+                
+                //カードの解答画像の処理
+                if(!form.getAnswerImageFile().isEmpty()) {
+                    String saveFileName = imageService.saveAnswerCardImage(form.getAnswerImageFile(), AppUtility.getUsername(), deckId, nowId);
+                    cardInfo.setAnswerImagePath(saveFileName);
+                }else {
+                     cardInfo.setAnswerImagePath(imgdefault + imgExtract);
+                }
+                  
+            } catch(IOException e) {
+                throw new RuntimeException();
+            }
+            //再度レポジトリに保存
             repository.save(cardInfo);
-        }catch(DataIntegrityViolationException e) {
-            System.out.println("重複しています");
+            
+        } catch(DataIntegrityViolationException e) {
+            return CreateCardResult.FAILURE_BY_DB_ERROR;
+        } catch(MaxUploadSizeExceededException e) {
+            return CreateCardResult.FAILURE_BY_IMAGE_SIZE_ERROR;
+        }catch (RuntimeException e) {
+            return CreateCardResult.FAILURE_BY_IMAGE_ERROR;
         }
+//        try {
+//            cardInfo = repository.save(cardInfo);
+//        }catch(DataIntegrityViolationException e) {
+//            return CreateCardResult.FAILURE_BY_DB_ERROR;
+//        }
+//        
+//        Long nowId = cardInfo.getCardId();
+//        if(!form.getQuestionImageFile().isEmpty()) {
+//            /**保存する画像ファイルの設定*/
+//            String saveFileName = imageService.saveQuestionCardImage(form.getQuestionImageFile(), AppUtility.getUsername(), deckId, nowId);
+//            cardInfo.setQuestionImagePath(saveFileName);
+//        }else {
+//            cardInfo.setQuestionImagePath(imgdefault + imgExtract);
+//        }
+//        
+//        if(!form.getAnswerImageFile().isEmpty()) {
+//            /**保存する画像ファイルの設定*/
+//            String saveFileName = imageService.saveAnswerCardImage(form.getAnswerImageFile(), AppUtility.getUsername(), deckId, nowId);
+//            cardInfo.setAnswerImagePath(saveFileName);
+//        }else {
+//            cardInfo.setAnswerImagePath(imgdefault + imgExtract);
+//        }
+//
+//        try {
+//            repository.save(cardInfo);
+//        }catch(DataIntegrityViolationException e) {
+//            System.out.println("重複しています");
+//        }
+        
+        return CreateCardResult.SUCCEED;
     }
     
     public UserInfo getUserInfo() {
@@ -100,45 +146,71 @@ public class CardEditServiceImpl implements CardEditService{
     }
 
     @Override
-    public CardInfo updateCardEditorInfo(CardInfo cardInfo, CardUpdateForm form) throws IOException {
-        if(form.getCardName() != null && !form.getCardName().trim().isEmpty()) {
-            cardInfo.setCardName(form.getCardName());
-        }
+    public UpdateCardResult updateCardEditorInfo(CardInfo cardInfo, CardUpdateForm form) throws IOException {
         
-        if(form.getQuestion() != null && !form.getQuestion().trim().isEmpty()) {
-            cardInfo.setQuestion(form.getQuestion());
-        }
         
-        if(form.getAnswer() != null && !form.getAnswer().trim().isEmpty()) {
-            cardInfo.setAnswer(form.getAnswer());
-        }
+        cardInfo.setCardName(form.getCardName());
+        cardInfo.setQuestion(form.getQuestion());
+        cardInfo.setAnswer(form.getAnswer());
+        var userInfo = getUserInfo();
+        var deckId = cardInfo.getDeckInfo().getDeckId();
+        var deckInfo = deckInfoRepository.findByDeckId(deckId);
+//        cardInfo = mapper.map(form, CardInfo.class);
+//        cardInfo.setUserInfo(userInfo);
+//        cardInfo.setDeckInfo(deckInfo);
         
         if(form.getCardResult() != null) {
             cardInfo.setCardResult(form.getCardResult());
         }
-        if(!form.getQuestionImageFile().isEmpty()) {
-            
-            String searchFileName = searchQuestionFileName(form.getCardId());
-            Path imgFolderPath =imageService.getDeckCardsDirectory(AppUtility.getUsername(), cardInfo.getDeckInfo().getDeckId());
-            Path imgFilePath = imgFolderPath.resolve(searchFileName);
-            Files.createDirectories(imgFolderPath);
-            Files.deleteIfExists(imgFilePath);
-            Files.copy(form.getQuestionImageFile().getInputStream(), imgFilePath);
-            cardInfo.setQuestionImagePath(searchFileName);
+        try {
+//            cardInfo = repository.save(cardInfo);
+//            Long nowId = cardInfo.getCardId();
+            try {
+                if(!form.getQuestionImageFile().isEmpty()) {
+                    
+                    String searchFileName = searchQuestionFileName(form.getCardId());
+                    Path imgFolderPath =imageService.getDeckCardsDirectory(AppUtility.getUsername(), cardInfo.getDeckInfo().getDeckId());
+                    Path imgFilePath = imgFolderPath.resolve(searchFileName);
+                    Files.createDirectories(imgFolderPath);
+                    Files.deleteIfExists(imgFilePath);
+                    Files.copy(form.getQuestionImageFile().getInputStream(), imgFilePath);
+                    cardInfo.setQuestionImagePath(searchFileName);
+                }
+                
+                if(!form.getAnswerImageFile().isEmpty()) {
+                    String searchFileName = searchAnswerFileName(form.getCardId());
+                    Path imgFolderPath =imageService.getDeckCardsDirectory(AppUtility.getUsername(), cardInfo.getDeckInfo().getDeckId());
+                    Path imgFilePath = imgFolderPath.resolve(searchFileName);
+                    Files.createDirectories(imgFolderPath);
+                    Files.deleteIfExists(imgFilePath);
+                    Files.copy(form.getAnswerImageFile().getInputStream(), imgFilePath);
+                    cardInfo.setAnswerImagePath(searchFileName);
+                }
+            }catch(IOException e) {
+                throw new RuntimeException();
+            }
+            //再度レポジトリに保存
+            repository.save(cardInfo);
+        }catch(DataIntegrityViolationException e) {
+            return UpdateCardResult.FAILURE_BY_DB_ERROR;
+        }catch(RuntimeException e) {
+            return UpdateCardResult.FAILURE_BY_IMAGE_ERROR;
         }
         
-        if(!form.getAnswerImageFile().isEmpty()) {
-            String searchFileName = searchAnswerFileName(form.getCardId());
-            Path imgFolderPath =imageService.getDeckCardsDirectory(AppUtility.getUsername(), cardInfo.getDeckInfo().getDeckId());
-            Path imgFilePath = imgFolderPath.resolve(searchFileName);
-            Files.createDirectories(imgFolderPath);
-            Files.deleteIfExists(imgFilePath);
-            Files.copy(form.getAnswerImageFile().getInputStream(), imgFilePath);
-            cardInfo.setAnswerImagePath(searchFileName);
-        }
-        repository.save(cardInfo);
+
+
         
-        return cardInfo;
+        
+
+        
+//        try {
+//            repository.save(cardInfo);
+//        }catch(DataIntegrityViolationException e) {
+//            return UpdateCardResult.FAILURE_BY_DB_ERROR;
+//        }
+        
+        
+        return UpdateCardResult.SUCCEED;
     }
     
     private String searchQuestionFileName(Long cardId) {

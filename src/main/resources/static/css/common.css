@@ -6,9 +6,9 @@
 
 .header {
     position: fixed;
-    top:0;
     width: 100%;
-    z-index: 100;
+    background-color:#0d9488;
+/*    z-index: 100;*/
 }
 
 body {
@@ -16,24 +16,32 @@ body {
 /*    padding-left:200px;*/
 }
 
-.content {
+/*.content {*/
 /*        margin-left:200px;*/
 /*            padding-left:200px;*/
 /*margin: 0 auto;*/
-    width:90%;
-    box-sizing: border-box;
-    max-width: 1024px;
-    z-index: 10000;
+/*    width:90%;*/
+/*    box-sizing: border-box;*/
+/*    max-width: 1024px;*/
+/*    z-index: 10000;*/
+/*}*/
+.list-group-item {
+    background-color: #D0F0E0;
+    color:#444444; 
+/*    color: #134e4a;   ティールの暗い色 */
 }
 
 .vertical-menu {
 /*    scroll-margin-top: 56px;*/
 /*    width: 200px;*/
+    background-color: #D0F0E0;
+    color:#444444; 
+    font-weight: bold;
     width:12%;
     position: fixed;
     left: 0;
     top: 56px;
-    height: 100%;
+    height: calc(100vh - 56px);
     
 /*    background-color:#d1e7dd;*/
 /*    background-color:#a3cfbb;*/
@@ -41,13 +49,35 @@ body {
     padding-top: 10px;
 /*    margin-top: 56px;*/
     z-index: 1000;
+    
+        /* Flexboxを使用して内部要素を配置 */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;  /* 上部メニューと下部メニューを両端に配置 */
+    
 }
 .vertical-menu a {
 /*    background-color: #f8f9fa;*/
-    color: black;
+    color:#444444; 
     display: block;
     padding: 10px;
     text-decoration: none;
     text-align: left;
 /*    margin: 10px 0;*/
 }
+
+.list-group:first-child {
+    flex-grow: 0;
+}
+.list-user-group {
+    margin-top: auto;  /* 上部との空間を自動調整 */
+    margin-bottom: 20px;  /* 下部に余白を追加 */
+    border-top: 1px solid #8bc3a4;  /* 区切り線を追加 */
+    padding-top: 10px;
+}
+/*.list-user-group {*/
+/*    position: relative;*/
+/*}*/
+/*.list-user-group-bottom {*/
+    
+/*}*/

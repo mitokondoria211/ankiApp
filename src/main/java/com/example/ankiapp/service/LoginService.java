@@ -3,7 +3,7 @@ package com.example.ankiapp.service;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import com.example.ankiapp.entitiy.UserInfo;
 import com.example.ankiapp.repository.UserInfoRepository;
 
@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Service
 @RequiredArgsConstructor
+//@Transactional
 public class LoginService {
 	/** ログイン情報テーブルDIO*/
 	private final UserInfoRepository repository;

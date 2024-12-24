@@ -3,6 +3,7 @@ package com.example.ankiapp.service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.example.ankiapp.constant.UserEditMessage;
 import com.example.ankiapp.dto.UserEditResult;
 import com.example.ankiapp.dto.UserUpdateInfo;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserEditServiceImpl implements UserEditService{
     
     /** ユーザー情報テーブルRepository*/

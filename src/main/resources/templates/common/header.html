@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-    <nav class="navbar bg-info navbar-dark header fixed-top" th:fragment="header">
+    <nav class="navbar navbar-dark header fixed-top" th:fragment="header">
         <div class="container-fluid">	
             <a class="navbar-brand" th:href="@{/menu}">暗記アプリ</a>
             <form th:action="@{/logout}" method="post">
                 
                 <span class="text-light" th:text="|ログインID： ${#authentication.principal.username}|"></span>
                 
-                 <input type="submit" class="btn btn-secondary ms-2" value="ログアウト"/>
+                 <input type="submit" class="btn btn-danger ms-2 logout-btn" value="ログアウト"/>
             </form>
 <!--            <p>現在時刻は[<span id="real-time"></span>]です</p>-->
         </div>

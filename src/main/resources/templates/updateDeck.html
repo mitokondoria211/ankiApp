@@ -19,8 +19,8 @@
                     <input type="text"class="form-control" th:field="*{title}">
                 </div>
                 <div class="mx-auto col-5 text-start mt-3 mb-3">
-                    <label th:text="'変更前説明:  ' + ${deck.description}" class="form-label"></label>
-                    <textarea class="form-control" th:field="*{description}"></textarea>
+                    <label th:text="'変更前説明:  ' + ${deck.description}" class="form-label text-break"style="white-space: pre-wrap;"></label>
+                    <textarea class="form-control" th:field="*{description}"style="white-space: pre-wrap;"></textarea>
                 </div>
                 <div class="mt-4 mb-4">
                     <div>

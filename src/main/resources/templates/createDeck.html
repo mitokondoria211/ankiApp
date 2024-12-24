@@ -8,31 +8,39 @@
     <div th:insert="~{common/sourceList :: sourceList}"></div>
     <div th:replace="~{common/header :: header}"></div>
     <div th:replace="~{common/menuHeader :: menuHeader}"></div>
-    <div class = "container-fluid mx-auto text-center">
-        <h2 class="text-center mt-5">デッキ作成</h2>
-<!--        <a href="" class="btn btn-primary">デッキ作成</a>-->
-<!--        <img src="images/yuusya_game.png">-->
+    <div th:replace="~{common/messageIcon :: messageIcon}"></div>
+    <div class = "container-fluid mx-auto text-center mt-5 pt-3 w-75">
+        <h1 class="text-center  h2">デッキ作成</h1>
+        <div class="alert  d-flex align-items-center mx-auto col-6 text-center" th:classappend="${isError ? 'alert-danger' : 'alert-primary'}" role="alert" 
+        th:if="${message != null}" >
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+                <use xlink:href="#exclamation-triangle-fill" th:if="${isError}"/>
+                <use xlink:href="#info-fill" th:unless="${isError}"/>
+            </svg>
+            <span th:text="${message}"></span>
+        </div>
         <form class="form-group text-center" th:action ="@{/createDeck}" enctype="multipart/form-data" method="post" th:object = "${deckForm}">
             <div class="mx-auto mt-4">
-                <div>
-                    <p><label class="fw-bold">タイトル:</label><br>
+                <div class="mt-4">
+                    <div>
+                        <label class="fw-bold">タイトル</label>
+                    </div>
                     <input class="col-6"  type="text" th:field="*{title}">
-                    <div class="text-danger" th:errors="*{title}"></div>
+                    <div class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
                 </div>
                 <div class="mt-4">
-                    <p><label class="fw-bold">説明:</label><br>
-                    <textarea class="col-6" th:field="*{description}"></textarea>
+                    <div><label class="fw-bold">説明</label></div>
+                    <textarea class="col-6" th:field="*{description}" style="white-space: pre-wrap;"></textarea>
+                    <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
                 </div>
                 <div class="mt-4 mb-4">
-                    <p><label class="fw-bold">画像:</label><br>
+                    <div class="mb-3"><label class="fw-bold">デッキ画像</label></div>
                     <input type="file" th:field="*{imageFile}">
                 </div>
-                <input class="btn btn-primary" type ="submit" value="作成">
+                <input class="btn btn-success" type ="submit" value="作成">
             </div>
         </form>
     </div>
     
-    <div class="mb-5 mt-5"><a th:href="@{/menu}">▶ トップメニュー画面はこちら</a></div>
-    <div><a th:href="@{/login}" >▶ ログイン画面はこちら</a></div>
 </body>
 </html>

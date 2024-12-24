@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>ユーザー一覧</title>
+<title>カード一覧</title>
 <style>
         .search-group {
             display: none;
@@ -28,29 +28,30 @@
             <span th:text="${message}"></span>
     </div>
     <h2 class="mt-2 text-center">カード管理</h2>
-    <div th:text="${message}"></div>
     <form th:action="@{/cardList}" method="post" th:object="${cardListForm}"
     id="searchForm">
         <div class="mt-1">
             <div class="my-3">
                 <span>＜絞り込み検索条件＞</span>
             </div>
-            <div class="select-group mb-3">
-                <label class="col-form-label">検索項目：</label>
-                <select id="searchTypeSelect" onchange="showSearchField(this.value)">
-                    <option value="">検索項目を選択</option>
-                    <option value="cardName">カード名</option>
-                    <option value="question">問題</option>
-                    <option value="answer">回答</option>
-                    <option value="rating">カード評価</option>
-                    <option value="deckName">デッキ名</option>
-                </select>
+            <div class="align-items-center d-flex flex-row mb-3">
+                <label class="col-form-label fw-bold">検索項目：</label>
+                <div class="col-3">
+                    <select id="searchTypeSelect" onchange="showSearchField(this.value)" class="form-select">
+                        <option value="">検索項目を選択</option>
+                        <option value="cardName">カード名</option>
+                        <option value="question">問題</option>
+                        <option value="answer">回答</option>
+                        <option value="rating">カード評価</option>
+                        <option value="deckName">デッキ名</option>
+                    </select>
+                </div>
             </div>
 
             <div class="search-group"  id="cardNameSearch">
                 <div class="row g-3 align-items-center mb-3">
                   <div class="col-auto">
-                    <label class="col-form-label" for="cardName">カード名：</label>
+                    <label class="col-form-label fw-bold" for="cardName">カード名：</label>
                   </div>
                   <div class="col-auto">
                     <input type="text" id="cardName" class="form-control" th:field="*{cardName}">
@@ -64,7 +65,7 @@
             <div class="search-group"  id="questionSearch">
                 <div class="row g-3 align-items-center mb-3">
                   <div class="col-auto">
-                    <label class="col-form-label" for="question">問題：</label>
+                    <label class="col-form-label fw-bold" for="question">問題：</label>
                   </div>
                   <div class="col-auto">
                     <input type="text" id="question" class="form-control" th:field="*{question}">
@@ -78,7 +79,7 @@
             <div class="search-group" id="answerSearch">
                 <div class="row g-3 align-items-center mb-3">
                   <div class="col-auto">
-                    <label class="col-form-label" for="answer">解答：</label>
+                    <label class="col-form-label fw-bold" for="answer">解答：</label>
                   </div>
                   <div class="col-auto">
                     <input type="text" id="answer" class="form-control" th:field="*{answer}">
@@ -91,7 +92,7 @@
 
             <div class="search-group" id="ratingSearch">
                 <div class=" align-items-center d-flex flex-row mb-3">
-                   <label class="col-form-label" for="cardResult">カード評価：</label>
+                   <label class="col-form-label  fw-bold" for="cardResult">カード評価：</label>
                     <div class="col-auto">
                         <select th:field="*{cardResult}" class="form-select" id="cardResult">
                             <option value="" selected>未選択</option>
@@ -107,7 +108,7 @@
 
             <div class="search-group" id="deckNameSearch">
                 <div class=" align-items-center d-flex flex-row mb-3">
-                   <label class="col-form-label" for="deckInfo">デッキ名：</label>
+                   <label class="col-form-label  fw-bold" for="deckInfo">デッキ名：</label>
                     <div class="col-auto">
                         <select th:field="*{deckId}" class="form-select" id="deckInfo">
                             <option value="" selected>未選択</option>
@@ -123,7 +124,7 @@
             
             
             <div class="align-items-center d-flex flex-row mb-3">
-               <label class="col-form-label">並び替え：</label>
+               <label class="col-form-label fw-bold">並び替え：</label>
                 <div class="col-3">
                     <select th:field="*{sortType}" class="form-select">
                         <option th:each="sortType : ${sortTypes}"
@@ -136,7 +137,7 @@
             </div>
             
             <div class="mt-3">
-                <input type="submit" class="btn btn-primary mt-3" name="search" value="検索">
+                <input type="submit" class="btn btn-success mt-3" name="search" value="検索">
             </div>
         </div>
 
@@ -145,7 +146,7 @@
                 <table class="table table-striped" id="cardList">
                     <thead>
                         <tr>
-                            <th scope="col"></th>
+                            <th scope="col">No.</th>
                             <th scope="col" hidden>カードid</th>
                             <th scope="col">カード名</th>
                             <th scope="col">問題</th>
@@ -170,13 +171,13 @@
                         </tr>
                     </tbody>
                 </table>
-                <input type="text" th:field="*{selectedCardId}" hidden>
-                <input type="submit" class="btn btn-secondary" id="editBtn" name="edit" value="編集" disabled>
-                <input type="button" class="btn btn-danger" id="deleteDummyBtn" data-bs-toggle="modal" data-bs-target="#deleteConfirm" value="削除" disabled>
-                <input type="submit" id="deleteBtn" name="delete" hidden>
-            <div class="mt-3">
-                <a th:href="@{/menu}">▶トップメニューへ戻る</a>
-            </div>
+                <div class="my-3">
+                    <input type="text" th:field="*{selectedCardId}" hidden>
+                    <input type="submit" class="btn btn-secondary" id="editBtn" name="edit" value="編集" disabled>
+                    <input type="button" class="btn btn-danger" id="deleteDummyBtn" data-bs-toggle="modal" data-bs-target="#deleteConfirm" value="削除" disabled>
+                    <input type="submit" id="deleteBtn" name="delete" hidden>
+                </div>
+
         </div>
     </form>
 </div>
@@ -207,7 +208,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                <button type="button" class="btn btn-primary" id="deleteOkBtn">削除する</button>
+                <button type="button" class="btn btn-danger" id="deleteOkBtn">削除する</button>
             </div>
         </div>
     </div>

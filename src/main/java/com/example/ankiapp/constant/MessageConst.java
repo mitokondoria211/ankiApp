@@ -69,10 +69,47 @@ public class MessageConst {
     /** ユーザー情報編集画面：ユーザー更新完了 */
     public static final String USEREDIT_UPDATE_SUCCEED = "userEdit.updateSucceed";
     
-    /** ユーザー一覧画面：存在しないカードID */
+    /** デッキ作成画面：デッキ作成完了 */
+    public static final String DECKEDIT_CREATE_SUCCEED = "deckEdit.createSucceed";
+    
+    /** デッキ作成画面：デッキ作成DB失敗 */
+    public static final String DECKEDIT_DB_FAILED = "deckEdit.dbFailed";
+    
+    /** デッキ作成画面：デッキ作成画像処理失敗 */
+    public static final String DECKEDIT_IMAGE_FAILED = "deckEdit.imageFailed";
+    
+    /** デッキ作成画面：デッキ作成画像サイズ失敗 */
+    public static final String DECKEDIT_IMAGE_SIZE_FAILED = "deckEdit.imageSizeFailed";
+    
+    
+    /** カード一覧画面：存在しないカードID */
     public static final String CARDLIST_NON_EXISTED_CARD_ID = "cardList.nonExistedCardId";
 
-    /** ユーザー一覧画面：カード削除完了 */
+    /** カード一覧画面：カード削除完了 */
     public static final String CARDLIST_DELETE_SUCCEED = "cardList.deleteSucceed";
+    
+    /** カード情報画面：カード作成完了 */
+    public static final String CARDINFO_CREATE_SUCCEED = "cardInfo.createSucceed";
+    
+    /** カード情報画面：カード作成DB失敗 */
+    public static final String CARDINFO_DB_FAILED = "cardInfo.dbFailed";
+    
+    /** カード情報画面：カード作成画像処理失敗 */
+    public static final String CARDINFO_IMAGE_FAILED = "cardInfo.imageFailed";
+    
+    /** カード情報画面：カード作成画像サイズ失敗 */
+    public static final String CARDINFO_IMAGE_SIZE_FAILED = "cardInfo.imageSizeFailed";
+
+    /** カード情報画面：カード更新完了 */
+    public static final String UPDATECARD_UPDATE_SUCCEED = "updateCard.updateSucceed";
+    
+    /** カード情報画面：カード更新DB失敗 */
+    public static final String UPDATECARD_DB_FAILED = "updateCard.dbFailed";
+
+    /** カード情報画面：カード作成画像処理失敗 */
+    public static final String UPDATECARD_IMAGE_SIZE_FAILED = "updateCard.imageSizeFailed";
+
+    /** カード情報画面：カード作成画像サイズ失敗 */
+    public static final String UPDATECARD_IMAGE_FAILED = "updateCard.imageFailed";
 }   
 

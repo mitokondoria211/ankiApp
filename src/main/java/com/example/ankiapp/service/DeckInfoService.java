@@ -2,13 +2,14 @@ package com.example.ankiapp.service;
 
 import java.io.IOException;
 import java.util.List;
+import com.example.ankiapp.constant.CreateDeckResult;
 import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.form.DeckForm;
 
 
 public interface DeckInfoService {
     
-    void createDeck(DeckForm form) throws IOException;
+    CreateDeckResult createDeck(DeckForm form) throws IOException;
     
     List <DeckInfo> findDeckInfo();
     

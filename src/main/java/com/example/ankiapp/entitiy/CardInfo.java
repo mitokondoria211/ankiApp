@@ -19,7 +19,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * ユーザ情報テーブル Entity
+ * カード情報テーブル Entity
  */
 @Entity
 @AllArgsConstructor

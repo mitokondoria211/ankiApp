@@ -3,6 +3,7 @@ package com.example.ankiapp.service;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.example.ankiapp.constant.UserDeleteResult;
 import com.example.ankiapp.dto.UserListInfo;
 import com.example.ankiapp.dto.UserSearchInfo;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+//@Transactional
 public class UserListServiceImpl implements UserListService {
     
 	/** ユーザー情報テーブルDAO*/

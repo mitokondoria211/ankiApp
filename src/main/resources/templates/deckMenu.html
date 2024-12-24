@@ -8,10 +8,10 @@
     <div th:insert="~{common/sourceList :: sourceList}"></div>
     <div th:replace="~{common/header :: header}"></div>
     <div th:replace="~{common/menuHeader :: menuHeader}"></div>
-    <div class = "container-fluid mx-auto text-center">
-        <h2 class="text-center mt-5">デッキメニュー</h2>
-    <div class="mb-5 mt-5">
-        <a th:href="@{/createDeck}" class="btn btn-secondary">デッキ作成</a>
+    <div class = "container-fluid mx-auto text-center mt-5">
+        <h1 class="text-center py-3">デッキメニュー</h1>
+    <div class="mt-3">
+        <a th:href="@{/createDeck}" class="btn btn-secondary mx-3">デッキ作成</a>
         <a th:href="@{/deckList}" class="btn btn-secondary">デッキ管理</a>
     </div>
     <div></div>

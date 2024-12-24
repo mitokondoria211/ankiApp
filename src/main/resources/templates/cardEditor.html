@@ -2,17 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>カード編集</title>
+<title>カード作成</title>
 </head>
 <body>
     <div th:insert="~{common/sourceList :: sourceList}"></div>
-    <div th:replace="~{common/header :: header}"></div>
+    
+    <div th:replace="~{common/messageIcon :: messageIcon}"></div>
     <div th:replace="~{common/menuHeader :: menuHeader}"></div>
-    <div class = "container-fluid mx-auto text-center">
-        <h2 class="text-center mt-5">カード編集</h2>
+    <div class = "container-fluid mx-auto text-center mt-5 w-75">
+        <h1 class="text-center pt-3 h2">カード作成</h1>
+        <div th:replace="~{common/header :: header}"></div>
+        <div class="alert  d-flex align-items-center mx-auto col-6 text-center" th:classappend="${isError ? 'alert-danger' : 'alert-primary'}" role="alert" 
+        th:if="${message != null}" >
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+                <use xlink:href="#exclamation-triangle-fill" th:if="${isError}"/>
+                <use xlink:href="#info-fill" th:unless="${isError}"/>
+            </svg>
+            <span th:text="${message}"></span>
+        </div>
         <form class="form-group text-center" th:action ="@{/cardEditor}" enctype="multipart/form-data" method="post" th:object = "${cardEditorForm}">
             
-            <div class="text-center mt-4">
+            <div class="text-center my-4">
                 <div>
                     <label class="fw-bold">デッキ選択：</label>
                     <select name="deckId" th:field="*{deckId}" class="col-4">
@@ -20,36 +30,41 @@
                         th:selected="${deck.deckId == cardEditorForm.deckId}">デッキ名</option>
                     </select>
                 </div>
-                <div class="mt-3">
-                     <label class="fw-bold">タイトル:</label><br>
+                <div class="mt-4">
+                     <label class="fw-bold">カード名</label><br>
                      <input class="col-6"  type="text" th:field="*{cardName}">
-                     <div class="text-danger" th:errors="*{cardName}"></div>
+                     <div class="text-danger" th:if="${#fields.hasErrors('cardName')}" 
+                               th:errors="*{cardName}"></div>
                  </div>
-                <div class="mt-3">
-                    <label class="fw-bold">問題:</label><br>
-                    <textarea class="col-6"  th:field="*{question}"></textarea>
-                    <div class="text-danger" th:errors="*{question}"></div>
+                <div class="mt-4">
+                    <label class="fw-bold">問題</label><br>
+                    <textarea class="col-6"  th:field="*{question}" style="white-space: pre-wrap;"></textarea>
+                    <div class="text-danger" th:if="${#fields.hasErrors('question')}" 
+                              th:errors="*{question}"></div>
                 </div>
-                <div class="mt-3">
-                    <p><label class="fw-bold">問題画像:</label><br>
+                <div class="mt-4">
+                    <div class="mb-3">
+                        <label class="fw-bold">問題画像</label>
+                    </div>
                     <input type="file" th:field="*{questionImageFile}">
                 </div>
-                <div class="mt-3">
-                    <p><label class="fw-bold">解答:</label><br>
-                    <textarea class="col-6" th:field="*{answer}"></textarea>
-                    <div class="text-danger" th:errors="*{answer}"></div>
+                <div class="mt-4">
+                    <p><label class="fw-bold">解答</label><br>
+                    <textarea class="col-6" th:field="*{answer}" style="white-space: pre-wrap;"></textarea>
+                    <div class="text-danger" th:if="${#fields.hasErrors('answer')}" 
+                              th:errors="*{answer}"></div>
                 </div>
-                <div class="mt-3">
-                    <p><label class="fw-bold">解答画像:</label><br>
+                <div class="mt-4 mb-5">
+                    <div class="my-3">
+                        <label class="fw-bold">解答画像:</label>
+                    </div>
                     <input type="file" th:field="*{answerImageFile}">
                 </div>
                 
-                <input class="btn btn-primary" type ="submit" value="作成">
+                <input class="btn btn-success" type ="submit" value="作成">
             </div>
         </form>
     </div>
     
-    <div class="mb-5 mt-5"><a th:href="@{/menu}">▶ トップメニュー画面はこちら</a></div>
-    <div><a th:href="@{/login}" >▶ ログイン画面はこちら</a></div>
 </body>
 </html>

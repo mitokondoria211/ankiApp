@@ -8,10 +8,10 @@
     <div th:insert="~{common/sourceList :: sourceList}"></div>
     <div th:replace="~{common/header :: header}"></div>
     <div th:replace="~{common/menuHeader :: menuHeader}"></div>
-    <div class = "container-fluid mx-auto text-center">
-        <h2 class="text-center mt-5">カードメニュー</h2>
-    <div class="mb-5 mt-5">
-        <a th:href="@{/cardEditor}" class="btn btn-secondary">カード作成</a>
+    <div class = "container-fluid mx-auto text-center mt-5">
+        <h1 class="text-center py-3">カードメニュー</h1>
+    <div class="mt-3">
+        <a th:href="@{/cardEditor}" class="btn btn-secondary mx-3">カード作成</a>
         <a th:href="@{/cardList}" class="btn btn-secondary">カード管理</a>
     </div>
     <div></div>

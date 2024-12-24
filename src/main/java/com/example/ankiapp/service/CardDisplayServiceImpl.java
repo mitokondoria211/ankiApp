@@ -5,12 +5,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.example.ankiapp.constant.db.CardAnswerResult;
 import com.example.ankiapp.entitiy.CardInfo;
+import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.repository.CardInfoRepository;
 import com.example.ankiapp.repository.DeckInfoRepository;
 import com.example.ankiapp.repository.UserInfoRepository;
@@ -22,6 +25,7 @@ import lombok.var;
 
 @Service
 @RequiredArgsConstructor
+//@Transactional
 public class CardDisplayServiceImpl implements CardDisplayService{
 
     /** ログイン情報テーブルDIO*/
@@ -149,5 +153,18 @@ public class CardDisplayServiceImpl implements CardDisplayService{
         }
         
         return findCardEditorByDeckId(deckId);
+    }
+
+    @Override
+    public List<DeckInfo> filterEmptyDecks(List<DeckInfo> decks) {
+        Iterator<DeckInfo> iterator = decks.iterator();
+        while(iterator.hasNext()) {
+            DeckInfo deckInfo = iterator.next();
+            var cards = findCardEditorByDeckId(deckInfo.getDeckId());
+            if(cards.size() == 0) {
+                iterator.remove();
+            }
+        }
+        return decks;
     }
 }

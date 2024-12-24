@@ -5,19 +5,19 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum CreateCardResult {
+public enum UpdateCardResult {
     
     /**エラーなし */
-    SUCCEED(MessageConst.CARDINFO_CREATE_SUCCEED),
+    SUCCEED(MessageConst.UPDATECARD_UPDATE_SUCCEED),
 
     /** DB更新エラー */
-    FAILURE_BY_DB_ERROR(MessageConst.CARDINFO_DB_FAILED),
+    FAILURE_BY_DB_ERROR(MessageConst.UPDATECARD_DB_FAILED),
     
     /**画像サイズエラー*/
-    FAILURE_BY_IMAGE_SIZE_ERROR(MessageConst.CARDINFO_IMAGE_SIZE_FAILED),
+    FAILURE_BY_IMAGE_SIZE_ERROR(MessageConst.UPDATECARD_IMAGE_SIZE_FAILED),
     
     /**画像処理エラー*/
-    FAILURE_BY_IMAGE_ERROR(MessageConst.CARDINFO_IMAGE_FAILED);
+    FAILURE_BY_IMAGE_ERROR(MessageConst.UPDATECARD_IMAGE_FAILED);
 
     
     private String messageId;

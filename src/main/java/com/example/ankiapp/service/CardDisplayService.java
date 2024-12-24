@@ -3,6 +3,7 @@ package com.example.ankiapp.service;
 import java.io.IOException;
 import java.util.List;
 import com.example.ankiapp.entitiy.CardInfo;
+import com.example.ankiapp.entitiy.DeckInfo;
 
 
 public interface CardDisplayService {
@@ -24,6 +25,8 @@ public interface CardDisplayService {
    List<CardInfo> findCardInfoByDeckIdAndCardResult(Long deckId, String cardResult);
    
    Integer getCardCountByCardResult(Long deckId, String result);
+   
+   List<DeckInfo> filterEmptyDecks(List<DeckInfo> decks);
    
    
 }

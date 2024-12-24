@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-    <nav class="navbar bg-info navbar-dark" th:fragment="menuHeader">
+    <nav class="navbar" th:fragment="menuHeader">
         <div class="container" >
                 <div class="vertical-menu ">
                     <ul class="list-group">
-                      <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/deckMenu}">デッキ</a></li>
-                      <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/cardMenu}">カード</a></li>
-                      <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/cardDisplay}">練習</a></li>
-                      <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/selectDeck}">問題挑戦</a></li>
-<!--                      <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/selectDeck}">ナビゲーション</a></li>-->
+<!--                      <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/deckMenu}">デッキ</a></li>-->
+<!--                      <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/cardMenu}">カード</a></li>-->
+<!--                      <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/cardDisplay}">練習</a></li>-->
+<!--                      <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/selectDeck}">問題挑戦</a></li>-->
+                      <li class="list-group-item"><a th:href="@{/deckMenu}">デッキ</a></li>
+                      <li class="list-group-item"><a th:href="@{/cardMenu}">カード</a></li>
+                      <li class="list-group-item"><a th:href="@{/cardDisplay}">練習</a></li>
+                      <li class="list-group-item"><a th:href="@{/selectDeck}">問題挑戦</a></li>
+                      <!--                      <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/selectDeck}">ナビゲーション</a></li>-->
                     </ul>
-                    <ul class="list-group mt-3">
-                        <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/menu}">トップメニュー</a></li>
-                        <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/signup}" > ユーザー登録</a></li>
+                    
+                    <ul class="list-group list-user-group">
+<!--                        <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/menu}">トップメニュー</a></li>-->
+<!--                        <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/signup}" > ユーザー登録</a></li>-->
+                        <li class="list-group-item"><a th:href="@{/menu}">トップメニュー</a></li>
+                        <li class="list-group-item"><a th:href="@{/signup}" > ユーザー登録</a></li>
                     </ul>
                     
                 </div>

@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.form.DeckUpdateForm;
 import com.example.ankiapp.repository.DeckInfoRepository;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+//@Transactional
 public class DeckEditServiceImpl implements DeckEditService{
 
     /** ログイン情報テーブルDIO*/

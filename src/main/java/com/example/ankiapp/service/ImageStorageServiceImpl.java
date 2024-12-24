@@ -6,12 +6,14 @@ import java.nio.file.Path;
 import java.util.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import lombok.RequiredArgsConstructor;
 
 
 @Service
 @RequiredArgsConstructor
+//@Transactional
 public class ImageStorageServiceImpl implements ImageStorageService {
     
     @Value("${image.folder}")
