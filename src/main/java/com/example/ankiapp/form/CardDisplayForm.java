@@ -5,16 +5,20 @@ import com.example.ankiapp.entitiy.CardInfo;
 import lombok.Data;
 
 /**
- * ログイン画面 Form
+ * カード練習画面 Form
  */
 @Data
 public class CardDisplayForm {
     
+    /**カードID*/
     private Long cardId;
     
+    /**デッキID*/
     private Long deckId;
     
+    /**カード複数*/
     private List<CardInfo> cards;
     
+    /**画像パス*/
     private String imageFile;
 }

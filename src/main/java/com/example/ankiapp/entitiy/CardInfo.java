@@ -36,43 +36,52 @@ import lombok.NoArgsConstructor;
     )
 public class CardInfo {
     
+    /**カードID*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "card_id")
      private Long cardId;
     
+    /**デッキ*/
     @ManyToOne
     @JoinColumn(name = "deck_id")
     private DeckInfo deckInfo;
     
+    /**ユーザー*/
     @ManyToOne
     @JoinColumn(name = "login_id")
     private UserInfo userInfo;
     
+    /**カード名*/
     @Column(name="card_name")
     private String cardName;
     
+    /**質問*/
     @Column(columnDefinition = "TEXT")
     private String question;
     
+    /**解答*/
     @Column(columnDefinition = "TEXT")
     private String answer;
     
+    /**質問カードの画像パス*/
     @Column(name="question_image_path")
     private String questionImagePath;
     
+    /**解答カードの画像パス*/
     @Column(name="answer_image_path")
     private String answerImagePath;
     
+    /**解答カードの画像パス*/
     @Column(name="card_result")
     @Convert(converter = CardAnswerResultConverter.class)
     private CardAnswerResult cardResult;
     
-    //作成日
+    /**作成日*/
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     
-    //更新日
+    /**更新日*/
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;

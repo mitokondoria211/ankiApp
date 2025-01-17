@@ -7,26 +7,52 @@ import com.example.ankiapp.entitiy.DeckInfo;
 
 
 public interface CardDisplayService {
-    
-   CardInfo findCardEditorByCardId(Long cardId);
+    /**
+     * カードIDからカード情報を取得する
+     * @param cardId
+     * @return カード情報
+     */
+    CardInfo findCardInfoByCardId(Long cardId);
    
-   CardInfo findCardEditorByCardName(String name);
+    /**
+     * カード名からカード情報を取得する
+     * @param cardName カード名
+     * @return カード情報
+     */
+    CardInfo findCardInfoByCardName(String cardName);
    
-   List<CardInfo> findCardEditor();
+    /**
+     * ユーザー内のカードリストすべてを取得する
+     * @return カード情報リスト
+     */
+    List<CardInfo> findCardInfos();
    
-   List<CardInfo> findCardEditorByDeckId(Long deckId);
-   
-   String deckImage(Long deckId) throws IOException;
+    /**
+     * デッキ内のカードリストすべてを取得する
+     * @return カード情報リスト
+     */
+    List<CardInfo> findCardInfoByDeckId(Long deckId);
+        
+    String deckImage(Long deckId) throws IOException;
 
-   void saveCardEditorInfo(CardInfo cardEditorInfo);
+    /**
+     * カード情報を登録する
+     * @param cardInfo　カード情報
+     */
+    void saveCardInfo(CardInfo cardInfo);
    
-   Integer getCardCount(Long deckId);
+    /**
+     * デッキ内のカードの枚数をカウントする
+     * @param deckId
+     * @return デッキ内のカードの枚数
+     */
+    Integer getCardCount(Long deckId);
    
-   List<CardInfo> findCardInfoByDeckIdAndCardResult(Long deckId, String cardResult);
+    List<CardInfo> findCardInfoByDeckIdAndCardResult(Long deckId, String cardResult);
    
-   Integer getCardCountByCardResult(Long deckId, String result);
+    Integer getCardCountByCardResult(Long deckId, String result);
    
-   List<DeckInfo> filterEmptyDecks(List<DeckInfo> decks);
+    List<DeckInfo> filterEmptyDecks(List<DeckInfo> decks);
    
    
 }

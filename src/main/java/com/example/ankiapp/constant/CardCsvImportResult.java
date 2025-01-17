@@ -9,13 +9,13 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum CardDeleteResult {
+public enum CardCsvImportResult {
     
     /**エラーなし*/
-    SUCCEED(MessageConst.CARDLIST_DELETE_SUCCEED),
+    SUCCEED(MessageConst.CARDFROMCSV_IMPORT_SUCCEED),
     
     /**エラーなし*/
-    ERROR(MessageConst.CARDLIST_NON_EXISTED_CARD_ID);
+    ERROR(MessageConst.CARDFROMCSV_IMPORT_FAILED);
     
     /**メッセージID*/
     private String messageId;

@@ -1,35 +1,37 @@
 package com.example.ankiapp.exception.handler;
 
-import java.net.URL;
-import javax.naming.spi.DirStateFactory.Result;
 import org.springframework.context.MessageSource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.ankiapp.constant.CreateCardResult;
 import com.example.ankiapp.constant.CreateDeckResult;
-import com.example.ankiapp.constant.MessageConst;
 import com.example.ankiapp.constant.UpdateCardResult;
 import com.example.ankiapp.constant.UrlConst;
-import com.example.ankiapp.exception.response.ErrorResponse;
-import com.example.ankiapp.service.CardEditService;
-import com.example.ankiapp.service.ImageStorageService;
 import com.example.ankiapp.utilty.AppUtility;
-import com.github.dozermapper.core.Mapper;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import lombok.var;
 
+
+/**
+ * 例外処理をまとめたクラス
+ */
 @ControllerAdvice
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
     
+    /**メッセージソース*/
     private final MessageSource messageSource;
 
+    
+    /**
+     * サーバから受け取った画像ファイルが大きすぎたときの例外処理
+     * @param MaxUploadSizeExceededException e
+     * @param redirectAttributes
+     * @param HttpServletRequest request
+     * @return リダイレクト先のURL
+     */
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public String handleMaxUploadSizeExceededException(
             MaxUploadSizeExceededException e,
@@ -37,7 +39,6 @@ public class GlobalExceptionHandler {
             HttpServletRequest request) {
         
         // リクエストURLからどのページからのアップロードかを判断
-       
         String originalUrl = (String) request.getAttribute("javax.servlet.error.request_uri");
          originalUrl = request.getHeader("Referer");
         if (originalUrl == null) {
@@ -80,21 +81,11 @@ public class GlobalExceptionHandler {
         
         // CreateCardResultまたはCreateDeckResultの設定
         if (originalUrl.contains(UrlConst.CARD_EDITOR)) {
-//            var result = CreateCardResult.FAILURE_BY_IMAGE_SIZE_ERROR;
-//            redirectAttributes.addFlashAttribute(
-//                    "message", AppUtility.getMessage(messageSource, result.getMessageId()));
-//            redirectAttributes.addFlashAttribute("error", result);
-//            redirectAttributes.addFlashAttribute("isError", true);
             addErrorAttribute(
                     redirectAttributes, 
                     messageSource,
                     CreateCardResult.FAILURE_BY_IMAGE_SIZE_ERROR);
         }else if(originalUrl.contains(UrlConst.UPDATE_CARD)) {
-//            var result = UpdateCardResult.FAILURE_BY_IMAGE_SIZE_ERROR;
-//            redirectAttributes.addFlashAttribute(
-//                    "message", AppUtility.getMessage(messageSource, result.getMessageId()));
-//            redirectAttributes.addFlashAttribute("error", result);
-//            redirectAttributes.addFlashAttribute("isError", true);
             addErrorAttribute(
                     redirectAttributes,
                     messageSource,
@@ -112,6 +103,10 @@ public class GlobalExceptionHandler {
         return redirectUrl;
     }
     
+    /**
+     * エラーメッセージを表示するメソッド
+     * @param result 様々なEnumクラス
+     */
     private void addErrorAttribute(
             RedirectAttributes redirectAttributes, MessageSource messageSource, Enum<?> result) {
         redirectAttributes.addFlashAttribute(

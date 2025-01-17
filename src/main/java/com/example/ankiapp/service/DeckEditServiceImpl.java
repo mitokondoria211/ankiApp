@@ -4,12 +4,19 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.example.ankiapp.constant.UpdateCardResult;
+import com.example.ankiapp.constant.UpdateDeckResult;
 import com.example.ankiapp.entitiy.DeckInfo;
+import com.example.ankiapp.entitiy.UserInfo;
 import com.example.ankiapp.form.DeckUpdateForm;
 import com.example.ankiapp.repository.DeckInfoRepository;
+import com.example.ankiapp.repository.UserInfoRepository;
+import com.example.ankiapp.utilty.AppUtility;
 import lombok.RequiredArgsConstructor;
+import lombok.var;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +24,8 @@ import lombok.RequiredArgsConstructor;
 public class DeckEditServiceImpl implements DeckEditService{
 
     /** ログイン情報テーブルDIO*/
+    private final UserInfoRepository userInfoRepository;
+    
     private final DeckInfoRepository repository;
 
     private final ImageStorageService imageService;
@@ -34,28 +43,60 @@ public class DeckEditServiceImpl implements DeckEditService{
     private String imgdefault;
 
     @Override
-    public DeckInfo updateDeck(DeckInfo deckInfo, DeckUpdateForm form) throws IOException {
-        if(form.getTitle() != null && !form.getTitle().trim().isEmpty()) {
-            deckInfo.setTitle(form.getTitle());
-        }
-        if(form.getDescription() != null && !form.getDescription().trim().isEmpty()) {
-            deckInfo.setDescription(form.getDescription());
-        }
-        if(!form.getImageFile().isEmpty()) {
-            String searchFileName = searchFileName(form.getDeckId());
-            Path imgFilePath = imageService.getDeckImagePath(deckInfo.getUserInfo().getLoginId(), form.getDeckId());
-            Files.deleteIfExists(imgFilePath);
-            Files.copy(form.getImageFile().getInputStream(), imgFilePath);
-            deckInfo.setImagePath(searchFileName);
+    public UpdateDeckResult updateDeck(DeckInfo deckInfo, DeckUpdateForm form) throws IOException {
+        deckInfo.setTitle(form.getTitle());
+        deckInfo.setDescription(form.getDescription());
+        
+        try {
+            try {
+                if(!form.getImageFile().isEmpty()) {
+                    String fileName = imageService.saveDeckImage(form.getImageFile(), AppUtility.getUsername(), form.getDeckId());
+//                    String searchFileName = searchFileName(form.getDeckId());
+//                    Path imgFilePath =imageService.getDeckImagePath(AppUtility.getUsername(), form.getDeckId());
+//                    Files.deleteIfExists(imgFilePath);
+//                    Files.copy(form.getImageFile().getInputStream(), imgFilePath);
+                    deckInfo.setImagePath(fileName);
+                }
+            }catch(IOException e) {
+                throw new RuntimeException();
+            }
+            repository.save(deckInfo);
+        }catch(DataIntegrityViolationException e) {
+            return UpdateDeckResult.FAILURE_BY_DB_ERROR;
+        }catch (RuntimeException e) {
+            return UpdateDeckResult.FAILURE_BY_IMAGE_ERROR;
         }
         
-        repository.save(deckInfo);
-        return deckInfo;
+        
+//        if(form.getTitle() != null && !form.getTitle().trim().isEmpty()) {
+//            deckInfo.setTitle(form.getTitle());
+//        }
+//        if(form.getDescription() != null && !form.getDescription().trim().isEmpty()) {
+//            deckInfo.setDescription(form.getDescription());
+//        }
+//        if(!form.getImageFile().isEmpty()) {
+//            String searchFileName = searchFileName(form.getDeckId());
+//            Path imgFilePath = imageService.getDeckImagePath(deckInfo.getUserInfo().getLoginId(), form.getDeckId());
+//            Files.deleteIfExists(imgFilePath);
+//            Files.copy(form.getImageFile().getInputStream(), imgFilePath);
+//            deckInfo.setImagePath(searchFileName);
+//        }
+//        
+//        repository.save(deckInfo);
+        
+        return UpdateDeckResult.SUCCEED;
     }
 
     private String searchFileName(Long deckId) {
         String searchFileName = "deck_" + deckId + imgExtract;
         return searchFileName;
     }
+    
+    private UserInfo getUserInfo() {
+        return userInfoRepository.findByLoginId(AppUtility.getUsername()); 
+    }
+    
+    
+    
     
 }

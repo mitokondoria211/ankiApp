@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
- * デッキ更新画面Formクラス
+ * カード更新画面Formクラス
  */
 @Data
 public class CardUpdateForm {
@@ -37,10 +37,12 @@ public class CardUpdateForm {
     /**カード質問画像*/
     private MultipartFile questionImageFile;
     
+    /**カード質問画像パス*/
     private String questionImagePath;
     
     /**カード解答画像*/
     private MultipartFile answerImageFile;
     
+    /**カード質問画像パス*/
     private String answerImagePath;
 }

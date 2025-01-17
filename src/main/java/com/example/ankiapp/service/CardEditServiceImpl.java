@@ -55,10 +55,8 @@ public class CardEditServiceImpl implements CardEditService{
     @Value("${image.default}")
     private String imgdefault;
     
-    private Long maxImageSize = (long) (10 * 1024 * 1024);
-    
     @Override
-    public CreateCardResult createCardInfo(@Valid CardEditorForm form) throws IOException {
+    public CreateCardResult createCardInfo(CardEditorForm form) throws IOException {
         var userInfo = getUserInfo();
         var deckId = form.getDeckId();
         var deckInfo = deckInfoRepository.findByDeckId(deckId);
@@ -104,39 +102,12 @@ public class CardEditServiceImpl implements CardEditService{
         }catch (RuntimeException e) {
             return CreateCardResult.FAILURE_BY_IMAGE_ERROR;
         }
-//        try {
-//            cardInfo = repository.save(cardInfo);
-//        }catch(DataIntegrityViolationException e) {
-//            return CreateCardResult.FAILURE_BY_DB_ERROR;
-//        }
-//        
-//        Long nowId = cardInfo.getCardId();
-//        if(!form.getQuestionImageFile().isEmpty()) {
-//            /**保存する画像ファイルの設定*/
-//            String saveFileName = imageService.saveQuestionCardImage(form.getQuestionImageFile(), AppUtility.getUsername(), deckId, nowId);
-//            cardInfo.setQuestionImagePath(saveFileName);
-//        }else {
-//            cardInfo.setQuestionImagePath(imgdefault + imgExtract);
-//        }
-//        
-//        if(!form.getAnswerImageFile().isEmpty()) {
-//            /**保存する画像ファイルの設定*/
-//            String saveFileName = imageService.saveAnswerCardImage(form.getAnswerImageFile(), AppUtility.getUsername(), deckId, nowId);
-//            cardInfo.setAnswerImagePath(saveFileName);
-//        }else {
-//            cardInfo.setAnswerImagePath(imgdefault + imgExtract);
-//        }
-//
-//        try {
-//            repository.save(cardInfo);
-//        }catch(DataIntegrityViolationException e) {
-//            System.out.println("重複しています");
-//        }
+
         
         return CreateCardResult.SUCCEED;
     }
     
-    public UserInfo getUserInfo() {
+    private UserInfo getUserInfo() {
         return userInfoRepository.findByLoginId(AppUtility.getUsername());
     }
 
@@ -152,39 +123,24 @@ public class CardEditServiceImpl implements CardEditService{
         cardInfo.setCardName(form.getCardName());
         cardInfo.setQuestion(form.getQuestion());
         cardInfo.setAnswer(form.getAnswer());
-        var userInfo = getUserInfo();
         var deckId = cardInfo.getDeckInfo().getDeckId();
-        var deckInfo = deckInfoRepository.findByDeckId(deckId);
-//        cardInfo = mapper.map(form, CardInfo.class);
-//        cardInfo.setUserInfo(userInfo);
-//        cardInfo.setDeckInfo(deckInfo);
+
         
         if(form.getCardResult() != null) {
             cardInfo.setCardResult(form.getCardResult());
         }
         try {
-//            cardInfo = repository.save(cardInfo);
-//            Long nowId = cardInfo.getCardId();
             try {
                 if(!form.getQuestionImageFile().isEmpty()) {
-                    
-                    String searchFileName = searchQuestionFileName(form.getCardId());
-                    Path imgFolderPath =imageService.getDeckCardsDirectory(AppUtility.getUsername(), cardInfo.getDeckInfo().getDeckId());
-                    Path imgFilePath = imgFolderPath.resolve(searchFileName);
-                    Files.createDirectories(imgFolderPath);
-                    Files.deleteIfExists(imgFilePath);
-                    Files.copy(form.getQuestionImageFile().getInputStream(), imgFilePath);
-                    cardInfo.setQuestionImagePath(searchFileName);
+                    String questionFileName = imageService.saveQuestionCardImage(
+                            form.getQuestionImageFile(),AppUtility.getUsername(),deckId,cardInfo.getCardId());
+                    cardInfo.setQuestionImagePath(questionFileName);
                 }
                 
                 if(!form.getAnswerImageFile().isEmpty()) {
-                    String searchFileName = searchAnswerFileName(form.getCardId());
-                    Path imgFolderPath =imageService.getDeckCardsDirectory(AppUtility.getUsername(), cardInfo.getDeckInfo().getDeckId());
-                    Path imgFilePath = imgFolderPath.resolve(searchFileName);
-                    Files.createDirectories(imgFolderPath);
-                    Files.deleteIfExists(imgFilePath);
-                    Files.copy(form.getAnswerImageFile().getInputStream(), imgFilePath);
-                    cardInfo.setAnswerImagePath(searchFileName);
+                    String answerFileName = imageService.saveAnswerCardImage(
+                            form.getAnswerImageFile(),AppUtility.getUsername(),deckId,cardInfo.getCardId());
+                    cardInfo.setAnswerImagePath(answerFileName);
                 }
             }catch(IOException e) {
                 throw new RuntimeException();

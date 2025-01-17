@@ -5,23 +5,23 @@ import lombok.Getter;
 
 
 /**
- *カード更新結果種別
+ *デッキ更新結果種別
  */
 @Getter
 @AllArgsConstructor
-public enum UpdateCardResult {
+public enum UpdateDeckResult {
     
     /**エラーなし */
-    SUCCEED(MessageConst.UPDATECARD_UPDATE_SUCCEED),
+    SUCCEED(MessageConst.UPDATEDECK_UPDATE_SUCCEED),
 
     /** DB更新エラー */
-    FAILURE_BY_DB_ERROR(MessageConst.UPDATECARD_DB_FAILED),
+    FAILURE_BY_DB_ERROR(MessageConst.UPDATEDECK_DB_FAILED),
     
     /**画像サイズエラー*/
-    FAILURE_BY_IMAGE_SIZE_ERROR(MessageConst.UPDATECARD_IMAGE_SIZE_FAILED),
+    FAILURE_BY_IMAGE_SIZE_ERROR(MessageConst.UPDATEDECK_IMAGE_SIZE_FAILED),
     
     /**画像処理エラー*/
-    FAILURE_BY_IMAGE_ERROR(MessageConst.UPDATECARD_IMAGE_FAILED);
+    FAILURE_BY_IMAGE_ERROR(MessageConst.UPDATEDECK_IMAGE_FAILED);
 
     /**メッセージID*/
     private String messageId;

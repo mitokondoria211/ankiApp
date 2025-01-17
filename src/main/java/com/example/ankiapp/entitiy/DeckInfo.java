@@ -13,6 +13,10 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
 
+/**
+ * デッキ情報テーブル Entity
+ */
+
 @Entity
 @Data
 @Table (name = "deck_info",
@@ -23,31 +27,35 @@ uniqueConstraints = {
         )
     })
 public class DeckInfo {
-  //デッキid
+    
+    /**デッキID*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "deck_id")
     private Long deckId;
     
+    /**タイトル*/
     @Column(name = "name", nullable = false)
     private String title;
 
-    //説明
+    /**説明*/
     @Column(columnDefinition = "TEXT")
     private String description;
     
+    /**デッキの画像パス*/
     @Column(name="image_path")
     private String imagePath;
     
+    /**ユーザー*/
     @ManyToOne
     @JoinColumn(name = "user_login_id", referencedColumnName = "login_id")
     private UserInfo userInfo;
     
-  //作成日
+    /**作成日*/
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     
-    //更新日
+    /**更新日*/
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;

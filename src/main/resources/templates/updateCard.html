@@ -10,7 +10,7 @@
     <div th:replace="~{common/messageIcon :: messageIcon}"></div>
     <div th:replace="~{common/menuHeader :: menuHeader}"></div>
     <div class = "container-fluid mx-auto text-center w-75">
-        <h1 class="text-center mt-5 pt-3">カード更新</h1>
+        <h1 class="text-center mt-5 pt-3 h2">カード更新</h1>
         <div th:replace="~{common/header :: header}"></div>
         <div class="alert  d-flex align-items-center mx-auto col-5" 
         th:classappend="${isError ? 'alert-danger' : 'alert-primary'}" role="alert" 
@@ -23,24 +23,25 @@
                 <span th:utext="${message}"></span>
             </div>
         </div>
-        <h2 th:text="'カード：' + ${updateCard.cardName} + ' の更新'" class="text-center h3 my-4"></h2>
+        <h2 th:text="'カード：' + ${updateCard.cardName} + ' の更新'" class="mx-auto h3 my-4 col-6"></h2>
         <form th:action="@{/updateCard}" method="post" enctype="multipart/form-data" th:object="${cardUpdateForm}">
             <input type="hidden" th:field="*{cardId}" />
             <div class="mt-3 " th:each="card: ${updateCard}">
-                <div class="mx-auto col-5 text-start my-5">
+                <div class="mx-auto col-6 text-start my-5">
                     <h3 class="text-center h4">カード名</h3>
-                    <label class="form-label fw-bold">
-                        変更前： <span th:text="${card.cardName}" class="fw-normal"></span>     
+                    <label class="form-label fw-bold d-flex">
+                        <span class="flex-shrink-0">変更前：</span>
+                        <span th:text="${card.cardName}" class="fw-normal"></span>     
                     </label>
                     <input type="text"class="form-control" th:field="*{cardName}">
                     <div class="text-danger" th:if="${#fields.hasErrors('cardName')}" 
                               th:errors="*{cardName}"></div>
 
                 </div>
-                <div class="mx-auto col-5 text-start my-5">
+                <div class="mx-auto col-6 text-start my-5">
                     <h3 class="text-center h4">問題</h3>
                     <label  class="form-label fw-bold d-flex">
-                        <span>変更前： </span>
+                        <span class="flex-shrink-0">変更前： </span>
                         <span th:text="${card.question}" class="fw-normal text-break" style="white-space: pre-wrap;"></span>
                     </label>
                     <textarea class="form-control" th:field="*{question}" style="white-space: pre-wrap;"></textarea>
@@ -60,7 +61,7 @@
                             <div th:unless="${cardUpdateForm.questionImagePath == 'default.jpg'}">
                                 <img th:src="${questionImage}" 
                                           alt="Deck Image" 
-                                          class="mx-auto mb-4"/>
+                                          class="mx-auto mb-4 col-6"/>
                             </div>
                             
                         </div>
@@ -68,10 +69,10 @@
                         <input type="file" th:field="*{questionImageFile}">
                 </div>
                 
-                <div class="mx-auto col-5 text-start my-5">
+                <div class="mx-auto col-6 text-start my-5">
                     <h3 class="text-center h4">解答</h3>
                     <label  class="form-label fw-bold d-flex">
-                        <span>変更前： </span>
+                        <span class="flex-shrink-0">変更前： </span>
                         <span th:text="${card.answer}" class="fw-normal text-break" style="white-space: pre-wrap;"></span>
                     </label>
                     <textarea class="form-control" th:field="*{answer}"  style="white-space: pre-wrap;"></textarea>
@@ -97,7 +98,7 @@
                             <div th:unless="${cardUpdateForm.answerImagePath == 'default.jpg'}">
                                 <img th:src="${answerImage}" 
                                           alt="Deck Image" 
-                                          class="mx-auto mb-4"/>
+                                          class="mx-auto mb-4 col-6"/>
                             </div>
                             
                         </div>
@@ -113,7 +114,7 @@
 <!--                    <input type="hidden" th:field="*{answerImagePath}">-->
 <!--                    <input type="file" th:field="*{answerImageFile}">-->
 <!--                </div>-->
-                <div class="mx-auto col-5 text-start my-5">
+                <div class="mx-auto col-6 text-start my-5">
                     <h3 class="text-center h4">カード評価</h3>
                     <label  class="form-label fw-bold">
                         変更前： <span th:text="${card.cardResult.rating}" class="fw-normal"></span>

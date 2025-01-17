@@ -81,6 +81,17 @@ public class MessageConst {
     /** デッキ作成画面：デッキ作成画像サイズ失敗 */
     public static final String DECKEDIT_IMAGE_SIZE_FAILED = "deckEdit.imageSizeFailed";
     
+    /** デッキ更新画面：デッキ作成完了 */
+    public static final String UPDATEDECK_UPDATE_SUCCEED = "updateDeck.updateSucceed";
+
+    /** デッキ更新画面：デッキ作成DB失敗 */
+    public static final String UPDATEDECK_DB_FAILED = "updateDeck.dbFailed";
+
+    /** デッキ更新画面：デッキ作成画像サイズ失敗 */
+    public static final String UPDATEDECK_IMAGE_SIZE_FAILED = "updateDeck.imageSizeFailed";
+
+    /** デッキ更新画面：デッキ作成画像処理失敗 */
+    public static final String UPDATEDECK_IMAGE_FAILED = "updateDeck.imageFailed";
     
     /** カード一覧画面：存在しないカードID */
     public static final String CARDLIST_NON_EXISTED_CARD_ID = "cardList.nonExistedCardId";
@@ -88,28 +99,34 @@ public class MessageConst {
     /** カード一覧画面：カード削除完了 */
     public static final String CARDLIST_DELETE_SUCCEED = "cardList.deleteSucceed";
     
-    /** カード情報画面：カード作成完了 */
+    /** カード作成画面：カード作成完了 */
     public static final String CARDINFO_CREATE_SUCCEED = "cardInfo.createSucceed";
     
-    /** カード情報画面：カード作成DB失敗 */
+    /** カード作成画面：カード作成DB失敗 */
     public static final String CARDINFO_DB_FAILED = "cardInfo.dbFailed";
     
-    /** カード情報画面：カード作成画像処理失敗 */
+    /** カード作成画面：カード作成画像処理失敗 */
     public static final String CARDINFO_IMAGE_FAILED = "cardInfo.imageFailed";
     
-    /** カード情報画面：カード作成画像サイズ失敗 */
+    /** カード作成画面：カード作成画像サイズ失敗 */
     public static final String CARDINFO_IMAGE_SIZE_FAILED = "cardInfo.imageSizeFailed";
 
-    /** カード情報画面：カード更新完了 */
+    /** カード更新画面：カード更新完了 */
     public static final String UPDATECARD_UPDATE_SUCCEED = "updateCard.updateSucceed";
     
-    /** カード情報画面：カード更新DB失敗 */
+    /** カード更新画面：カード更新DB失敗 */
     public static final String UPDATECARD_DB_FAILED = "updateCard.dbFailed";
 
-    /** カード情報画面：カード作成画像処理失敗 */
+    /** カード更新画面：カード作成画像処理失敗 */
     public static final String UPDATECARD_IMAGE_SIZE_FAILED = "updateCard.imageSizeFailed";
 
-    /** カード情報画面：カード作成画像サイズ失敗 */
+    /** カード更新画面：カード作成画像サイズ失敗 */
     public static final String UPDATECARD_IMAGE_FAILED = "updateCard.imageFailed";
+
+    public static final String CARDFROMCSV_IMPORT_SUCCEED = "cardFromCsv.importSucceed";
+
+    public static final String CARDFROMCSV_IMPORT_FAILED = "cardFromCsv.importFailed";
+
+
 }   
 

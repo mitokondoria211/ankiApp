@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import lombok.Data;
 import com.example.ankiapp.constant.*;
 /**
- * ユーザー一覧検索用DTOクラス
+ * デッキ検索用DTOクラス
  */
 @Data
 public class DeckSearchInfo {

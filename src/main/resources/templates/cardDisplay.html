@@ -65,7 +65,7 @@
                 
                 <p id="problemSection" th:utext="${question}" style="white-space:pre-wrap;">問題内容</p>
                 <div class="text-center">
-                    <img th:src="${questionImage}">
+                    <img th:src="${questionImage}" style="max-width: 75%;">
                 </div>
             </div>
             <div class="text-center">
@@ -77,7 +77,7 @@
                 <div style="background-color: #fffeed;">
                     <p th:utext="${answer}" class="text-danger ms-2" style="white-space:pre-wrap;">解答内容</p>
                     <div class="text-center">
-                        <img th:src="${answerImage}">
+                        <img th:src="${answerImage}" style="max-width: 75%;">
                     </div>
                 </div>
 

@@ -36,11 +36,11 @@
             </div>
             <p  id="question" class="text-xl font-semibold mb-4 ms-1 pt-3 pb-3" th:utext="${card.question}" style="background-color: #fffeed;  white-space:pre-wrap;"></p>
             <div class="text-center">
-                <img th:src="${questionImage}" style="max-width: 200px;">
+                <img th:src="${questionImage}" style="max-width: 75%;">
             </div>
             <div th:text="${imagePath}"></div>
             
-            <div class="text-center mt-5">
+            <div class="text-center mt-5 pb-5">
                 <button id="showAnswerButton" class="btn btn-outline-secondary col-3">
                     解答表示
                 </button>
@@ -51,7 +51,7 @@
                 <div id="answer" class="mt-2 ms-1 text-danger"
                  th:utext="${card.answer}" style="background-color: #fffeed; white-space:pre-wrap;"></div>
                 <div class="text-center">
-                    <img th:src="${answerImage}" style="max-width: 200px;">
+                    <img th:src="${answerImage}" style="max-width: 75%;">
                 </div>
                 <div class="text-center mt-5 ">
                     <form th:action="@{/cardChallenge/{deckId}/{cardIndex}/result(deckId=${deck.deckId},cardIndex=${cardIndex})}"

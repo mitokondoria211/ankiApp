@@ -50,19 +50,19 @@ public class CardDisplayServiceImpl implements CardDisplayService{
     private String imgdefault;
     
     @Override
-    public CardInfo findCardEditorByCardId(Long cardId) {
+    public CardInfo findCardInfoByCardId(Long cardId) {
         var userInfo = userRepository.findByLoginId(getUserName());
         return repository.findByUserInfoAndCardId(userInfo, cardId);
     }
 
     @Override
-    public List<CardInfo> findCardEditor() {
+    public List<CardInfo> findCardInfos() {
         var userInfo = userRepository.findByLoginId(getUserName());
         return repository.findByUserInfo(userInfo);
     }
 
     @Override
-    public CardInfo findCardEditorByCardName(String name) {
+    public CardInfo findCardInfoByCardName(String name) {
         var userInfo = userRepository.findByLoginId(getUserName());
         return repository.findByUserInfoAndCardName(userInfo, name);
     }
@@ -87,7 +87,7 @@ public class CardDisplayServiceImpl implements CardDisplayService{
     }
 
     @Override
-    public List<CardInfo> findCardEditorByDeckId(Long deckId) {
+    public List<CardInfo> findCardInfoByDeckId(Long deckId) {
         var userInfo = userRepository.findByLoginId(getUserName());
         var deckInfo = deckRepository.findByDeckId(deckId);
         var cardInfos = repository.findByUserInfoAndDeckInfoOrderByCardId(userInfo, deckInfo);
@@ -100,7 +100,7 @@ public class CardDisplayServiceImpl implements CardDisplayService{
     }
     
     @Override
-    public void saveCardEditorInfo(CardInfo cardEditorInfo) {
+    public void saveCardInfo(CardInfo cardEditorInfo) {
         repository.save(cardEditorInfo);
     }
 
@@ -152,7 +152,7 @@ public class CardDisplayServiceImpl implements CardDisplayService{
             return cardList;
         }
         
-        return findCardEditorByDeckId(deckId);
+        return findCardInfoByDeckId(deckId);
     }
 
     @Override
@@ -160,7 +160,7 @@ public class CardDisplayServiceImpl implements CardDisplayService{
         Iterator<DeckInfo> iterator = decks.iterator();
         while(iterator.hasNext()) {
             DeckInfo deckInfo = iterator.next();
-            var cards = findCardEditorByDeckId(deckInfo.getDeckId());
+            var cards = findCardInfoByDeckId(deckInfo.getDeckId());
             if(cards.size() == 0) {
                 iterator.remove();
             }

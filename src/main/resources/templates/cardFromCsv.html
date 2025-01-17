@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>CSVファイルからカード</title>
+</head>
+<body class="bg-body-secondary">
+    <div th:insert="~{common/sourceList :: sourceList}"></div>
+    <div th:replace="~{common/header :: header}"></div>
+    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
+    <div th:replace="~{common/messageIcon :: messageIcon}"></div>
+    <div class = "container mx-auto text-center content w-75 bg-white pb-3">
+        <h1 class="my-5 pt-3 h2">CSVからデータ取得</h1>
+        <div class="alert  d-flex align-items-center mt-3 w-50 mx-auto"  role="alert"th:classappend="${isError ? 'alert-danger' : 'alert-primary'}" th:if="${message != null}">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+                    <use xlink:href="#exclamation-triangle-fill" th:if="${isError}"/>
+                    <use xlink:href="#info-fill" th:unless="${isError}"/>
+                </svg>
+                <span th:text="${message}"></span>
+        </div>
+        <form th:action="@{/cardFromCsv}" method="post" enctype="multipart/form-data" th:object="${cardCsvForm}">
+            <div class="col-5 mx-auto" th:if="${cardCsvInfos == null}">
+                <div class="align-items-center d-flex flex-row mb-3 justify-content-center">
+                    <label class="col-form-label h4">デッキ：　</label>
+                    <div>
+                        <select name="deckId" th:field="*{deckId}" class="form-select">
+                            <option th:each="deck   : ${deckInfos}"
+                                          th:value="${deck.deckId}"
+                                          th:text="${deck.title}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="my-5">
+                    <label class="col-form-label h4">CSVファイル：</label>
+                    <input type="file" th:field="*{csvFile}">
+                </div>
+
+
+                <div th:each="card  :${cardCsvInfos}" th:if="${cardCsvInfos != null}">
+                    <div th:text="${card.cardName}"></div>
+                </div>
+                <div class="mt-4"><button type="submit" class="btn btn-success">選択</button></div>
+            </div>
+
+
+            
+            
+        </form>
+        <div class="mt-3 text-start" th:if="${cardCsvInfos != null}">
+                <table class="table table-striped" id="cardList">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">カード名</th>
+                            <th scope="col">問題</th>
+                            <th scope="col">解答</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="card, stat  : ${cardCsvInfos}">
+                            <th scope="row" th:text="${stat.count}"></th>
+                            <td th:id="|cardName_${stat.count}|"><span th:text="${#strings.length(card.cardName) > 10 ? #strings.substring(card.cardName,0,10) + '...' : card.cardName}"></span></td>
+                            <td th:id="|question_${stat.count}|"><span th:text="${#strings.length(card.question) > 20 ? #strings.substring(card.question,0,20) + '...' : card.question}"></span></td>
+                            <td th:id="|answer_${stat.count}|"><span th:text="${#strings.length(card.answer) > 20 ? #strings.substring(card.answer,0,20) + '...' : card.answer}"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="mt-3 text-center">
+                    <a th:href="@{/cardFromCsv}" class="btn btn-success">カード管理</a>
+                </div>
+        </div>
+
+    </div>
+</body>
+</html>

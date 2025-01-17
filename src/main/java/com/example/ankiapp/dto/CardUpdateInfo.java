@@ -4,9 +4,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.ankiapp.constant.db.CardAnswerResult;
 import lombok.Data;
 
-
 /**
- * ユーザー更新情報DTOクラス
+ * カード更新情報DTOクラス
  */
 @Data
 public class CardUpdateInfo {

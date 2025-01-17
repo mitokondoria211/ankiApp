@@ -7,35 +7,70 @@
 <body>
     <div th:insert="~{common/sourceList :: sourceList}"></div>
     <div th:replace="~{common/header :: header}"></div>
+    <div th:replace="~{common/messageIcon :: messageIcon}"></div>
     <div th:replace="~{common/menuHeader :: menuHeader}"></div>
     <div class = "container-fluid mx-auto text-center w-75">
-        <h2 class="text-center mt-5">デッキ更新</h2>
-        <h3 th:text="${title} + 'デッキの更新'" class="text-center"></h3>
-        <form th:action="@{/updateDeck}" method="post" enctype="multipart/form-data" th:object="${updateDeckForm}">
+        <h1 class="text-center mt-5 h2">デッキ更新</h1>
+        <div class="alert  d-flex mx-auto align-items-center col-6" 
+                th:classappend="${isError ? 'alert-danger' : 'alert-primary'}" 
+                role="alert" 
+                th:if="${message != null}" >
+            <div class="d-flex align-items-center w-100">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+                    <use xlink:href="#exclamation-triangle-fill" th:if="${isError}"/>
+                    <use xlink:href="#info-fill" th:unless="${isError}"/>
+                </svg>
+                <span class="w-100 text-start ps-3" th:utext="${message}"></span>
+            </div>
+        </div>
+        <h3 th:text="'デッキ：' + ${title} + ' の更新'" class="mx-auto col-6"></h3>
+        <form th:action="@{/updateDeck}" method="post" enctype="multipart/form-data" th:object="${deckUpdateForm}">
             <input type="hidden" th:field="*{deckId}" />
             <div class="mt-3 " th:each="deck: ${updateDeck}">
-                <div class="mx-auto col-5 text-start">
-                    <label th:text="'変更前タイトル:  ' + (${deck.title})" class="form-label"></label>
+                <div class="mx-auto col-6 my-5 text-start">
+                    <h3 class="text-center h4">タイトル</h3>
+                    <label class="form-label fw-bold d-flex">
+                        <span class="flex-shrink-0">変更前： </span>
+                        <span th:text="${deck.title}" class="fw-normal text-break" style="white-space: pre-wrap;"></span>     
+                    </label>
                     <input type="text"class="form-control" th:field="*{title}">
+                    <div class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
                 </div>
-                <div class="mx-auto col-5 text-start mt-3 mb-3">
-                    <label th:text="'変更前説明:  ' + ${deck.description}" class="form-label text-break"style="white-space: pre-wrap;"></label>
+                <div class="mx-auto col-6 text-start mt-3 mb-3">
+                    <h3 class="text-center h4">説明</h3>
+                    <label class="form-label fw-bold d-flex">
+                        <span class="flex-shrink-0">変更前：</span>
+                        <span th:text="${deck.description}" class="fw-normal text-break" style="white-space: pre-wrap;"></span>     
+                    </label>
                     <textarea class="form-control" th:field="*{description}"style="white-space: pre-wrap;"></textarea>
+                    <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
                 </div>
-                <div class="mt-4 mb-4">
+                <div class="my-5">
                     <div>
-                        <img th:src="${deckImage}" alt="Deck Image"
-                                                class="mx-auto mb-4"/>
+                        <h3 class="text-center h4 mb-3">画像</h3>
+                        <label  class="form-label fw-bold">変更前</label>
+                            
+                        <div th:if="${deckUpdateForm.imagePath == 'default.jpg'}" 
+                                class="my-4">
+                            画像なし
+                        </div>
+                        <div th:unless="${deckUpdateForm.imagePath == 'default.jpg'}">
+                            <img th:src="${deckImage}" 
+                                      alt="Deck Image" 
+                                      class="mx-auto mb-4 col-6"/>
+                        </div>
                     </div>
-                        <p><label class="fw-bold">画像:</label><br>
-                        <input type="file" th:field="*{imageFile}">
+                    <input type="hidden" th:field="*{imagePath}">
+                    <input type="file" th:field="*{imageFile}">
                 </div>
-                <input type="submit" class="btn btn-primary" value="更新">
             </div>
+            <div class="mb-4">
+                <input type="submit" class="btn btn-success" value="更新">
+            </div>
+            
         </form>
         
     
-    <div class="mb-5 mt-5"><a th:href="@{/menu}">▶ トップメニュー画面はこちら</a></div>
-    <div><a th:href="@{/login}" >▶ ログイン画面はこちら</a></div>
+  
 </body>
 </html>

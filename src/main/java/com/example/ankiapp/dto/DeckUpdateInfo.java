@@ -4,7 +4,7 @@ import lombok.Data;
 
 
 /**
- * ユーザー更新情報DTOクラス
+ * デッキ更新情報DTOクラス
  */
 @Data
 public class DeckUpdateInfo {

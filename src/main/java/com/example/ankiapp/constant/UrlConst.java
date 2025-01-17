@@ -2,9 +2,6 @@ package com.example.ankiapp.constant;
 
 /**
  * URL定数クラス
- * 
- * @author ys-fj
- *
  */
 public class UrlConst {
 
@@ -39,29 +36,44 @@ public class UrlConst {
 
     public static final String DECK = "/deck";
     
+    /**デッキメニュー画面*/
     public static final String DECK_MENU = "/deckMenu";
 
+    /**デッキ作成画面*/
     public static final String DECK_INFO = "/deckInfo";
     
+    /**デッキ更新画面*/
     public static final String UPDATE_DECK = "/updateDeck";
     
+    /**デッキリスト画面*/
     public static final String DECK_LIST = "/deckList";
     
+    /**カードメニュー画面*/
     public static final String CARD_MENU = "/cardMenu";
 
+    /**カード練習画面*/
     public static final String CARD_DISPLAY = "/cardDisplay";
     
+    /**カードリスト画面*/
     public static final String CARD_LIST = "/cardList";
     
+    /**カード作成画面*/
+    public static final String CREATE_DECK = "/createDeck";
+    
+    /**カード更新画面*/
     public static final String UPDATE_CARD = "/updateCard";
     
+    /**チャレンジ完了画面*/
     public static final String CHALLENGE_COMPLETE = "/challengeComplete";
     
+    /**デッキ選択画面*/
     public static final String SELECT_DECK = "/selectDeck";
     
+    /**カード挑戦画面*/
     public static final String CARD_CHALLENGE= "/cardChallenge";
+
+    public static final String CARD_FROM_CSV = "/cardFromCsv";
     
-    public static final String CREATE_DECK = "/createDeck";
     
     
     

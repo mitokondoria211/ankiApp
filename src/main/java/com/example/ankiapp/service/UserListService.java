@@ -18,7 +18,7 @@ public interface UserListService {
     /**
      *ユーザー情報を条件検索した結果を画面の表示用に変換して返却します
      *
-     *@param dto検索氏に使用するパラメーター
+     *@param dto検索に使用するパラメーター
      *@return 検索結果
      */
     public List<UserListInfo> editUserListByParam(UserSearchInfo dto);

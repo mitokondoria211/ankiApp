@@ -11,13 +11,17 @@
     <div th:replace="~{common/messageIcon :: messageIcon}"></div>
     <div class = "container-fluid mx-auto text-center mt-5 pt-3 w-75">
         <h1 class="text-center  h2">デッキ作成</h1>
-        <div class="alert  d-flex align-items-center mx-auto col-6 text-center" th:classappend="${isError ? 'alert-danger' : 'alert-primary'}" role="alert" 
-        th:if="${message != null}" >
-            <svg class="bi flex-shrink-0 me-2" width="24" height="24">
-                <use xlink:href="#exclamation-triangle-fill" th:if="${isError}"/>
-                <use xlink:href="#info-fill" th:unless="${isError}"/>
-            </svg>
-            <span th:text="${message}"></span>
+        <div class="alert  d-flex mx-auto align-items-center col-6" 
+                th:classappend="${isError ? 'alert-danger' : 'alert-primary'}" 
+                role="alert" 
+                th:if="${message != null}" >
+            <div class="d-flex align-items-center w-100">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+                    <use xlink:href="#exclamation-triangle-fill" th:if="${isError}"/>
+                    <use xlink:href="#info-fill" th:unless="${isError}"/>
+                </svg>
+                <span class="w-100 text-start ps-3" th:utext="${message}"></span>
+            </div>
         </div>
         <form class="form-group text-center" th:action ="@{/createDeck}" enctype="multipart/form-data" method="post" th:object = "${deckForm}">
             <div class="mx-auto mt-4">

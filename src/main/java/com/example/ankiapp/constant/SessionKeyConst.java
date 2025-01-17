@@ -9,5 +9,6 @@ public class SessionKeyConst {
     /**選択されたログインID*/
     public static final String SELECTED_LOGIN_ID = "selectedLoginId";
     
+    /**ワンタイムコードのログインId*/
     public static final String ONE_TIME_AUTH_LOGIN_ID = "oneTimeAuthLoginId";
 }

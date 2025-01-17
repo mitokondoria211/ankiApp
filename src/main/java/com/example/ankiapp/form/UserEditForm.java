@@ -6,7 +6,7 @@ import lombok.Data;
 
 
 /**
- * ユーザー登録画面Formクラス
+ * ユーザー編集画面Formクラス
  */
 @Data
 public class UserEditForm {

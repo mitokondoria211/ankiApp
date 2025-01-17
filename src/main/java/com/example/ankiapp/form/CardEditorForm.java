@@ -9,25 +9,32 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 /**
- * ログイン画面 Form
+ * カード編集 Form
  */
 @Data
 public class CardEditorForm {
     
+    /**デッキID*/
     private Long deckId;
     
+    /**カード名*/
     @NotBlank
     @Length(min = 4, max = 25, message="{cardName.cardEditorForm.length}")
     private String cardName;
+    
+    /**問題*/
     @NotBlank
     @Length(min = 4, max = 1000, message="{question.cardEditorForm.length}")
     private String question;
+    
+    /**解答*/
     @NotBlank
     @Length(min = 1, max = 1000, message="{answer.cardEditorForm.length}")
     private String answer;
     
-    /**画像*/
+    /**問題画像*/
     private MultipartFile QuestionImageFile;
-    /**画像*/
+    
+    /**解答画像*/
     private MultipartFile AnswerImageFile;
 }

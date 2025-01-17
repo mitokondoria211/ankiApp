@@ -69,6 +69,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
         Path imgFolderPath =getDeckCardsDirectory(userName, deckId);
         Path imgFilePath = imgFolderPath.resolve(fileName);
         Files.createDirectories(imgFolderPath);
+        Files.deleteIfExists(imgFilePath);
         Files.copy(file.getInputStream(), imgFilePath);
         return fileName;
     }
@@ -81,6 +82,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
         Path imgFolderPath =getDeckCardsDirectory(userName, deckId);
         Path imgFilePath = imgFolderPath.resolve(fileName);
         Files.createDirectories(imgFolderPath);
+        Files.deleteIfExists(imgFilePath);
         Files.copy(file.getInputStream(), imgFilePath);
         return fileName;
     }
@@ -94,6 +96,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
         Path imgFolderPath =getDeckDirectory(userName, deckId);
         Path imgFilePath = imgFolderPath.resolve(fileName);
         Files.createDirectories(imgFolderPath);
+        Files.deleteIfExists(imgFilePath);
         Files.copy(file.getInputStream(), imgFilePath);
         
         return fileName;

@@ -3,6 +3,10 @@ package com.example.ankiapp.constant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+
+/**
+ *デッキ作成結果種別 
+ */
 @Getter
 @AllArgsConstructor
 public enum CreateDeckResult {
@@ -14,12 +18,12 @@ public enum CreateDeckResult {
     FAILURE_BY_DB_ERROR(MessageConst.DECKEDIT_DB_FAILED),
     
     /**画像サイズエラー*/
-    FAILURE_BY_IMAGE_SIZE_ERROR(MessageConst.DECKEDIT_IMAGE_FAILED),
+    FAILURE_BY_IMAGE_SIZE_ERROR(MessageConst.DECKEDIT_IMAGE_SIZE_FAILED),
     
     /**画像処理エラー*/
-    FAILURE_BY_IMAGE_ERROR(MessageConst.CARDINFO_IMAGE_SIZE_FAILED);
+    FAILURE_BY_IMAGE_ERROR(MessageConst.CARDINFO_IMAGE_FAILED);
 
-    
+    /**メッセージID*/
     private String messageId;
     
     @Override

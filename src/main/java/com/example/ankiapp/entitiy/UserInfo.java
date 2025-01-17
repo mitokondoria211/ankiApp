@@ -54,13 +54,11 @@ public class UserInfo {
 	/**ユーザー情報種別*/
 	@Column(name = "is_disabled", nullable = false)
 	@Convert(converter = UserStatusConverter.class)
-//	private boolean isDisabled = false;
 	private UserStatusKind userStatusKind;
 	
 	/**ユーザー権限種別*/
 	@Column(name = "authority", nullable = false)
 	@Convert(converter = UserAuthorityConverter.class)
-//	private String authority;
 	private AuthorityKind authorityKind;
 	
 	/**登録完了*/

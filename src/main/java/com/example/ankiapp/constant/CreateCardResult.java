@@ -3,6 +3,10 @@ package com.example.ankiapp.constant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+
+ /**
+ * カード作成結果種別
+ */
 @Getter
 @AllArgsConstructor
 public enum CreateCardResult {
@@ -19,7 +23,7 @@ public enum CreateCardResult {
     /**画像処理エラー*/
     FAILURE_BY_IMAGE_ERROR(MessageConst.CARDINFO_IMAGE_FAILED);
 
-    
+    /**メッセージID*/
     private String messageId;
     
     @Override

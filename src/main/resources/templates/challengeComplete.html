@@ -11,7 +11,7 @@
         <h1 class="text-3xl font-bold text-center mb-8">挑戦完了</h1>
         
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 text-center ">
-            <h2 class="mt-3">全ての問題を解き終わりました。</h2>
+            <h2 class="my-5">全ての問題を解き終わりました。</h2>
             <div th:if="${cardResults != null and cardResults.length > 0}" 
                 class="text-center d-flex justify-content-center mt-3"
                  style="background-color: #fffeed;">
@@ -27,9 +27,12 @@
             <p class="mt-4 fw-bold">合計カード数: <span th:text="${totalCards}"></span> 枚</p>
 
         </div>
-        <a th:href="@{/selectDeck}" class="btn btn-outline-primary">
-             デッキ選択に戻る
-        </a>
+        <div class="pb-3">
+            <a th:href="@{/selectDeck}" class="btn btn-outline-success">
+                 デッキ選択に戻る
+            </a>
+        </div>
+
     </div>
 </body>
 </html>

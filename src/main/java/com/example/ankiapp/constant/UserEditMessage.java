@@ -5,7 +5,7 @@ import lombok.Getter;
 
 
 /**
- *ユーザー更新結果メッセージEnumクラス 
+ *ユーザー更新結果メッセージ種別
  */
 @Getter
 @AllArgsConstructor

@@ -6,7 +6,7 @@ import com.example.ankiapp.constant.*;
 import com.example.ankiapp.constant.db.CardAnswerResult;
 import com.example.ankiapp.entitiy.DeckInfo;
 /**
- * ユーザー一覧検索用DTOクラス
+ * カード一覧検索用DTOクラス
  */
 @Data
 public class CardSearchInfo {
@@ -17,10 +17,10 @@ public class CardSearchInfo {
     /**カード名*/
     private String cardName;
     
-    /**カード名*/
+    /**問題*/
     private String question;
     
-    /**カード名*/
+    /**解答*/
     private String answer;
     
     /**カード評価*/
@@ -35,8 +35,10 @@ public class CardSearchInfo {
     /**更新日時*/
     private LocalDateTime updatedAt;
     
+    /**デッキID*/
     private Long deckId;
     
+    /**デッキ情報*/
     private DeckInfo deckInfo;
     
 }

@@ -1,6 +1,7 @@
 package com.example.ankiapp.form;
 
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 import lombok.Data;
 
@@ -10,15 +11,22 @@ import lombok.Data;
 @Data
 public class DeckUpdateForm {
     
-    /**デッキタイトル*/
+    /**デッキID*/
     private Long deckId;
     
     /**デッキタイトル*/
+    @Length(min = 5, max = 30, message = "{title.deckUpdateForm.length}")
     private String title;
     
     /**デッキ説明*/
+    @Length(max = 50, message = "{description.deckUpdateForm.length}")
     private String description;
+        
+    /**デッキ画像パス*/
+    private String imagePath;
     
-    /**デッキ説明*/
+    /**デッキ画像ファイル*/
     private MultipartFile imageFile;
+    
+    
 }
