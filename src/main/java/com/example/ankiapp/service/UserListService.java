@@ -4,7 +4,7 @@ import java.util.List;
 import com.example.ankiapp.constant.UserDeleteResult;
 import com.example.ankiapp.dto.UserListInfo;
 import com.example.ankiapp.dto.UserSearchInfo;
-;
+
 
 public interface UserListService {
 
