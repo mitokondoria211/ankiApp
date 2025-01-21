@@ -264,6 +264,15 @@ public class CardDisplayController {
     
 
     
+    /**
+     * @param deckId
+     * @param cardIndex
+     * @param result
+     * @param form
+     * @param model
+     * @return
+     * @throws IOException
+     */
     @PostMapping(UrlConst.CARD_CHALLENGE + "/{deckId}/{cardIndex}/result")
     public String submitCardResult(@PathVariable Long deckId, 
             @PathVariable int cardIndex, 
