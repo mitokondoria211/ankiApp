@@ -1,6 +1,7 @@
 package com.example.ankiapp.service;
 
 import java.util.List;
+import com.example.ankiapp.constant.DeckDeleteResult;
 import com.example.ankiapp.dto.DeckListInfo;
 import com.example.ankiapp.dto.DeckSearchInfo;
 
@@ -16,4 +17,6 @@ public interface DeckListService {
     
     public List<DeckListInfo> editDeckListByParam(DeckSearchInfo dto);
     
+    public DeckDeleteResult deleteDeckInfoByDeckId(Long selectedDeckId);
+
 }

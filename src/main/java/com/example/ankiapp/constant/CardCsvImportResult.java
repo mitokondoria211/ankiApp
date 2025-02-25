@@ -5,13 +5,13 @@ import lombok.Getter;
 
 
  /**
- * カード削除結果種別
+ * カードCSV取り込み結果種別
  */
 @Getter
 @AllArgsConstructor
 public enum CardCsvImportResult {
     
-    /**エラーなし*/
+    /**成功*/
     SUCCEED(MessageConst.CARDFROMCSV_IMPORT_SUCCEED),
     
     /**エラーなし*/

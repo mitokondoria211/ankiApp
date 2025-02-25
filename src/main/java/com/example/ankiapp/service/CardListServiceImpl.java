@@ -193,7 +193,7 @@ public class CardListServiceImpl implements CardListService {
     }
 
     @Override
-    public CardDeleteResult deleteCardEditorInfoByCardId(Long selectedCardId) {
+    public CardDeleteResult deleteCardInfoByCardId(Long selectedCardId) {
         var cardInfo = repository.findByCardId(selectedCardId);
         if(cardInfo == null) {
             return CardDeleteResult.ERROR;

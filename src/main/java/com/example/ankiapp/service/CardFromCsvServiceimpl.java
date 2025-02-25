@@ -3,15 +3,22 @@ package com.example.ankiapp.service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.springframework.stereotype.Service;
 import com.example.ankiapp.constant.CardCsvImportResult;
+import com.example.ankiapp.constant.db.CardAnswerResult;
 import com.example.ankiapp.dto.CardCsvInfo;
 import com.example.ankiapp.entitiy.CardInfo;
+import com.example.ankiapp.entitiy.UserInfo;
 import com.example.ankiapp.form.CardCsvForm;
 import com.example.ankiapp.repository.CardInfoRepository;
+import com.example.ankiapp.repository.DeckInfoRepository;
+import com.example.ankiapp.repository.UserInfoRepository;
+import com.example.ankiapp.utilty.AppUtility;
+import com.github.dozermapper.core.Mapper;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +29,13 @@ import lombok.var;
 public class CardFromCsvServiceimpl implements CardFromCsvService{
 
     private final CardInfoRepository repository;
+    
+    private final UserInfoRepository userInfoRepository;
+    
+    private final DeckInfoRepository deckInfoRepository;
+    
+    /**Dozer Mapper*/
+    private final Mapper mapper;
     
     @Override
     public List<CardCsvInfo> getCardFromCsv(CardCsvForm form) {
@@ -96,10 +110,23 @@ public class CardFromCsvServiceimpl implements CardFromCsvService{
         }
         
         for(CardCsvInfo card: cardCsvInfos) {
-            var cardInfo = new CardInfo();
+            var cardInfo = mapper.map(card, CardInfo.class) ;
+            var userInfo = getUserInfo();
+            var deckInfo = deckInfoRepository.findByDeckId(card.getDeckId());
+            cardInfo.setCardResult(CardAnswerResult.UNRATED);
+            cardInfo.setUserInfo(userInfo);
+            cardInfo.setDeckInfo(deckInfo);
+            cardInfo.setCreatedAt(LocalDateTime.now());
+            cardInfo.setUpdatedAt(LocalDateTime.now()); 
+            
+            repository.save(cardInfo);
         }
         
         return CardCsvImportResult.SUCCEED;
+    }
+    
+    private UserInfo getUserInfo() {
+        return userInfoRepository.findByLoginId(AppUtility.getUsername());
     }
 
  

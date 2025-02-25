@@ -4,16 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.example.ankiapp.constant.CardDeleteResult;
+import com.example.ankiapp.constant.DeckDeleteResult;
 import com.example.ankiapp.constant.SortType;
 import com.example.ankiapp.dto.DeckListInfo;
 import com.example.ankiapp.dto.DeckSearchInfo;
 import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.entitiy.UserInfo;
+import com.example.ankiapp.repository.CardInfoRepository;
 import com.example.ankiapp.repository.DeckInfoRepository;
 import com.example.ankiapp.repository.UserInfoRepository;
 import com.example.ankiapp.utilty.AppUtility;
 import com.github.dozermapper.core.Mapper;
 import lombok.RequiredArgsConstructor;
+import lombok.var;
 
 
 
@@ -30,6 +34,8 @@ public class DeckListServiceImpl implements DeckListService {
     
 	/** ユーザー情報テーブルDAO*/
 	private final DeckInfoRepository repository;
+	
+	private final CardInfoRepository cardInfoRepository;
 	
 	/**Dozer Mapper*/
 	private final Mapper mapper;
@@ -92,6 +98,17 @@ public class DeckListServiceImpl implements DeckListService {
         }
         return repository.findByUserInfoAndTitleLikeOrderByDeckId(getUserInfo(), titleParam);
         
+    }
+    
+    @Override
+    public DeckDeleteResult deleteDeckInfoByDeckId(Long selectedDeckId) {
+        var deckInfo = repository.findByDeckId(selectedDeckId);
+        if(deckInfo == null) {
+            return DeckDeleteResult.ERROR;
+        }
+//        cardInfoRepository.deleteByDeckId(selectedDeckId);
+        repository.deleteById(selectedDeckId);
+        return DeckDeleteResult.SUCCEED;
     }
 
 }

@@ -72,7 +72,7 @@ public class CardInfo {
     @Column(name="answer_image_path")
     private String answerImagePath;
     
-    /**解答カードの画像パス*/
+    /**カードの回答結果*/
     @Column(name="card_result")
     @Convert(converter = CardAnswerResultConverter.class)
     private CardAnswerResult cardResult;

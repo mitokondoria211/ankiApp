@@ -1,9 +1,12 @@
 package com.example.ankiapp.controller;
 
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import com.example.ankiapp.constant.CardDeleteResult;
+import com.example.ankiapp.constant.DeckDeleteResult;
 import com.example.ankiapp.constant.SortType;
 import com.example.ankiapp.constant.UrlConst;
 import com.example.ankiapp.constant.ViewNameConst;
@@ -22,6 +25,9 @@ public class DeckListController {
 //    private final DeckInfoService deckInfoService;
     
     private final DeckListService deckListService;
+    
+    /**メッセージソース*/
+    private final MessageSource messageSource;
     
     /**Dozer Mapper*/
     private final Mapper mapper;
@@ -71,5 +77,13 @@ public class DeckListController {
 //        var deckUpdateInfo = new DeckUpdateInfo();
 //        deckUpdateInfo.setDeckId(form.getSelectedDeckId());
         return AppUtility.doRedirect(UrlConst.UPDATE_DECK +"/" + form.getSelectedDeckId());
+    }
+    
+    @PostMapping(value=UrlConst.DECK_LIST, params = "delete")
+    public String deleteDeck(DeckListForm form, Model model) {
+        var executeResult = deckListService.deleteDeckInfoByDeckId(form.getSelectedDeckId());
+        model.addAttribute("isError", executeResult == DeckDeleteResult.ERROR);
+        model.addAttribute("message", AppUtility.getMessage(messageSource, executeResult.getMessageId()));
+        return searchDeck(model, form);
     }
 }

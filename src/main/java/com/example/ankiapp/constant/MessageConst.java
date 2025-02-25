@@ -127,6 +127,10 @@ public class MessageConst {
 
     public static final String CARDFROMCSV_IMPORT_FAILED = "cardFromCsv.importFailed";
 
+    public static final String DECKLIST_DELETE_SUCCEED = "deckList_deleteSucceed";
+
+    public static final String DECKLIST_NON_EXISTED_DECK_ID = "deckList_nonExistedDeckId";
+
 
 }   
 

@@ -30,7 +30,7 @@ public interface CardListService {
 //     * @param selectedLoginId
 //     * @return 実行結果(エラー有無)
 //     */
-    CardDeleteResult deleteCardEditorInfoByCardId(Long selectedCardId);
+    CardDeleteResult deleteCardInfoByCardId(Long selectedCardId);
 
 
 }

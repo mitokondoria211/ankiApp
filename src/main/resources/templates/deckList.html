@@ -11,8 +11,14 @@
 <div th:replace="~{common/messageIcon :: messageIcon}"></div>
 <script type="text/javascript" th:src="@{/js/deckList.js}"></script>
 <div class="container-fluid mx-auto mt-5 content w-75">
-    <h2 class="mt-5 text-center">デッキ管理</h2>
-
+    <h2 class="text-center">デッキ管理</h2>
+    <div class="alert  d-flex align-items-center mt-3 w-50 mx-auto"  role="alert"th:classappend="${isError ? 'alert-danger' : 'alert-primary'}" th:if="${message != null}">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+            <use xlink:href="#exclamation-triangle-fill" th:if="${isError}"/>
+            <use xlink:href="#info-fill" th:unless="${isError}"/>
+        </svg>
+        <span th:text="${message}"></span>
+    </div>
     <form th:action="@{/deckList}" method="post" th:object="${deckListForm}">
         <div class="mt-1">
             <div class="my-3">
@@ -70,9 +76,12 @@
                         </tr>
                     </tbody>
                 </table>
-                <input type="text" th:field="*{selectedDeckId}" hidden>
-                <input type="submit" class="btn btn-secondary" id="editBtn" name="edit" value="編集" disabled>
-                <input type="button" class="btn btn-danger" id="deleteDummyBtn" data-bs-toggle="modal" data-bs-target="#deleteConfirm" value="削除" disabled>
+                <div class="my-3">
+                    <input type="text" th:field="*{selectedDeckId}" hidden>
+                    <input type="submit" class="btn btn-secondary" id="editBtn" name="edit" value="編集" disabled>
+                    <input type="button" class="btn btn-danger" id="deleteDummyBtn" data-bs-toggle="modal" data-bs-target="#deleteConfirm" value="削除" disabled>
+                    <input type="submit" id="deleteBtn" name="delete" hidden>
+                </div>
         </div>
     </form>
 </div>

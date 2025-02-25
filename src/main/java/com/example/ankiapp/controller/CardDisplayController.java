@@ -192,8 +192,7 @@ public class CardDisplayController {
             model.addAttribute("form", new ChallengeConfirmForm());
             model.addAttribute("cardSize", deckCardSize);
             model.addAttribute("cardResults", cardResults);
-        }
-        
+        }     
         //カード評価が未選択以外の場合、カード評価に付随する問題と問題数をformにセット
         else {
             deckCardSize = cardDisplayService.getCardCountByCardResult(deckId, form.getCardResult());

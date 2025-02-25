@@ -82,7 +82,7 @@ public class CardListController {
     @PostMapping(value=UrlConst.CARD_LIST, params = "delete")
     public String deleteCard(Model model ,CardListForm form) {
 //        var deckUpdateInfo = new DeckUpdateInfo();
-        var executeResult = cardListService.deleteCardEditorInfoByCardId(form.getSelectedCardId());
+        var executeResult = cardListService.deleteCardInfoByCardId(form.getSelectedCardId());
         
         model.addAttribute("isError", executeResult == CardDeleteResult.ERROR);
         model.addAttribute("message", AppUtility.getMessage(messageSource, executeResult.getMessageId()));
