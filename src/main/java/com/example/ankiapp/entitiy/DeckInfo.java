@@ -46,6 +46,10 @@ public class DeckInfo {
     @Column(name="image_path")
     private String imagePath;
     
+    /**デッキの画像URL*/
+    @Column(name="image_url")
+    private String imageUrl;
+    
     /**ユーザー*/
     @ManyToOne
     @JoinColumn(name = "user_login_id", referencedColumnName = "login_id")

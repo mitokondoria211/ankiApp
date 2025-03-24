@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.example.ankiapp.constant.UpdateCardResult;
-import com.example.ankiapp.constant.UpdateDeckResult;
+import com.example.ankiapp.constant.CardUpadateResult;
+import com.example.ankiapp.constant.DeckUpdateResult;
 import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.entitiy.UserInfo;
 import com.example.ankiapp.form.DeckUpdateForm;
@@ -43,7 +43,7 @@ public class DeckEditServiceImpl implements DeckEditService{
     private String imgdefault;
 
     @Override
-    public UpdateDeckResult updateDeck(DeckInfo deckInfo, DeckUpdateForm form) throws IOException {
+    public DeckUpdateResult updateDeck(DeckInfo deckInfo, DeckUpdateForm form) throws IOException {
         deckInfo.setTitle(form.getTitle());
         deckInfo.setDescription(form.getDescription());
         
@@ -62,9 +62,9 @@ public class DeckEditServiceImpl implements DeckEditService{
             }
             repository.save(deckInfo);
         }catch(DataIntegrityViolationException e) {
-            return UpdateDeckResult.FAILURE_BY_DB_ERROR;
+            return DeckUpdateResult.FAILURE_BY_DB_ERROR;
         }catch (RuntimeException e) {
-            return UpdateDeckResult.FAILURE_BY_IMAGE_ERROR;
+            return DeckUpdateResult.FAILURE_BY_IMAGE_ERROR;
         }
         
         
@@ -84,7 +84,7 @@ public class DeckEditServiceImpl implements DeckEditService{
 //        
 //        repository.save(deckInfo);
         
-        return UpdateDeckResult.SUCCEED;
+        return DeckUpdateResult.SUCCEED;
     }
 
     private String searchFileName(Long deckId) {

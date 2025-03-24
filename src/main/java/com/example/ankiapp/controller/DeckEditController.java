@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.example.ankiapp.constant.CreateDeckResult;
+import com.example.ankiapp.constant.DeckCreateResult;
 import com.example.ankiapp.constant.UrlConst;
 import com.example.ankiapp.constant.ViewNameConst;
 import com.example.ankiapp.form.DeckForm;
@@ -23,6 +23,7 @@ import lombok.var;
 @RequiredArgsConstructor
 public class DeckEditController {
     
+    /** ユーザー画面Serviceクラス */
     private final DeckInfoService service;
     
     private final MessageSource messageSource;
@@ -70,7 +71,7 @@ public class DeckEditController {
         }
         
         var result = service.createDeck(deckForm);
-        boolean isError = result != CreateDeckResult.SUCCEED;
+        boolean isError = result != DeckCreateResult.SUCCEED;
         
         if(isError) {
             editGuideMessage(deckForm, bdResult, result.getMessageId(), redirectAttributes);

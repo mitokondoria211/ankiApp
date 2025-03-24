@@ -8,7 +8,9 @@ import lombok.Data;
 @Data
 public class DeckDisplayInfo {
 
+    /**デッキID*/
     private Long deckId;
     
+    /**デッキ画像*/
     private String deckImage;
 }

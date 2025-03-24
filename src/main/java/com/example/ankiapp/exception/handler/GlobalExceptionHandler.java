@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.example.ankiapp.constant.CreateCardResult;
-import com.example.ankiapp.constant.CreateDeckResult;
-import com.example.ankiapp.constant.UpdateCardResult;
+import com.example.ankiapp.constant.CardCreateResult;
+import com.example.ankiapp.constant.DeckCreateResult;
+import com.example.ankiapp.constant.CardUpadateResult;
 import com.example.ankiapp.constant.UrlConst;
 import com.example.ankiapp.utilty.AppUtility;
 import jakarta.servlet.http.HttpServletRequest;
@@ -84,16 +84,16 @@ public class GlobalExceptionHandler {
             addErrorAttribute(
                     redirectAttributes, 
                     messageSource,
-                    CreateCardResult.FAILURE_BY_IMAGE_SIZE_ERROR);
+                    CardCreateResult.FAILURE_BY_IMAGE_SIZE_ERROR);
         }else if(originalUrl.contains(UrlConst.UPDATE_CARD)) {
             addErrorAttribute(
                     redirectAttributes,
                     messageSource,
-                    UpdateCardResult.FAILURE_BY_IMAGE_SIZE_ERROR);
+                    CardUpadateResult.FAILURE_BY_IMAGE_SIZE_ERROR);
         }else if(originalUrl.contains(UrlConst.CREATE_DECK)) {
             addErrorAttribute(redirectAttributes,
                     messageSource,
-                    CreateDeckResult.FAILURE_BY_IMAGE_SIZE_ERROR);
+                    DeckCreateResult.FAILURE_BY_IMAGE_SIZE_ERROR);
         }
 //        } else if (requestUrl.contains("/deck/")) {
 //            redirectAttributes.addFlashAttribute("createDeckResult", 

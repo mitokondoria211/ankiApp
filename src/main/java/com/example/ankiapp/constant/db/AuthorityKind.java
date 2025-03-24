@@ -36,7 +36,6 @@ public enum AuthorityKind {
      * @return 引数の権限種別コード値に対応するEnum、ただし見つからなかった場合はUNKNOWN
      */
     public static AuthorityKind from(String code) {
-        // TODO 自動生成されたメソッド・スタブ
         return Arrays.stream(AuthorityKind.values())
             .filter(AuthorityKind -> AuthorityKind.getCode().equals(code))
             .findFirst()

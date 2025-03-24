@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.example.ankiapp.constant.CreateCardResult;
+import com.example.ankiapp.constant.CardCreateResult;
 import com.example.ankiapp.constant.UrlConst;
 import com.example.ankiapp.constant.ViewNameConst;
 import com.example.ankiapp.form.CardEditorForm;
@@ -70,7 +70,7 @@ public class CardInfoController {
         }
         
         var result = service.createCardInfo(form);
-        boolean isError = result != CreateCardResult.SUCCEED;
+        boolean isError = result != CardCreateResult.SUCCEED;
         
         if(isError) {
             editGuideMessage(form, bdResult, result.getMessageId(), redirectAttributes);

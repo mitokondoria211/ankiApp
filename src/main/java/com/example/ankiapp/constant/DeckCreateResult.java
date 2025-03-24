@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum CreateDeckResult {
+public enum DeckCreateResult {
     
     /**エラーなし */
     SUCCEED(MessageConst.DECKEDIT_CREATE_SUCCEED),

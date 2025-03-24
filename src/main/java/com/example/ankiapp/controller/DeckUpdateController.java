@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.example.ankiapp.constant.UpdateCardResult;
-import com.example.ankiapp.constant.UpdateDeckResult;
+import com.example.ankiapp.constant.CardUpadateResult;
+import com.example.ankiapp.constant.DeckUpdateResult;
 import com.example.ankiapp.constant.UrlConst;
 import com.example.ankiapp.constant.ViewNameConst;
 import com.example.ankiapp.dto.DeckUpdateInfo;
@@ -97,7 +97,7 @@ public class DeckUpdateController {
         }
         
         var result = deckEditService.updateDeck(deckInfo, deckUpdateForm);
-        boolean isError = result != UpdateDeckResult.SUCCEED;
+        boolean isError = result != DeckUpdateResult.SUCCEED;
         
         if(isError) {
             editGuideMessage(deckUpdateForm, bdResult, result.getMessageId(), redirectAttributes);

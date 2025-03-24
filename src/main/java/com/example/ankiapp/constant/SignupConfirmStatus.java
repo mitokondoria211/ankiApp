@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum SignupConfirmStatus {
-
+    
     /**本更新成功 */
     SUCCEED(MessageConst.SIGNUP_CONFIRM_COMPLETE),
 

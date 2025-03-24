@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.util.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import lombok.RequiredArgsConstructor;
 
@@ -89,7 +88,6 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 
     @Override
     public String saveDeckImage(MultipartFile file, String userName,Long deckId) throws IOException {
-        // TODO 自動生成されたメソッド・スタブ
         
         String fileName =  "deck_" +deckId + imageExtract;
         // ディレクトリが存在しない場合は作成する
@@ -178,6 +176,17 @@ public class ImageStorageServiceImpl implements ImageStorageService {
             throws IOException {
         // TODO 自動生成されたメソッド・スタブ
         return null;
+    }
+    @Override
+    public void deleteDeckDirectory(String username, Long deckId) {
+        // TODO 自動生成されたメソッド・スタブ
+        Path directory = getDeckDirectory(username, deckId);
+        try {
+            Files.delete(directory);
+        } catch (IOException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+        }
     }
    
     

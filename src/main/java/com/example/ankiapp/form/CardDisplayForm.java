@@ -16,7 +16,7 @@ public class CardDisplayForm {
     /**デッキID*/
     private Long deckId;
     
-    /**カード複数*/
+    /**カードリスト*/
     private List<CardInfo> cards;
     
     /**画像パス*/

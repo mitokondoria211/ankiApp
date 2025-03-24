@@ -25,10 +25,12 @@ public class UrlConst {
 
     /** ユーザー編集画面 */
     public static final String USER_EDIT = "/userEdit";
+    
+    public static final String UPLOAD = "/upload";
 
     /** 認証不要画面 */
     public static final String[] NO_AUTHENTICATION = { LOGIN, SIGNUP, SIGNUP_CONFIRM, SIGNUP_COMPLETION,
-            "/webjars/**", "/css/**" , "/js/**"};
+            "/webjars/**", "/css/**" , "/js/**", "/upload/**"};
 
     public static final String CARD_EDITOR = "/cardEditor";
     

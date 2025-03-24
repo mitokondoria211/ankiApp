@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.example.ankiapp.constant.CreateDeckResult;
+import com.example.ankiapp.constant.DeckCreateResult;
 import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.entitiy.UserInfo;
 import com.example.ankiapp.form.DeckForm;
@@ -55,7 +55,7 @@ public class DeckInfoServiceImpl implements DeckInfoService{
     private String imgdefault;
 
     @Override
-    public CreateDeckResult createDeck(DeckForm form) throws IOException{
+    public DeckCreateResult createDeck(DeckForm form) throws IOException{
 
         var userInfo = getUserInfo();
         var deckInfo = mapper.map(form, DeckInfo.class);
@@ -82,9 +82,9 @@ public class DeckInfoServiceImpl implements DeckInfoService{
             }
             repository.save(deckInfo);
         }catch(DataIntegrityViolationException e) {
-            return CreateDeckResult.FAILURE_BY_DB_ERROR;
+            return DeckCreateResult.FAILURE_BY_DB_ERROR;
         }catch(RuntimeException e) {
-            return CreateDeckResult.FAILURE_BY_IMAGE_ERROR;
+            return DeckCreateResult.FAILURE_BY_IMAGE_ERROR;
         }
         
 //        if(!form.getImageFile().isEmpty()) {
@@ -102,7 +102,7 @@ public class DeckInfoServiceImpl implements DeckInfoService{
 //        }
 //        repository.save(deckInfo);
         
-        return CreateDeckResult.SUCCEED;
+        return DeckCreateResult.SUCCEED;
     }
 
     @Override

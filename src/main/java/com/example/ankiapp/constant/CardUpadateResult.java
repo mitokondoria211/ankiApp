@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum UpdateCardResult {
+public enum CardUpadateResult {
     
     /**エラーなし */
     SUCCEED(MessageConst.UPDATECARD_UPDATE_SUCCEED),

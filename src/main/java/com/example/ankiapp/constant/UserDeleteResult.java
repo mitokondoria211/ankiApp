@@ -10,10 +10,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum UserDeleteResult {
     
-    /**エラーなし*/
+    /**削除成功*/
     SUCCEED(MessageConst.USERLIST_DELETE_SUCCEED),
     
-    /**エラーなし*/
+    /**存在しないログインID*/
     ERROR(MessageConst.USERLIST_NON_EXISTED_LOGIN_ID);
     
     /**メッセージID*/

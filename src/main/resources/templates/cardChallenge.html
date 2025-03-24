@@ -4,12 +4,7 @@
 <meta charset="UTF-8">
 
 <title>問題挑戦</title>
-<!--<style>-->
-<!--        /* 初期状態で回答を非表示にする */-->
-<!--        #answerSection {-->
-<!--            display: none;-->
-<!--        }-->
-<!--</style>-->
+
 </head>
 <body class="bg-body-secondary">
     <div th:insert="~{common/sourceList :: sourceList}"></div>
@@ -17,8 +12,6 @@
     <div th:replace="~{common/menuHeader :: menuHeader}"></div>
     <div class = "container mx-auto text-center content  w-75 bg-white">
 
-<!--        <img src="images/yuusya_game.png" class="img-fluid mt-3" style="width: 20%; height: 20%; object-fit: cover;">-->
-<!--        <h1 th:text="${deckInfo.title}">デッキ名</h1>-->
 <form class="container" th:object=${cardDisplayForm}>
     
 </form>

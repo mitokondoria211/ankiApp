@@ -2,7 +2,7 @@ package com.example.ankiapp.constant;
 
 
 /**
- * エラーメッセージIDクラス
+ * メッセージIDクラス
  */
 public class MessageConst {
 	
@@ -89,6 +89,12 @@ public class MessageConst {
 
     /** デッキ更新画面：デッキ作成画像サイズ失敗 */
     public static final String UPDATEDECK_IMAGE_SIZE_FAILED = "updateDeck.imageSizeFailed";
+    
+    /** デッキリスト画面： デッキ削除完了*/
+    public static final String DECKLIST_DELETE_SUCCEED = "deckList_deleteSucceed";
+
+    /** デッキリスト画面： 存在しないデッキID*/
+    public static final String DECKLIST_NON_EXISTED_DECK_ID = "deckList_nonExistedDeckId";
 
     /** デッキ更新画面：デッキ作成画像処理失敗 */
     public static final String UPDATEDECK_IMAGE_FAILED = "updateDeck.imageFailed";
@@ -122,14 +128,14 @@ public class MessageConst {
 
     /** カード更新画面：カード作成画像サイズ失敗 */
     public static final String UPDATECARD_IMAGE_FAILED = "updateCard.imageFailed";
-
+    
+    /** CSVからカードを取得する画面：カードを取得完了 */
     public static final String CARDFROMCSV_IMPORT_SUCCEED = "cardFromCsv.importSucceed";
 
+    /** CSVからカードを取得する画面：カードを取得失敗 */
     public static final String CARDFROMCSV_IMPORT_FAILED = "cardFromCsv.importFailed";
 
-    public static final String DECKLIST_DELETE_SUCCEED = "deckList_deleteSucceed";
-
-    public static final String DECKLIST_NON_EXISTED_DECK_ID = "deckList_nonExistedDeckId";
+   
 
 
 }   

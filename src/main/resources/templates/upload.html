@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+	<title>画像アップロード</title>
+</head>
+<body>
+	<div th:insert="~{common/sourceList :: sourceList}"></div>
+    <div th:replace="~{common/header :: header}"></div>
+    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
+    <div class = "container-fluid mx-auto text-center w-75">
+        
+        <h1 class="mt-5 pt-3">画像アップロード</h1>
+        
+        <form th:action ="@{/upload}" method="post" enctype="multipart/form-data">
+            <input type="text" name=text required>
+            <input type="file" name=file required>
+            <button type="submit">アップロード</button>
+        </form>
+        
+        <div th:if="${imageUrl}">
+            <h2>アップロードされた画像</h2>
+            <img th:src="${imageUrl}" alt="アップロード画像" width="300">
+            <p th:text="${imageUrl}"></p>
+        </div>
+        
+        <div th:each="url : ${imageUrls}">
+            <img th:src="${url}">
+            <p th:text="${url}"></p>
+        </div>
+
+    </div>
+	<a th:href="@{/login}">▶ ログイン画面はこちら</a>
+</body>
+</html>

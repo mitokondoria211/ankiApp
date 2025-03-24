@@ -9,8 +9,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
-import com.example.ankiapp.constant.CreateCardResult;
-import com.example.ankiapp.constant.UpdateCardResult;
+import com.example.ankiapp.constant.CardCreateResult;
+import com.example.ankiapp.constant.CardUpadateResult;
 import com.example.ankiapp.constant.db.CardAnswerResult;
 import com.example.ankiapp.entitiy.CardInfo;
 import com.example.ankiapp.entitiy.UserInfo;
@@ -56,7 +56,7 @@ public class CardEditServiceImpl implements CardEditService{
     private String imgdefault;
     
     @Override
-    public CreateCardResult createCardInfo(CardEditorForm form) throws IOException {
+    public CardCreateResult createCardInfo(CardEditorForm form) throws IOException {
         var userInfo = getUserInfo();
         var deckId = form.getDeckId();
         var deckInfo = deckInfoRepository.findByDeckId(deckId);
@@ -96,15 +96,15 @@ public class CardEditServiceImpl implements CardEditService{
             repository.save(cardInfo);
             
         } catch(DataIntegrityViolationException e) {
-            return CreateCardResult.FAILURE_BY_DB_ERROR;
+            return CardCreateResult.FAILURE_BY_DB_ERROR;
         } catch(MaxUploadSizeExceededException e) {
-            return CreateCardResult.FAILURE_BY_IMAGE_SIZE_ERROR;
+            return CardCreateResult.FAILURE_BY_IMAGE_SIZE_ERROR;
         }catch (RuntimeException e) {
-            return CreateCardResult.FAILURE_BY_IMAGE_ERROR;
+            return CardCreateResult.FAILURE_BY_IMAGE_ERROR;
         }
 
         
-        return CreateCardResult.SUCCEED;
+        return CardCreateResult.SUCCEED;
     }
     
     private UserInfo getUserInfo() {
@@ -117,7 +117,7 @@ public class CardEditServiceImpl implements CardEditService{
     }
 
     @Override
-    public UpdateCardResult updateCardEditorInfo(CardInfo cardInfo, CardUpdateForm form) throws IOException {
+    public CardUpadateResult updateCardEditorInfo(CardInfo cardInfo, CardUpdateForm form) throws IOException {
         
         
         cardInfo.setCardName(form.getCardName());
@@ -148,9 +148,9 @@ public class CardEditServiceImpl implements CardEditService{
             //再度レポジトリに保存
             repository.save(cardInfo);
         }catch(DataIntegrityViolationException e) {
-            return UpdateCardResult.FAILURE_BY_DB_ERROR;
+            return CardUpadateResult.FAILURE_BY_DB_ERROR;
         }catch(RuntimeException e) {
-            return UpdateCardResult.FAILURE_BY_IMAGE_ERROR;
+            return CardUpadateResult.FAILURE_BY_IMAGE_ERROR;
         }
         
 
@@ -166,7 +166,7 @@ public class CardEditServiceImpl implements CardEditService{
 //        }
         
         
-        return UpdateCardResult.SUCCEED;
+        return CardUpadateResult.SUCCEED;
     }
     
     private String searchQuestionFileName(Long cardId) {

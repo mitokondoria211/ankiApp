@@ -18,6 +18,9 @@ import com.github.dozermapper.core.Mapper;
 import lombok.RequiredArgsConstructor;
 
 
+/**
+ * 
+ */
 @Controller
 @RequiredArgsConstructor
 public class DeckListController {
@@ -79,6 +82,14 @@ public class DeckListController {
         return AppUtility.doRedirect(UrlConst.UPDATE_DECK +"/" + form.getSelectedDeckId());
     }
     
+    /**
+     * 選択行のデッキ情報を削除して、最新情報で画面を再表示します
+     * 
+     * 検索条件に合致するデッキ情報を画面に表示する
+     * @param form 入力情報
+     * @param model
+     * @return 表示画面
+     */
     @PostMapping(value=UrlConst.DECK_LIST, params = "delete")
     public String deleteDeck(DeckListForm form, Model model) {
         var executeResult = deckListService.deleteDeckInfoByDeckId(form.getSelectedDeckId());

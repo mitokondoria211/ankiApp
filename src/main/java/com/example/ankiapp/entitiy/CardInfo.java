@@ -72,6 +72,14 @@ public class CardInfo {
     @Column(name="answer_image_path")
     private String answerImagePath;
     
+    /**質問カードの画像URL*/
+    @Column(name="question_image_url")
+    private String questionImageUrl;
+    
+    /**解答カードの画像URL*/
+    @Column(name="answer_image_url")
+    private String answerImageUrl;
+    
     /**カードの回答結果*/
     @Column(name="card_result")
     @Convert(converter = CardAnswerResultConverter.class)

@@ -40,4 +40,6 @@ public interface ImageStorageService {
     String displayAnswerCardImage(String userName,Long deckId, Long cardId) throws IOException;
     
     String displayDefaultImage() throws IOException;
+    
+    void deleteDeckDirectory(String username, Long deckId);
 }

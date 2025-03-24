@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.example.ankiapp.constant.UpdateCardResult;
+import com.example.ankiapp.constant.CardUpadateResult;
 import com.example.ankiapp.constant.UrlConst;
 import com.example.ankiapp.constant.ViewNameConst;
 import com.example.ankiapp.constant.db.CardAnswerResult;
@@ -110,7 +110,7 @@ public class CardUpdateController {
 //        Long deckId = cardInfo.getDeckInfo().getDeckId();
         
         var result = cardEditorService.updateCardEditorInfo(cardInfo, form);
-        boolean isError = result != UpdateCardResult.SUCCEED;
+        boolean isError = result != CardUpadateResult.SUCCEED;
         
         if(isError) {
             editGuideMessage(form, bdResult, result.getMessageId(), redirectAttributes);

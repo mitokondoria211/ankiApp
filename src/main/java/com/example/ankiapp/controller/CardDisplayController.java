@@ -73,7 +73,7 @@ public class CardDisplayController {
     
     /**
      * カード練習画面を表示
-     * デッキをセットしてカードをセットさせて表示
+     * 選んだデッキの中からカードを選択させて表示
      * 
      * @param model
      * @param form
@@ -90,7 +90,7 @@ public class CardDisplayController {
     
     /**
      * カード練習画面を表示
-     * デッキカードをセットしてカードの情報を表示させる
+     * 選択したデッキとカードの情報(問題、解答、問題の画像、解答の画像)を表示させる
      * 
      * @param model
      * @param form
@@ -100,6 +100,8 @@ public class CardDisplayController {
     public String practiceCard(Model model, CardPracticeForm form) {
         model.addAttribute("practiceForm", form);
         var cardInfo = cardDisplayService.findCardInfoByCardId(form.getCardId());
+        
+        //cardInfoの問題、解答の画像パスがデフォルトの場合は表示せず、そうでない場合は表示する
         try {
             if(!cardInfo.getQuestionImagePath().equals("default.jpg")) {
                 String questionImage = imageStorageService.displayQuestionCardImage(AppUtility.getUsername(), 
@@ -119,16 +121,6 @@ public class CardDisplayController {
         model.addAttribute("answer", cardInfo.getAnswer());
         return ViewNameConst.CARD_DISPLAY;
     }
-    
-//    @GetMapping("/deck/{deckId}")
-//    public String viewDeck(@PathVariable Long deckId, Model model) {
-//        var deckInfo = deckInfoService.findDeckInfoByDeckId(deckId);
-//        var cardInfos = cardDisplayService.findCardEditorByDeckId(deckId);
-//        model.addAttribute("deckInfo", deckInfo);
-//        model.addAttribute("cardInfos", cardInfos);
-//        return ViewNameConst.CARD_DISPLAY; // 新しいHTMLページ名
-//    }
-    
     
     /**
      * カード挑戦するためにデッキを選択させる画面
@@ -162,20 +154,22 @@ public class CardDisplayController {
     
 
     /**
-     * カード挑戦確認する画面
+     * カード挑戦を確認する画面
      * デッキ内のカードをカード評価ごとに選択し、挑戦する問題数を選択させ、画面遷移する
      * 
      * @param deckId デッキId
-     * @param model
+     * @param model モデル
      * @param form
      * @return カード挑戦確認画面
      */
     @GetMapping("/challengeConfirm/{deckId}")
     public String challengeConfirm(@PathVariable Long deckId, Model model, ChallengeConfirmForm form) {
         var deckInfo = deckInfoService.findDeckInfoByDeckId(deckId);
+        //デッキ内のカードの枚数
         var deckCardSize = cardDisplayService.getCardCount(deckId);
+        //カードの評価のリスト
         List<String> cardResults = new ArrayList<>();
-
+        //カードの評価値
         String [] resultArray = {"未選択","未評価","不正解","正解"};
         //デッキ内のカード評価ごとの個数をcardResultsに格納する
         for(String result: resultArray) {
@@ -225,8 +219,11 @@ public class CardDisplayController {
             @PathVariable Integer cardIndex,
             @ModelAttribute ChallengeConfirmForm confirmForm,
             Model model) throws IOException {
+        //選択したカード情報を取得する
         var deckInfo = deckInfoService.findDeckInfoByDeckId(deckId);
+        //選択したデッキIDとカード票が一致するカードリストを取得する
         var cardInfos = cardDisplayService.findCardInfoByDeckIdAndCardResult(deckId, confirmForm.getCardResult());
+        //カードリストをシャッフルする
         Collections.shuffle(cardInfos);
         var setCards = new ArrayList<CardInfo>();
         for(int i = 0; i < confirmForm.getSize(); i++) {
@@ -333,8 +330,6 @@ public class CardDisplayController {
         String[] ratings = Arrays.stream(CardAnswerResult.values())
                                  .map(CardAnswerResult::getRating)
                                  .toArray(String[]::new);
-
-        
         
         model.addAttribute("deckInfo", deckInfo);
         model.addAttribute("cardInfos", cardInfos);

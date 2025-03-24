@@ -37,6 +37,7 @@ public class DeckListServiceImpl implements DeckListService {
 	
 	private final CardInfoRepository cardInfoRepository;
 	
+	private final ImageStorageService imageStorageService;
 	/**Dozer Mapper*/
 	private final Mapper mapper;
 
@@ -103,9 +104,11 @@ public class DeckListServiceImpl implements DeckListService {
     @Override
     public DeckDeleteResult deleteDeckInfoByDeckId(Long selectedDeckId) {
         var deckInfo = repository.findByDeckId(selectedDeckId);
+        var loginId = deckInfo.getUserInfo().getLoginId();
         if(deckInfo == null) {
             return DeckDeleteResult.ERROR;
         }
+        imageStorageService.deleteDeckDirectory(loginId, selectedDeckId);
 //        cardInfoRepository.deleteByDeckId(selectedDeckId);
         repository.deleteById(selectedDeckId);
         return DeckDeleteResult.SUCCEED;
