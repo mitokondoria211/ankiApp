@@ -37,7 +37,7 @@ public class DeckInfoServiceImpl implements DeckInfoService{
     
     private final CardInfoRepository cardInfoRepository;
     
-    private final ImageStorageService imageService;
+    private final CloudinaryService cloudinaryService;
 
     /**Dozer Mapper*/
     private final Mapper mapper;
@@ -63,22 +63,14 @@ public class DeckInfoServiceImpl implements DeckInfoService{
         deckInfo.setUserInfo(userInfo);
         deckInfo.setCreatedAt(LocalDateTime.now());
         deckInfo.setUpdatedAt(LocalDateTime.now());
-        
-        
+
         try {
             deckInfo = repository.save(deckInfo);
             Long deckId = deckInfo.getDeckId();
-            try {
-                //カードの問題画像の処理
-                if(!form.getImageFile().isEmpty()) {
-//                Files.createDirectories(Path.of(createImgFolder(AppUtility.getUsername())));
-                    String saveFileName = imageService.saveDeckImage(form.getImageFile(), AppUtility.getUsername(), deckId);
-                    deckInfo.setImagePath(saveFileName);
-                }else {
-                    deckInfo.setImagePath(imgdefault + imgExtract);
-                }
-            }catch(IOException e) {
-                throw new RuntimeException();
+            //カードの問題画像の処理
+            if (!form.getImageFile().isEmpty()) {
+                String fileUrl = cloudinaryService.uploadDeckImageFile(form.getImageFile(), AppUtility.getUsername(), deckId);
+                deckInfo.setImageUrl(fileUrl);
             }
             repository.save(deckInfo);
         }catch(DataIntegrityViolationException e) {
@@ -86,28 +78,11 @@ public class DeckInfoServiceImpl implements DeckInfoService{
         }catch(RuntimeException e) {
             return DeckCreateResult.FAILURE_BY_IMAGE_ERROR;
         }
-        
-//        if(!form.getImageFile().isEmpty()) {
-//            /**保存する画像ファイルの設定*/
-////            String saveFileName = AppUtility.getUsername() + "Deck" + nowId + imgExtract;
-//            String saveFileName = imageService.saveDeckImage(form.getImageFile(), AppUtility.getUsername(), deckId);
-////            Path imgFilePath = Path.of(createImgFolder(AppUtility.getUsername()), saveFileName);
-//         // ディレクトリが存在しない場合は作成する
-////            Files.createDirectories(Path.of(createImgFolder(AppUtility.getUsername())));
-////            Files.copy(form.getImageFile().getInputStream(), imgFilePath);
-////            deckInfo.setImagePath("data:image/jpg;base64," + outputImage(nowId));
-//            deckInfo.setImagePath(saveFileName);
-//        }else {
-//            deckInfo.setImagePath(imgdefault + imgExtract);
-//        }
-//        repository.save(deckInfo);
-        
         return DeckCreateResult.SUCCEED;
     }
 
     @Override
     public List<DeckInfo> findDeckInfo() {
-//        var deckInfos = repository.findByUserInfo(getUserInfo())
         return repository.findByUserInfoOrderByDeckId(getUserInfo());
     }
     

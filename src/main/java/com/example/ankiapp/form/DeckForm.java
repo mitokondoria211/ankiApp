@@ -25,4 +25,7 @@ public class DeckForm {
     
     /**デッキ画像ファイル*/
     private MultipartFile imageFile;
+    
+    /**デッキ画像のurl*/
+    private String imageUrl;
 }

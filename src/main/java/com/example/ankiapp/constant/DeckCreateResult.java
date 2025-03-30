@@ -21,7 +21,7 @@ public enum DeckCreateResult {
     FAILURE_BY_IMAGE_SIZE_ERROR(MessageConst.DECKEDIT_IMAGE_SIZE_FAILED),
     
     /**画像処理エラー*/
-    FAILURE_BY_IMAGE_ERROR(MessageConst.CARDINFO_IMAGE_FAILED);
+    FAILURE_BY_IMAGE_ERROR(MessageConst.DECKEDIT_IMAGE_FAILED);
 
     /**メッセージID*/
     private String messageId;

@@ -12,28 +12,16 @@
         <h1 class="h2">デッキ選択</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center d-flex flex-wrap justify-content-center my-3" >
             <div th:each="deck, iterStat : ${deckInfos}" class="card me-3  mt-3 mb-3" style="width: 18rem; height: 24rem;">
-                <img th:src="${deckImages[iterStat.index]}" alt="Deck Image" 
+                <img th:src="${deckImageUrls[iterStat.index]}" alt="Deck Image" 
                 class="mx-auto mb-2" style="width: 200px;"/>
                   <div class="card-body">
                     <h5 class="card-title" th:text="${#strings.length(deck.title) > 10 ? #strings.substring(deck.title,0,10) + '...' : deck.title}"></h5>
                     <p class="card-text" th:text="${#strings.length(deck.description) > 40 ? #strings.substring(deck.description,0,40) + '...' : deck.description}"></p>
                     <p class="card-text fw-bold">出題数: <span class="fw-normal text-success" th:text="${deckCardSizes[iterStat.index]}"></span>問</p>
-<!--                    <a th:href="@{/cardChallenge(deckId=${deck.deckId})}" class="btn btn-primary">挑戦する</a>-->
-<!--                    <a th:if="${deckCardSizes[iterStat.index] > 0}" th:href="@{/cardChallenge/{deckId}/0(deckId=${deck.deckId})}" class="btn btn-primary">挑戦する</a>-->
                     <a th:if="${deckCardSizes[iterStat.index] > 0}" th:href="@{/challengeConfirm/{deckId}(deckId=${deck.deckId})}" class="btn btn-success">挑戦する</a>
                   </div>
             </div>
         </div>
-        
-<!--        <form th:action="@{/cardChallenge}" method="get">-->
-<!--            <div class="text-center mx-auto w-25 mt-5">-->
-<!--                <select name="deckId" id="deckSelect" class="form-select ">-->
-<!--                    <option th:each="deck : ${deckInfos}" th:value="${deck.deckId}" th:text="${deck.title}"></option>-->
-                    
-<!--                </select>-->
-<!--                <button type="submit" class="btn btn-outline-primary mt-3">挑戦する</button>-->
-<!--            </div>-->
-<!--        </form>-->
     </div>
 </body>
 </html>

@@ -286,6 +286,7 @@ public interface CardInfoRepository extends  JpaRepository<CardInfo, Long>{
     
     List<CardInfo> findByUserInfoAndDeckInfoAndCardResult(UserInfo userInfo, DeckInfo deckInfo, CardAnswerResult cardResult);
 
+    List<CardInfo> findByUserInfoAndDeckInfo(UserInfo userInfo, DeckInfo deckInfo);
 
 //    void deleteByDeckId(Long selectedDeckId);
 }

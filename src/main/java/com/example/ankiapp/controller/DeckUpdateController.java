@@ -34,8 +34,6 @@ public class DeckUpdateController {
     
     private final DeckInfoService deckInfoService;
     
-    private final ImageStorageService imageStorageService;
-    
     private final DeckEditService deckEditService;
     
     /**画面で使用するフォームクラス*/
@@ -62,16 +60,10 @@ public class DeckUpdateController {
         
         //formにデッキ情報をセット
         form.setDeckId(deckId);
-        form.setTitle(deckInfo.getTitle());
-        form.setImagePath(deckInfo.getImagePath());
-        form.setDescription(deckInfo.getDescription());
+        form.setTitle(updateInfo.getTitle());
+        form.setDescription(updateInfo.getDescription());
         
-        String deckImage = imageStorageService.displayDeckImage(AppUtility.getUsername(), deckId);
-        
-        model.addAttribute("title", deckInfo.getTitle());
-        model.addAttribute("deckImagePath", deckInfo.getImagePath());
-        model.addAttribute("deckImage", deckImage);
-        model.addAttribute("updateDeck", updateInfo);
+        model.addAttribute("deckInfo", updateInfo);
         model.addAttribute("deckUpdateForm", form);
 
         return UrlConst.UPDATE_DECK;
@@ -83,13 +75,10 @@ public class DeckUpdateController {
                                               BindingResult bdResult,
                                               RedirectAttributes redirectAttributes) throws IOException {
         DeckInfo deckInfo = deckInfoService.findDeckInfoByDeckId(deckUpdateForm.getDeckId());
-        String deckImage = imageStorageService.displayDeckImage(AppUtility.getUsername(), deckUpdateForm.getDeckId());
         DeckUpdateInfo updateInfo = mapper.map(deckInfo, DeckUpdateInfo.class);
         
         if(bdResult.hasErrors()) {
-            model.addAttribute("title", deckInfo.getTitle());
-            model.addAttribute("deckImage", deckImage);
-            model.addAttribute("updateDeck", updateInfo);
+            model.addAttribute("deckInfo", updateInfo);
             model.addAttribute("isError", true);
             model.addAttribute("deckUpdateForm", deckUpdateForm);
             
@@ -104,17 +93,10 @@ public class DeckUpdateController {
             return AppUtility.doRedirect(UrlConst.UPDATE_DECK + "/" + deckUpdateForm.getDeckId());     
         }
         
-        deckInfo = deckInfoService.findDeckInfoByDeckId(deckUpdateForm.getDeckId());
-        var updatedInfo = mapper.map(updateInfo, DeckUpdateInfo.class);
-//        attributes.addFlashAttribute("updateDeck", updatedInfo);
-//        attributes.addFlashAttribute("updateDeckForm", form);
-        model.addAttribute("title", deckInfo.getTitle());
-        model.addAttribute("deckImage", deckImage);
-        model.addAttribute("updateDeck", updatedInfo);
+        model.addAttribute("deckInfo", updateInfo);
         model.addAttribute("deckUpdateForm", deckUpdateForm);
         redirectAttributes.addFlashAttribute("message", AppUtility.getMessage(messageSource, result.getMessageId()));
         redirectAttributes.addFlashAttribute("isError", false);
-//        return AppUtility.doRedirect(UrlConst.UPDATE_DECK);
         return AppUtility.doRedirect(UrlConst.UPDATE_DECK+ "/" + deckUpdateForm.getDeckId());
     }
     

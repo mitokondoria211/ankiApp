@@ -1,5 +1,6 @@
 package com.example.ankiapp.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,7 @@ public class CardListServiceImpl implements CardListService {
     private final UserInfoRepository userInfoRepository;
     private final DeckInfoRepository deckInfoRepository;
     private final CardInfoRepository repository;
+    private final CloudinaryService cloudinaryService;
     
     private final Mapper mapper;
     
@@ -192,14 +194,26 @@ public class CardListServiceImpl implements CardListService {
         return toCardListInfos(findCardInfoByParam(dto));
     }
 
+    @Transactional
     @Override
     public CardDeleteResult deleteCardInfoByCardId(Long selectedCardId) {
         var cardInfo = repository.findByCardId(selectedCardId);
         if(cardInfo == null) {
             return CardDeleteResult.ERROR;
         }
+        try {
+            cloudinaryService.deleteQuestionImage(cardInfo);
+            cloudinaryService.deleteAnswerImage(cardInfo);
+        } catch (IOException e) {
+            return CardDeleteResult.IMAGE_DELETE_ERROR;
+        }
         repository.deleteById(selectedCardId);
         return CardDeleteResult.SUCCEED;
+    }
+    
+    @Override
+     public List<CardInfo> getDeckCards(UserInfo userInfo, DeckInfo deckInfo) {
+         return repository.findByUserInfoAndDeckInfo(userInfo, deckInfo);
     }
 
     

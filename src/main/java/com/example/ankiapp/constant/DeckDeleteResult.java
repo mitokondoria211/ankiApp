@@ -14,8 +14,11 @@ public enum DeckDeleteResult {
     /**成功*/
     SUCCEED(MessageConst.DECKLIST_DELETE_SUCCEED),
     
-    /**エラーなし*/
-    ERROR(MessageConst.DECKLIST_NON_EXISTED_DECK_ID);
+    /**エラー*/
+    ERROR(MessageConst.DECKLIST_NON_EXISTED_DECK_ID),
+    
+    /**画像処理エラー*/
+    IMAGE_ERROR(MessageConst.DECKLIST_DELETE_IMAGE_FAILED);
     
     /**メッセージID*/
     private String messageId;

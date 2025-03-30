@@ -17,4 +17,7 @@ public class DeckUpdateInfo {
     
     /**デッキ説明*/
     private String description;
+    
+    /**画像url*/
+    private String imageUrl;
 }

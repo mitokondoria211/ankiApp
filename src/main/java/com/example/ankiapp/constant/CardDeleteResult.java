@@ -15,8 +15,11 @@ public enum CardDeleteResult {
     SUCCEED(MessageConst.CARDLIST_DELETE_SUCCEED),
     
     /**エラーなし*/
-    ERROR(MessageConst.CARDLIST_NON_EXISTED_CARD_ID);
+    ERROR(MessageConst.CARDLIST_NON_EXISTED_CARD_ID),
     
+    /**エラーなし*/
+    IMAGE_DELETE_ERROR(MessageConst.CARDLIST_IMAGE_DELETE_FAILED);
+
     /**メッセージID*/
     private String messageId;
 }

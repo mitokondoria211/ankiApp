@@ -23,10 +23,10 @@
                 <span class="w-100 text-start ps-3" th:utext="${message}"></span>
             </div>
         </div>
-        <h3 th:text="'デッキ：' + ${title} + ' の更新'" class="mx-auto col-6"></h3>
+        <h3 th:text="'デッキ：' + ${deckInfo.title} + ' の更新'" class="mx-auto col-6"></h3>
         <form th:action="@{/updateDeck}" method="post" enctype="multipart/form-data" th:object="${deckUpdateForm}">
             <input type="hidden" th:field="*{deckId}" />
-            <div class="mt-3 " th:each="deck: ${updateDeck}">
+            <div class="mt-3 " th:each="deck: ${deckInfo}">
                 <div class="mx-auto col-6 my-5 text-start">
                     <h3 class="text-center h4">タイトル</h3>
                     <label class="form-label fw-bold d-flex">
@@ -50,27 +50,22 @@
                         <h3 class="text-center h4 mb-3">画像</h3>
                         <label  class="form-label fw-bold">変更前</label>
                             
-                        <div th:if="${deckUpdateForm.imagePath == 'default.jpg'}" 
+                        <div th:if="${deck.imageUrl == null}" 
                                 class="my-4">
                             画像なし
                         </div>
-                        <div th:unless="${deckUpdateForm.imagePath == 'default.jpg'}">
-                            <img th:src="${deckImage}" 
+                        <div th:unless="${deck.imageUrl == null}">
+                            <img th:src="${deck.imageUrl}" 
                                       alt="Deck Image" 
                                       class="mx-auto mb-4 col-6"/>
                         </div>
                     </div>
-                    <input type="hidden" th:field="*{imagePath}">
                     <input type="file" th:field="*{imageFile}">
                 </div>
             </div>
             <div class="mb-4">
                 <input type="submit" class="btn btn-success" value="更新">
             </div>
-            
         </form>
-        
-    
-  
 </body>
 </html>

@@ -67,20 +67,6 @@ public class CardDisplayServiceImpl implements CardDisplayService{
         return repository.findByUserInfoAndCardName(userInfo, name);
     }
     
-    private String outputImage(Long deckId) throws IOException{
-        var imgFilePath = searchImage(deckId);
-        var byteImg = Files.readAllBytes(imgFilePath);
-        return Base64.getEncoder().encodeToString(byteImg);
-    }
-    
-    private Path searchImage(Long deckId) {
-//        var deckInfo = deckRepository.findByDeckId(form.getDeckId());
-        var searchFileName =  AppUtility.getUsername() + "Deck" +deckId + imgExtract;
-        var imgFilePath = Path.of(imgFolder, searchFileName);
-        
-        return Files.exists(imgFilePath) ? imgFilePath : Path.of(imgFolder, imgdefault + imgExtract);
-    }
-    
     private String getUserName() {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         return userName;
@@ -94,10 +80,7 @@ public class CardDisplayServiceImpl implements CardDisplayService{
         return cardInfos;
     }
 
-    @Override
-    public String deckImage(Long deckId) throws IOException{
-       return "data:image/jpg;base64," + outputImage(deckId);
-    }
+    
     
     @Override
     public void saveCardInfo(CardInfo cardEditorInfo) {

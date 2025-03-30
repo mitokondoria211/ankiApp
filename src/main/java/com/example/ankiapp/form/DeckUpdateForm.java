@@ -21,9 +21,6 @@ public class DeckUpdateForm {
     /**デッキ説明*/
     @Length(max = 50, message = "{description.deckUpdateForm.length}")
     private String description;
-        
-    /**デッキ画像パス*/
-    private String imagePath;
     
     /**デッキ画像ファイル*/
     private MultipartFile imageFile;

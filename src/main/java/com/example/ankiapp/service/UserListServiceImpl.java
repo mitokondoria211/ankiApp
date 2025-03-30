@@ -83,7 +83,6 @@ public class UserListServiceImpl implements UserListService {
             userListInfo.setAuthority(userInfo.getAuthorityKind().getDisplayValue());
             userListInfos.add(userListInfo);
         }
-        // TODO 自動生成されたメソッド・スタブ
         return userListInfos;
     }
 

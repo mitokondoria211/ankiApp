@@ -54,18 +54,17 @@
                             <h3 class="text-center h4 mb-3">問題画像</h3>
                             <label  class="form-label fw-bold">変更前</label>
                             
-                            <div th:if="${cardUpdateForm.questionImagePath == 'default.jpg'}" 
+                            <div th:if="${questionUrl == null}" 
                                     class="my-4">
                                 画像なし
                             </div>
-                            <div th:unless="${cardUpdateForm.questionImagePath == 'default.jpg'}">
-                                <img th:src="${questionImage}" 
-                                          alt="Deck Image" 
-                                          class="mx-auto mb-4 col-6"/>
+                            <div th:unless="${questionUrl == null}">
+                                <img th:src="${questionUrl}" 
+                                          alt="Question Image" 
+                                          class="mx-auto mb-4 col-6" style="max-width: 30%;"/>
                             </div>
                             
                         </div>
-                        <input type="hidden" th:field="*{questionImagePath}">
                         <input type="file" th:field="*{questionImageFile}">
                 </div>
                 
@@ -80,40 +79,25 @@
                               th:errors="*{answer}"></div>
                 </div>
                 
-<!--                <div class="mx-auto col-5 text-start mt-3 mb-3">-->
-<!--                    <label th:text="'変更前解答:  ' + ${card.answer}" class="form-label"></label>-->
-<!--                    <textarea class="form-control" th:field="*{answer}"></textarea>-->
-<!--                    <div class="text-danger" th:if="${#fields.hasErrors('answer')}" -->
-<!--                              th:errors="*{answer}"></div>-->
-<!--                </div>-->
                 <div class="my-5">
                         <div>
                             <h3 class="text-center h4 mb-3">解答画像</h3>
                             <label  class="form-label fw-bold">変更前</label>
                             
-                            <div th:if="${cardUpdateForm.answerImagePath == 'default.jpg'}" 
+                            <div th:if="${answerUrl == null}" 
                                     class="my-4">
                                 画像なし
                             </div>
-                            <div th:unless="${cardUpdateForm.answerImagePath == 'default.jpg'}">
-                                <img th:src="${answerImage}" 
+                            <div th:unless="${answerUrl == null}">
+                                <img th:src="${answerUrl}" 
                                           alt="Deck Image" 
-                                          class="mx-auto mb-4 col-6"/>
+                                          class="mx-auto mb-4 col-6" style="max-width: 30%;"/>
                             </div>
                             
                         </div>
-                        <input type="hidden" th:field="*{answerImagePath}">
                         <input type="file" th:field="*{answerImageFile}">
                 </div>
-<!--                <div class="mt-4 mb-4">-->
-<!--                    <div>-->
-<!--                        <p><label class="fw-bold">解答画像:</label><br>-->
-<!--                        <img th:src="${answerImage}" alt="Deck Image"-->
-<!--                        class="mx-auto mb-4"/>-->
-<!--                    </div>-->
-<!--                    <input type="hidden" th:field="*{answerImagePath}">-->
-<!--                    <input type="file" th:field="*{answerImageFile}">-->
-<!--                </div>-->
+
                 <div class="mx-auto col-6 text-start my-5">
                     <h3 class="text-center h4">カード評価</h3>
                     <label  class="form-label fw-bold">
@@ -127,17 +111,8 @@
                         </option>
                     </select>
                 </div>
-<!--                <div class="mx-auto col-5 text-start mt-3 mb-3">-->
-<!--                    <label th:text="'変更前カード評価:  ' + ${card.cardResult.rating}" class="form-label"></label>-->
-<!--                    <select th:field="*{cardResult}" class="form-select" id="cardResult"/>-->
-<!--                        <option th:each="cardResult : ${cardResults}"-->
-<!--                        th:value="${cardResult}"-->
-<!--                        th:text="${cardResult.rating}"-->
-<!--                        th:selected="${cardResult.equals(card.cardResult)}">-->
-<!--                        </option>-->
-<!--                    </select>-->
-<!--                </div>-->
-                <div class="mb-4">
+
+                <div class="mb-5">
                     <input type="submit" class="btn btn-success" value="更新">
                 </div>
             </div>

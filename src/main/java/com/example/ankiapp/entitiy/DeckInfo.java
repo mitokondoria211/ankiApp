@@ -42,10 +42,6 @@ public class DeckInfo {
     @Column(columnDefinition = "TEXT")
     private String description;
     
-    /**デッキの画像パス*/
-    @Column(name="image_path")
-    private String imagePath;
-    
     /**デッキの画像URL*/
     @Column(name="image_url")
     private String imageUrl;

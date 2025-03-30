@@ -4,6 +4,9 @@ import java.util.List;
 import com.example.ankiapp.constant.CardDeleteResult;
 import com.example.ankiapp.dto.CardListInfo;
 import com.example.ankiapp.dto.CardSearchInfo;
+import com.example.ankiapp.entitiy.CardInfo;
+import com.example.ankiapp.entitiy.DeckInfo;
+import com.example.ankiapp.entitiy.UserInfo;
 ;
 
 public interface CardListService {
@@ -31,6 +34,8 @@ public interface CardListService {
 //     * @return 実行結果(エラー有無)
 //     */
     CardDeleteResult deleteCardInfoByCardId(Long selectedCardId);
+
+    List<CardInfo> getDeckCards(UserInfo userInfo, DeckInfo deckInfo);
 
 
 }

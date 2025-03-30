@@ -1,5 +1,6 @@
 package com.example.ankiapp.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -35,9 +36,7 @@ public class DeckListServiceImpl implements DeckListService {
 	/** ユーザー情報テーブルDAO*/
 	private final DeckInfoRepository repository;
 	
-	private final CardInfoRepository cardInfoRepository;
-	
-	private final ImageStorageService imageStorageService;
+	private final CloudinaryService cloudinaryService;
 	/**Dozer Mapper*/
 	private final Mapper mapper;
 
@@ -54,7 +53,6 @@ public class DeckListServiceImpl implements DeckListService {
      */
     private List<DeckListInfo> toDeckListInfos(List<DeckInfo> deckInfos) {
         var deckListInfos = new ArrayList<DeckListInfo>();
-//        var deckInfos = repository.findByUserInfoOrderByDeckId(getUserInfo());
         for(DeckInfo deckInfo: deckInfos) {
             var deckListInfo = mapper.map(deckInfo, DeckListInfo.class);
             deckListInfos.add(deckListInfo);
@@ -101,15 +99,20 @@ public class DeckListServiceImpl implements DeckListService {
         
     }
     
+    @Transactional
     @Override
     public DeckDeleteResult deleteDeckInfoByDeckId(Long selectedDeckId) {
+        UserInfo userInfo = getUserInfo();
         var deckInfo = repository.findByDeckId(selectedDeckId);
-        var loginId = deckInfo.getUserInfo().getLoginId();
         if(deckInfo == null) {
             return DeckDeleteResult.ERROR;
         }
-        imageStorageService.deleteDeckDirectory(loginId, selectedDeckId);
-//        cardInfoRepository.deleteByDeckId(selectedDeckId);
+        try {
+            cloudinaryService.deleteDeckImage(deckInfo);
+            cloudinaryService.deleteAllDeckCardImages(userInfo, deckInfo);
+        } catch (IOException e) {
+           return DeckDeleteResult.IMAGE_ERROR;
+        }
         repository.deleteById(selectedDeckId);
         return DeckDeleteResult.SUCCEED;
     }

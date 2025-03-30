@@ -38,23 +38,12 @@ public class CardEditServiceImpl implements CardEditService{
     
     private final DeckInfoRepository deckInfoRepository;
     
-    private final ImageStorageService imageService;
- 
+    private final CloudinaryService cloudinaryService;
+    
     /**Dozer Mapper*/
     private final Mapper mapper;
     
-    /**プロフィール画像の保存先のフォルダ*/
-    @Value("${image.folder}")
-    private String imgFolder;
-    
-    /**プロフィール画像の保管拡張子*/
-    @Value("${image.extract}")
-    private String imgExtract;
-    
-    /**プロフィール画像の保管拡張子*/
-    @Value("${image.default}")
-    private String imgdefault;
-    
+    @Transactional
     @Override
     public CardCreateResult createCardInfo(CardEditorForm form) throws IOException {
         var userInfo = getUserInfo();
@@ -70,27 +59,18 @@ public class CardEditServiceImpl implements CardEditService{
         try {
            cardInfo = repository.save(cardInfo);
            Long nowId = cardInfo.getCardId();
-            try {
-                
-                //カードの問題画像の処理
-                if(!form.getQuestionImageFile().isEmpty()) {
-                    
-                    String saveFileName = imageService.saveQuestionCardImage(form.getQuestionImageFile(), AppUtility.getUsername(), deckId, nowId);
-                    cardInfo.setQuestionImagePath(saveFileName);
-                }else {
-                    cardInfo.setQuestionImagePath(imgdefault + imgExtract);
-                }
-                
-                //カードの解答画像の処理
-                if(!form.getAnswerImageFile().isEmpty()) {
-                    String saveFileName = imageService.saveAnswerCardImage(form.getAnswerImageFile(), AppUtility.getUsername(), deckId, nowId);
-                    cardInfo.setAnswerImagePath(saveFileName);
-                }else {
-                     cardInfo.setAnswerImagePath(imgdefault + imgExtract);
-                }
-                  
-            } catch(IOException e) {
-                throw new RuntimeException();
+            //カードの問題画像の処理
+            if(!form.getQuestionImageFile().isEmpty()) {
+                String saveFileUrl = cloudinaryService.uploadQuestionCardImage(
+                        form.getQuestionImageFile(), userInfo.getLoginId(), deckId, nowId);
+                cardInfo.setQuestionImageUrl(saveFileUrl);
+            }
+            
+            //カードの解答画像の処理
+            if(!form.getAnswerImageFile().isEmpty()) {
+                String saveFileUrl = cloudinaryService.uploadAnswerCardImage(
+                        form.getAnswerImageFile(), userInfo.getLoginId(), deckId, nowId);
+                cardInfo.setAnswerImageUrl(saveFileUrl);
             }
             //再度レポジトリに保存
             repository.save(cardInfo);
@@ -103,7 +83,6 @@ public class CardEditServiceImpl implements CardEditService{
             return CardCreateResult.FAILURE_BY_IMAGE_ERROR;
         }
 
-        
         return CardCreateResult.SUCCEED;
     }
     
@@ -116,6 +95,7 @@ public class CardEditServiceImpl implements CardEditService{
         return repository.findByCardId(cardId);
     }
 
+    @Transactional
     @Override
     public CardUpadateResult updateCardEditorInfo(CardInfo cardInfo, CardUpdateForm form) throws IOException {
         
@@ -130,20 +110,16 @@ public class CardEditServiceImpl implements CardEditService{
             cardInfo.setCardResult(form.getCardResult());
         }
         try {
-            try {
-                if(!form.getQuestionImageFile().isEmpty()) {
-                    String questionFileName = imageService.saveQuestionCardImage(
-                            form.getQuestionImageFile(),AppUtility.getUsername(),deckId,cardInfo.getCardId());
-                    cardInfo.setQuestionImagePath(questionFileName);
-                }
-                
-                if(!form.getAnswerImageFile().isEmpty()) {
-                    String answerFileName = imageService.saveAnswerCardImage(
-                            form.getAnswerImageFile(),AppUtility.getUsername(),deckId,cardInfo.getCardId());
-                    cardInfo.setAnswerImagePath(answerFileName);
-                }
-            }catch(IOException e) {
-                throw new RuntimeException();
+            if(!form.getQuestionImageFile().isEmpty()) {
+                String saveFileUrl = cloudinaryService.uploadQuestionCardImage(
+                        form.getQuestionImageFile(), AppUtility.getUsername(), deckId, cardInfo.getCardId());
+                cardInfo.setQuestionImageUrl(saveFileUrl);
+            }
+            
+            if(!form.getAnswerImageFile().isEmpty()) {
+                String saveFileUrl = cloudinaryService.uploadAnswerCardImage(
+                        form.getAnswerImageFile(), AppUtility.getUsername(), deckId, cardInfo.getCardId());
+                cardInfo.setAnswerImageUrl(saveFileUrl);
             }
             //再度レポジトリに保存
             repository.save(cardInfo);
@@ -153,30 +129,6 @@ public class CardEditServiceImpl implements CardEditService{
             return CardUpadateResult.FAILURE_BY_IMAGE_ERROR;
         }
         
-
-
-        
-        
-
-        
-//        try {
-//            repository.save(cardInfo);
-//        }catch(DataIntegrityViolationException e) {
-//            return UpdateCardResult.FAILURE_BY_DB_ERROR;
-//        }
-        
-        
         return CardUpadateResult.SUCCEED;
     }
-    
-    private String searchQuestionFileName(Long cardId) {
-        String searchFileName =  "card_" + cardId + "_question"+ imgExtract;
-        return searchFileName;
-    }
-    
-    private String searchAnswerFileName(Long cardId) {
-        String searchFileName =  "card_" + cardId + "_answer"+ imgExtract;
-        return searchFileName;
-    }
-
 }

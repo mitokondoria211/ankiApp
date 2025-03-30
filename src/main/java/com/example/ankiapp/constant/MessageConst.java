@@ -135,6 +135,11 @@ public class MessageConst {
     /** CSVからカードを取得する画面：カードを取得失敗 */
     public static final String CARDFROMCSV_IMPORT_FAILED = "cardFromCsv.importFailed";
 
+    public static final String DECKLIST_DELETE_IMAGE_FAILED = "deckListDeleteImageFailed";
+
+    public static final String CARDLIST_IMAGE_DELETE_FAILED = "cardListImageDeleteFailed"
+            ;
+
    
 
 

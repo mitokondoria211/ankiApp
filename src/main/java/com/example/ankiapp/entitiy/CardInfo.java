@@ -64,14 +64,6 @@ public class CardInfo {
     @Column(columnDefinition = "TEXT")
     private String answer;
     
-    /**質問カードの画像パス*/
-    @Column(name="question_image_path")
-    private String questionImagePath;
-    
-    /**解答カードの画像パス*/
-    @Column(name="answer_image_path")
-    private String answerImagePath;
-    
     /**質問カードの画像URL*/
     @Column(name="question_image_url")
     private String questionImageUrl;

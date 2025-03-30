@@ -21,15 +21,19 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.example.ankiapp.constant.UrlConst;
 import com.example.ankiapp.constant.ViewNameConst;
 import com.example.ankiapp.constant.db.CardAnswerResult;
+import com.example.ankiapp.dto.CardPracticeInfo;
+import com.example.ankiapp.dto.CardUpdateInfo;
 import com.example.ankiapp.entitiy.CardInfo;
 import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.form.CardDisplayForm;
 import com.example.ankiapp.form.CardPracticeForm;
 import com.example.ankiapp.form.ChallengeConfirmForm;
 import com.example.ankiapp.service.CardDisplayService;
+import com.example.ankiapp.service.CloudinaryService;
 import com.example.ankiapp.service.DeckInfoService;
 import com.example.ankiapp.service.ImageStorageService;
 import com.example.ankiapp.utilty.AppUtility;
+import com.github.dozermapper.core.Mapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.var;
@@ -48,12 +52,14 @@ public class CardDisplayController {
     /**デッキ情報Service*/
     private final DeckInfoService deckInfoService;
     
-    /**画像処理Service*/
-    private final ImageStorageService imageStorageService;
+    private final CloudinaryService cloudinaryService;
+    
+    /**Dozer Mapper*/
+    private final Mapper mapper;
     
     /**ルートディレクトリパス*/
-    @Value("${image.folder}")
-    private String baseImageFolder;
+    @Value("${default.image}")
+    private String defaultImage;
     
     
     /**
@@ -100,25 +106,8 @@ public class CardDisplayController {
     public String practiceCard(Model model, CardPracticeForm form) {
         model.addAttribute("practiceForm", form);
         var cardInfo = cardDisplayService.findCardInfoByCardId(form.getCardId());
-        
-        //cardInfoの問題、解答の画像パスがデフォルトの場合は表示せず、そうでない場合は表示する
-        try {
-            if(!cardInfo.getQuestionImagePath().equals("default.jpg")) {
-                String questionImage = imageStorageService.displayQuestionCardImage(AppUtility.getUsername(), 
-                        form.getDeckId(), form.getCardId());
-                model.addAttribute("questionImage", questionImage);
-            }
-            if(!cardInfo.getAnswerImagePath().equals("default.jpg")) {
-                String answerImage = imageStorageService.displayAnswerCardImage(AppUtility.getUsername(), 
-                        form.getDeckId(), form.getCardId());
-                model.addAttribute("answerImage", answerImage);
-            }
-        }catch(Exception e) {
-            model.addAttribute("error", e);
-        }
-        model.addAttribute("name", cardInfo.getCardName());
-        model.addAttribute("question", cardInfo.getQuestion());
-        model.addAttribute("answer", cardInfo.getAnswer());
+        CardPracticeInfo updateInfo = mapper.map(cardInfo, CardPracticeInfo.class);
+        model.addAttribute("cardInfo", updateInfo);
         return ViewNameConst.CARD_DISPLAY;
     }
     
@@ -137,18 +126,10 @@ public class CardDisplayController {
         for(DeckInfo deck: deckInfos) {
             deckCardSizes.add(cardDisplayService.getCardCount(deck.getDeckId()));
         }
-        List <String> deckImages = deckInfos.stream()
-                .map(deck -> {
-                    try {
-                        return imageStorageService.displayDeckImage(deck.getUserInfo().getLoginId(), deck.getDeckId());
-                    } catch (IOException e) {
-                       return "";
-                    }
-                })
-                .collect(Collectors.toList());
+        List<String> imageUrls = cloudinaryService.displayDeckImages(deckInfos);
         model.addAttribute("deckCardSizes", deckCardSizes);
         model.addAttribute("deckInfos", deckInfos);
-        model.addAttribute("deckImages", deckImages);
+        model.addAttribute("deckImageUrls", imageUrls);
         return ViewNameConst.SELECT_DECK;
     }
     
@@ -241,24 +222,10 @@ public class CardDisplayController {
         model.addAttribute("cards", cardInfos);
         model.addAttribute("card", firstCard);
         model.addAttribute("beforeResult", firstCard.getCardResult().getRating());
-        String questionImage = imageStorageService.displayQuestionCardImage(AppUtility.getUsername(), 
-                deckId, firstCard.getCardId());
-        String answerImage = imageStorageService.displayAnswerCardImage(AppUtility.getUsername(), 
-                deckId, firstCard.getCardId());
-        if(firstCard.getQuestionImagePath() != null &&
-                !firstCard.getQuestionImagePath().equals("default.jpg")) {
-            model.addAttribute("questionImage", questionImage);
-        }
-        if(firstCard.getAnswerImagePath() != null &&
-                !firstCard.getAnswerImagePath().equals("default.jpg")) {
-            model.addAttribute("answerImage", answerImage);
-        }
         model.addAttribute("cards", cardInfos);
         model.addAttribute("totalCards", cardInfos.size());
         return ViewNameConst.CARD_CHALLENGE;
     }
-    
-
     
     /**
      * @param deckId
@@ -276,7 +243,6 @@ public class CardDisplayController {
             @SessionAttribute("cardDisplayForm") CardDisplayForm form,
             Model model) throws IOException {
         var deckInfo = deckInfoService.findDeckInfoByDeckId(deckId);
-//        var cardInfos = cardDisplayService.findCardEditorByDeckId(deckId);
         var cardInfos = form.getCards();
         model.addAttribute("cards", cardInfos);
         var currentCard = cardInfos.get(cardIndex);
@@ -292,20 +258,6 @@ public class CardDisplayController {
             model.addAttribute("cardIndex", cardIndex);
             model.addAttribute("card", nowCard);
             model.addAttribute("beforeResult", nowCard.getCardResult().getRating());
-            
-            String questionImage = imageStorageService.displayQuestionCardImage(AppUtility.getUsername(), 
-                    deckId, nowCard.getCardId());
-            String answerImage = imageStorageService.displayAnswerCardImage(AppUtility.getUsername(), 
-                    deckId, nowCard.getCardId());
-            
-            if(nowCard.getQuestionImagePath() != null &&
-                    !nowCard.getQuestionImagePath().equals("default.jpg")) {
-                model.addAttribute("questionImage", questionImage);
-            }
-            if(nowCard.getAnswerImagePath() != null &&
-                    !nowCard.getAnswerImagePath().equals("default.jpg")) {
-                model.addAttribute("answerImage", answerImage);
-            }
             model.addAttribute("totalCards", cardInfos.size());
             return ViewNameConst.CARD_CHALLENGE;
         } else {

@@ -34,8 +34,6 @@ public class CardUpdateController {
     
     private final CardEditService cardEditorService;
     
-    private final ImageStorageService imageStorageService;
-    
     /**メッセージソース*/
     private final MessageSource messageSource;
     
@@ -53,31 +51,25 @@ public class CardUpdateController {
      */
     
     @GetMapping(UrlConst.UPDATE_CARD + "/{cardId}")
-//  public String deckListView(@RequestParam Long deckId, Model model) {
+
   public String cardView(@PathVariable Long cardId, Model model,CardUpdateForm form) throws IOException {
-//      var deckList =  deckListService.editDeckList();
       
       CardInfo cardInfo = cardEditorService.findCardInfoByCardId(cardId);
       CardUpdateInfo updateInfo = mapper.map(cardInfo, CardUpdateInfo.class);
-      String userName = AppUtility.getUsername();
-      Long deckId = cardInfo.getDeckInfo().getDeckId();
-      String questionImage = imageStorageService.displayQuestionCardImage(userName, deckId, cardId);
-      String answerImage = imageStorageService.displayAnswerCardImage(userName, deckId, cardId);
       form = new CardUpdateForm();
+      
       //カードフォームの初期値をセット
       form.setCardName(cardInfo.getCardName());
       form.setQuestion(cardInfo.getQuestion());
       form.setAnswer(cardInfo.getAnswer());
       form.setCardId(cardId);
-      form.setQuestionImagePath(cardInfo.getQuestionImagePath());
-      form.setAnswerImagePath(cardInfo.getAnswerImagePath());
+      
       model.addAttribute("updateCard", updateInfo);
-      model.addAttribute("questionImage", questionImage);
-      model.addAttribute("answerImage", answerImage);
+      model.addAttribute("questionUrl", cardInfo.getQuestionImageUrl());
+      model.addAttribute("answerUrl", cardInfo.getAnswerImageUrl());
       model.addAttribute("cardResults", CardAnswerResult.values());
       model.addAttribute("cardUpdateForm", form);
-//      model.addAttribute("deckListForm", new DeckListForm());  // この行を追加
-//      model.addAttribute("deckForm", new DeckForm());
+
       return ViewNameConst.UPDATE_CARD;
   }
     
@@ -88,26 +80,18 @@ public class CardUpdateController {
                                                 RedirectAttributes redirectAttributes) throws IOException {
         CardInfo cardInfo = cardEditorService.findCardInfoByCardId(form.getCardId());
         Long cardId = form.getCardId();
-        Long deckId = cardInfo.getDeckInfo().getDeckId();
-        String userName = AppUtility.getUsername();
-        String questionImage = imageStorageService.displayQuestionCardImage(userName, deckId, cardId);
-        String answerImage = imageStorageService.displayAnswerCardImage(userName, deckId, cardId);
-
+        
         if(bdResult.hasErrors()) {
 //            CardUpdateInfo updateInfo = mapper.map(cardInfo, CardUpdateInfo.class);
             // 必要な属性を設定
             model.addAttribute("updateCard", mapper.map(cardInfo, CardUpdateInfo.class));
-            model.addAttribute("questionImage", questionImage);
-            model.addAttribute("answerImage", answerImage);
+            model.addAttribute("questionUrl", cardInfo.getQuestionImageUrl());
+            model.addAttribute("answerUrl", cardInfo.getAnswerImageUrl());
             model.addAttribute("cardResults", CardAnswerResult.values());
             model.addAttribute("isError", true);
             model.addAttribute("cardUpdateForm", form);
             return ViewNameConst.UPDATE_CARD + "/" + cardId;
         }
-        
-//        CardInfo cardInfo = cardEditorService.findCardInfoByCardId(form.getCardId());
-//        Long cardId = form.getCardId();
-//        Long deckId = cardInfo.getDeckInfo().getDeckId();
         
         var result = cardEditorService.updateCardEditorInfo(cardInfo, form);
         boolean isError = result != CardUpadateResult.SUCCEED;
@@ -118,15 +102,11 @@ public class CardUpdateController {
         }
         
         cardInfo = cardEditorService.findCardInfoByCardId(form.getCardId());
-//        cardInfo = cardEditorService.updateCardEditorInfo(cardInfo, form);
         CardUpdateInfo updateInfo = mapper.map(cardInfo, CardUpdateInfo.class);
-//        String userName = AppUtility.getUsername();
-//        String questionImage = imageStorageService.displayQuestionCardImage(userName, deckId, cardId);
-//        String answerImage = imageStorageService.displayAnswerCardImage(userName, deckId, cardId);
         
         model.addAttribute("updateCard", updateInfo);
-        model.addAttribute("questionImage", questionImage);
-        model.addAttribute("answerImage", answerImage);
+        model.addAttribute("questionUrl", cardInfo.getQuestionImageUrl());
+        model.addAttribute("answerUrl", cardInfo.getAnswerImageUrl());
         model.addAttribute("cardResults", CardAnswerResult.values());
         model.addAttribute("cardUpdateForm", form);
         redirectAttributes.addFlashAttribute("message", AppUtility.getMessage(messageSource, result.getMessageId()));

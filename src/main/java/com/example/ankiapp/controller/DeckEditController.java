@@ -93,10 +93,4 @@ public class DeckEditController {
         redirectAttributes.addFlashAttribute(form);
         redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + FORM_CLASS_NAME, bdResult);
     }
-    
-//    @GetMapping(UrlConst.UPDATE_DECK)
-//    public String updateView(Model model) {
-//        model.addAttribute("deckForm", new DeckForm());
-//        return ViewNameConst.UPDATE_DECK;
-//    }
 }

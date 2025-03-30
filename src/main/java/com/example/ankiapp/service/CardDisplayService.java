@@ -26,14 +26,6 @@ public interface CardDisplayService {
      * @return カード情報リスト
      */
     List<CardInfo> findCardInfos();
-   
-    /**
-     * デッキ内のカードリストすべてを取得する
-     * @return カード情報リスト
-     */
-    List<CardInfo> findCardInfoByDeckId(Long deckId);
-        
-    String deckImage(Long deckId) throws IOException;
 
     /**
      * カード情報を登録する
@@ -53,6 +45,8 @@ public interface CardDisplayService {
     Integer getCardCountByCardResult(Long deckId, String result);
    
     List<DeckInfo> filterEmptyDecks(List<DeckInfo> decks);
+
+    List<CardInfo> findCardInfoByDeckId(Long deckId);
    
    
 }

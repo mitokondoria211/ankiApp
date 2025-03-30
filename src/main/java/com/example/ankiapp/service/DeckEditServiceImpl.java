@@ -27,38 +27,19 @@ public class DeckEditServiceImpl implements DeckEditService{
     private final UserInfoRepository userInfoRepository;
     
     private final DeckInfoRepository repository;
+    
+    private final CloudinaryService cloudinaryService;
 
-    private final ImageStorageService imageService;
-    
-    /**プロフィール画像の保存先のフォルダ*/
-    @Value("${image.folder}")
-    private String imgFolder;
-    
-    /**プロフィール画像の保管拡張子*/
-    @Value("${image.extract}")
-    private String imgExtract;
-    
-    /**プロフィール画像の保管拡張子*/
-    @Value("${image.default}")
-    private String imgdefault;
-
+    @Transactional
     @Override
     public DeckUpdateResult updateDeck(DeckInfo deckInfo, DeckUpdateForm form) throws IOException {
         deckInfo.setTitle(form.getTitle());
         deckInfo.setDescription(form.getDescription());
         
         try {
-            try {
-                if(!form.getImageFile().isEmpty()) {
-                    String fileName = imageService.saveDeckImage(form.getImageFile(), AppUtility.getUsername(), form.getDeckId());
-//                    String searchFileName = searchFileName(form.getDeckId());
-//                    Path imgFilePath =imageService.getDeckImagePath(AppUtility.getUsername(), form.getDeckId());
-//                    Files.deleteIfExists(imgFilePath);
-//                    Files.copy(form.getImageFile().getInputStream(), imgFilePath);
-                    deckInfo.setImagePath(fileName);
-                }
-            }catch(IOException e) {
-                throw new RuntimeException();
+            if(!form.getImageFile().isEmpty()) {
+                String fileUrl = cloudinaryService.uploadDeckImageFile(form.getImageFile(), AppUtility.getUsername(), form.getDeckId());
+                deckInfo.setImageUrl(fileUrl);
             }
             repository.save(deckInfo);
         }catch(DataIntegrityViolationException e) {
@@ -66,37 +47,6 @@ public class DeckEditServiceImpl implements DeckEditService{
         }catch (RuntimeException e) {
             return DeckUpdateResult.FAILURE_BY_IMAGE_ERROR;
         }
-        
-        
-//        if(form.getTitle() != null && !form.getTitle().trim().isEmpty()) {
-//            deckInfo.setTitle(form.getTitle());
-//        }
-//        if(form.getDescription() != null && !form.getDescription().trim().isEmpty()) {
-//            deckInfo.setDescription(form.getDescription());
-//        }
-//        if(!form.getImageFile().isEmpty()) {
-//            String searchFileName = searchFileName(form.getDeckId());
-//            Path imgFilePath = imageService.getDeckImagePath(deckInfo.getUserInfo().getLoginId(), form.getDeckId());
-//            Files.deleteIfExists(imgFilePath);
-//            Files.copy(form.getImageFile().getInputStream(), imgFilePath);
-//            deckInfo.setImagePath(searchFileName);
-//        }
-//        
-//        repository.save(deckInfo);
-        
         return DeckUpdateResult.SUCCEED;
-    }
-
-    private String searchFileName(Long deckId) {
-        String searchFileName = "deck_" + deckId + imgExtract;
-        return searchFileName;
-    }
-    
-    private UserInfo getUserInfo() {
-        return userInfoRepository.findByLoginId(AppUtility.getUsername()); 
-    }
-    
-    
-    
-    
+    }    
 }
