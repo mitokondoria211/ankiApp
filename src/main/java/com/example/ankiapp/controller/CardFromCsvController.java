@@ -16,7 +16,7 @@ import com.example.ankiapp.service.CardFromCsvService;
 import com.example.ankiapp.service.DeckInfoService;
 import com.example.ankiapp.utilty.AppUtility;
 import lombok.RequiredArgsConstructor;
-import lombok.var;
+
 
 @RequiredArgsConstructor
 @Controller

@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.springframework.stereotype.Service;
 import com.example.ankiapp.constant.CardCsvImportResult;
 import com.example.ankiapp.constant.db.CardAnswerResult;
@@ -22,7 +21,7 @@ import com.github.dozermapper.core.Mapper;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import lombok.RequiredArgsConstructor;
-import lombok.var;
+
 
 @Service
 @RequiredArgsConstructor

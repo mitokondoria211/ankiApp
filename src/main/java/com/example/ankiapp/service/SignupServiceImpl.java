@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.example.ankiapp.constant.MessageConst;
 import com.example.ankiapp.constant.SignupResult;
 import com.example.ankiapp.constant.db.AuthorityKind;

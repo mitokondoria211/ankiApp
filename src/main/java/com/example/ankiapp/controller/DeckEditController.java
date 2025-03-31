@@ -17,7 +17,7 @@ import com.example.ankiapp.form.DeckForm;
 import com.example.ankiapp.service.DeckInfoService;
 import com.example.ankiapp.utilty.AppUtility;
 import lombok.RequiredArgsConstructor;
-import lombok.var;
+
 
 @Controller
 @RequiredArgsConstructor
