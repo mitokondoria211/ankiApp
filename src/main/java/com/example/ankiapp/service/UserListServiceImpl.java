@@ -2,8 +2,9 @@ package com.example.ankiapp.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 import com.example.ankiapp.constant.UserDeleteResult;
 import com.example.ankiapp.dto.UserListInfo;
 import com.example.ankiapp.dto.UserSearchInfo;
@@ -11,6 +12,7 @@ import com.example.ankiapp.entitiy.UserInfo;
 import com.example.ankiapp.repository.UserInfoRepository;
 import com.example.ankiapp.utilty.AppUtility;
 import com.github.dozermapper.core.Mapper;
+
 import lombok.RequiredArgsConstructor;
 
 

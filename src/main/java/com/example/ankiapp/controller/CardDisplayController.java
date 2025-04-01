@@ -4,9 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+
 import com.example.ankiapp.constant.UrlConst;
 import com.example.ankiapp.constant.ViewNameConst;
 import com.example.ankiapp.constant.db.CardAnswerResult;
 import com.example.ankiapp.dto.CardPracticeInfo;
-import com.example.ankiapp.dto.CardUpdateInfo;
 import com.example.ankiapp.entitiy.CardInfo;
 import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.form.CardDisplayForm;
@@ -31,12 +30,11 @@ import com.example.ankiapp.form.ChallengeConfirmForm;
 import com.example.ankiapp.service.CardDisplayService;
 import com.example.ankiapp.service.CloudinaryService;
 import com.example.ankiapp.service.DeckInfoService;
-import com.example.ankiapp.service.ImageStorageService;
 import com.example.ankiapp.utilty.AppUtility;
 import com.github.dozermapper.core.Mapper;
-import jakarta.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
-import lombok.var;
+
 
 /**
  * カード表示画面Controllerクラス

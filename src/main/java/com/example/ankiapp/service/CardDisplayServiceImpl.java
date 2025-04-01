@@ -1,25 +1,22 @@
 package com.example.ankiapp.service;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 import com.example.ankiapp.constant.db.CardAnswerResult;
 import com.example.ankiapp.entitiy.CardInfo;
 import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.repository.CardInfoRepository;
 import com.example.ankiapp.repository.DeckInfoRepository;
 import com.example.ankiapp.repository.UserInfoRepository;
-import com.example.ankiapp.utilty.AppUtility;
+
 import lombok.RequiredArgsConstructor;
-import lombok.var;
+
 
 
 

@@ -1,22 +1,19 @@
 package com.example.ankiapp.service;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.example.ankiapp.constant.CardUpadateResult;
+
 import com.example.ankiapp.constant.DeckUpdateResult;
 import com.example.ankiapp.entitiy.DeckInfo;
-import com.example.ankiapp.entitiy.UserInfo;
 import com.example.ankiapp.form.DeckUpdateForm;
 import com.example.ankiapp.repository.DeckInfoRepository;
 import com.example.ankiapp.repository.UserInfoRepository;
 import com.example.ankiapp.utilty.AppUtility;
+
 import lombok.RequiredArgsConstructor;
-import lombok.var;
 
 @Service
 @RequiredArgsConstructor

@@ -3,22 +3,23 @@ package com.example.ankiapp.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.example.ankiapp.constant.CardDeleteResult;
+
 import com.example.ankiapp.constant.DeckDeleteResult;
 import com.example.ankiapp.constant.SortType;
 import com.example.ankiapp.dto.DeckListInfo;
 import com.example.ankiapp.dto.DeckSearchInfo;
 import com.example.ankiapp.entitiy.DeckInfo;
 import com.example.ankiapp.entitiy.UserInfo;
-import com.example.ankiapp.repository.CardInfoRepository;
 import com.example.ankiapp.repository.DeckInfoRepository;
 import com.example.ankiapp.repository.UserInfoRepository;
 import com.example.ankiapp.utilty.AppUtility;
 import com.github.dozermapper.core.Mapper;
+
 import lombok.RequiredArgsConstructor;
-import lombok.var;
+
 
 
 
