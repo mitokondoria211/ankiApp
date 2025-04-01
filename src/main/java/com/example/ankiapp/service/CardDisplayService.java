@@ -1,6 +1,5 @@
 package com.example.ankiapp.service;
 
-import java.io.IOException;
 import java.util.List;
 import com.example.ankiapp.entitiy.CardInfo;
 import com.example.ankiapp.entitiy.DeckInfo;
