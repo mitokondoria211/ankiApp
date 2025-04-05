@@ -1,7 +1,6 @@
 package com.example.ankiapp.exception.handler;
 
 import org.springframework.context.MessageSource;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
@@ -119,12 +118,12 @@ public class GlobalExceptionHandler {
     }
     
     
-    @ExceptionHandler(Exception.class)
-    public String handleException(Exception e, Model model) {
-        model.addAttribute("errorMessage", e.getMessage());
-        model.addAttribute("stackTrace", e.getStackTrace());
-        return "error";
-    }
+//    @ExceptionHandler(Exception.class)
+//    public String handleException(Exception e, Model model) {
+//        model.addAttribute("errorMessage", e.getMessage());
+//        model.addAttribute("stackTrace", e.getStackTrace());
+//        return "error";
+//    }
     
 
 }
