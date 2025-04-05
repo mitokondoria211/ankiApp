@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.ankiapp.constant.DeckCreateResult;
 import com.example.ankiapp.entitiy.DeckInfo;
@@ -21,12 +22,13 @@ import com.github.dozermapper.core.Mapper;
 
 //import jakarta.persistence.criteria.Path;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
-//@Transactional
+
 public class DeckInfoServiceImpl implements DeckInfoService{
 
 
@@ -54,6 +56,7 @@ public class DeckInfoServiceImpl implements DeckInfoService{
     @Value("${image.default}")
     private String imgdefault;
 
+    @Transactional
     @Override
     public DeckCreateResult createDeck(DeckForm form) throws IOException{
 
@@ -74,6 +77,7 @@ public class DeckInfoServiceImpl implements DeckInfoService{
             }
             repository.save(deckInfo);
         }catch(DataIntegrityViolationException e) {
+        	 log.error("DBエラー", e);
             return DeckCreateResult.FAILURE_BY_DB_ERROR;
         }catch(RuntimeException e) {
             return DeckCreateResult.FAILURE_BY_IMAGE_ERROR;
