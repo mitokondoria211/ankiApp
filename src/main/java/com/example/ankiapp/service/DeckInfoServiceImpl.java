@@ -24,7 +24,7 @@ import com.github.dozermapper.core.Mapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-
+@Transactional
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -56,7 +56,7 @@ public class DeckInfoServiceImpl implements DeckInfoService{
     @Value("${image.default}")
     private String imgdefault;
 
-    @Transactional
+    
     @Override
     public DeckCreateResult createDeck(DeckForm form) throws IOException{
 
