@@ -27,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 @Service
 @RequiredArgsConstructor
-//@Transactional
 public class CardEditServiceImpl implements CardEditService{
 
     /** ログイン情報テーブルDIO*/
