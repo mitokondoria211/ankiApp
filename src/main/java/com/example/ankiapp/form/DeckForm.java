@@ -2,7 +2,7 @@ package com.example.ankiapp.form;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
-import jakarta.validation.constraints.Max;
+
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -16,6 +16,7 @@ public class DeckForm {
     private Long deckId;
     
     /**デッキタイトル*/
+    @NotBlank(message = "タイトルは必須です")
     @Length(min = 5, max = 30, message = "{title.deckForm.length}")
     private String title;
     
