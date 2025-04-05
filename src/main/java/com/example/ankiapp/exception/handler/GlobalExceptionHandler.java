@@ -1,15 +1,18 @@
 package com.example.ankiapp.exception.handler;
 
 import org.springframework.context.MessageSource;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.example.ankiapp.constant.CardCreateResult;
-import com.example.ankiapp.constant.DeckCreateResult;
 import com.example.ankiapp.constant.CardUpadateResult;
+import com.example.ankiapp.constant.DeckCreateResult;
 import com.example.ankiapp.constant.UrlConst;
 import com.example.ankiapp.utilty.AppUtility;
+
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
@@ -113,6 +116,14 @@ public class GlobalExceptionHandler {
                 "message", AppUtility.getMessage(messageSource, result.toString()));
         redirectAttributes.addFlashAttribute("error", result);
         redirectAttributes.addFlashAttribute("isError", true);
+    }
+    
+    
+    @ExceptionHandler(Exception.class)
+    public String handleException(Exception e, Model model) {
+        model.addAttribute("errorMessage", e.getMessage());
+        model.addAttribute("stackTrace", e.getStackTrace());
+        return "error";
     }
     
 
