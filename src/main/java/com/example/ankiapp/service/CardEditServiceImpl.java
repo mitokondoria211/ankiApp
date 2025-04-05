@@ -24,7 +24,7 @@ import com.github.dozermapper.core.Mapper;
 import lombok.RequiredArgsConstructor;
 
 
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 //@Transactional
@@ -42,7 +42,6 @@ public class CardEditServiceImpl implements CardEditService{
     /**Dozer Mapper*/
     private final Mapper mapper;
     
-    @Transactional
     @Override
     public CardCreateResult createCardInfo(CardEditorForm form) throws IOException {
         var userInfo = getUserInfo();
@@ -94,7 +93,7 @@ public class CardEditServiceImpl implements CardEditService{
         return repository.findByCardId(cardId);
     }
 
-    @Transactional
+    
     @Override
     public CardUpadateResult updateCardEditorInfo(CardInfo cardInfo, CardUpdateForm form) throws IOException {
         
