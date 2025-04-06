@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
+import com.cloudinary.Transformation;
 import com.cloudinary.api.ApiResponse;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.ankiapp.entitiy.CardInfo;
@@ -70,16 +71,22 @@ public class CloudinaryServiceImpl implements CloudinaryService{
 
     @Override
     public String uploadDeckImageFile(MultipartFile file, String username, Long deckId) {
-        try {
-            String publicId ="users/" + username + "/decks/deck_" + deckId;
-            Map uploadResult = cloudinary.uploader().upload(
-                    file.getBytes(), 
-                    ObjectUtils.asMap( "public_id", publicId)
-                    );
-            return uploadResult.get("secure_url").toString();
-        }catch (IOException e) {
-            throw new RuntimeException("ファイルのアップロードに失敗しました", e);
-        }
+    	String publicId ="users/" + username + "/decks/deck_" + deckId;
+//        try {
+//            
+//            Map uploadResult = cloudinary.uploader().upload(
+//                file.getBytes(), 
+//                ObjectUtils.asMap(
+//                	"public_id", publicId,
+//                	"trasformation", new Transformation().quality("auto").fetchFormat("auto")
+//                )
+//             );
+//            return uploadResult.get("secure_url").toString();
+//        }catch (IOException e) {
+//            throw new RuntimeException("ファイルのアップロードに失敗しました", e);
+//        }
+    	
+    	return uploadImage(file, publicId);
 
     }
     
@@ -131,28 +138,50 @@ public class CloudinaryServiceImpl implements CloudinaryService{
     @Override
     public String uploadQuestionCardImage(MultipartFile file, String username, Long deckId, Long cardId) {
         String publicId = "users/" + username + "/decks/deck_" + deckId + "/card_" + cardId +"_question";
-        try {
-            Map uploadResult = cloudinary.uploader().upload(
-                    file.getBytes(), 
-                    ObjectUtils.asMap( "public_id", publicId)
-                    );
-            return uploadResult.get("secure_url").toString();
-        }catch (IOException e) {
-            throw new RuntimeException("ファイルのアップロードに失敗しました", e);
-        }
+//        try {
+//            Map uploadResult = cloudinary.uploader().upload(
+//                    file.getBytes(), 
+//                    ObjectUtils.asMap(
+//                        "public_id", publicId,
+//                        "trasformation", new Transformation().quality("auto").fetchFormat("auto")
+//                    	)
+//                    );
+//            return uploadResult.get("secure_url").toString();
+//        }catch (IOException e) {
+//            throw new RuntimeException("ファイルのアップロードに失敗しました", e);
+//        }
+        return uploadImage(file, publicId);
     }
     
     @Override
     public String uploadAnswerCardImage(MultipartFile file, String username, Long deckId, Long cardId) {
         String publicId = "users/" + username + "/decks/deck_" + deckId + "/card_" + cardId +"_answer";
-        try {
+//        try {
+//            Map uploadResult = cloudinary.uploader().upload(
+//                    file.getBytes(), 
+//                    ObjectUtils.asMap( "public_id", publicId)
+//                    );
+//            return uploadResult.get("secure_url").toString();
+//        }catch (IOException e) {
+//            throw new RuntimeException("ファイルのアップロードに失敗しました", e);
+//        }
+        return uploadImage(file, publicId);
+    }
+    
+    private String uploadImage(MultipartFile file, String publicId) {
+    	try {
             Map uploadResult = cloudinary.uploader().upload(
-                    file.getBytes(), 
-                    ObjectUtils.asMap( "public_id", publicId)
-                    );
+                file.getBytes(), 
+                ObjectUtils.asMap( 
+                	"public_id", publicId,
+                	"trasformation", new Transformation().
+                	quality("auto").
+                	fetchFormat("auto")
+                )
+            );
             return uploadResult.get("secure_url").toString();
         }catch (IOException e) {
             throw new RuntimeException("ファイルのアップロードに失敗しました", e);
         }
-    }   
+    }
 }
