@@ -14,7 +14,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center d-flex flex-wrap justify-content-center my-3" >
             <div th:each="deck, iterStat : ${deckInfos}" class="card me-3  mt-3 mb-3" style="width: 18rem; height: 24rem;">
                 <img th:src="${deckImageUrls[iterStat.index]}" alt="Deck Image" 
-                class="mx-auto mb-2" style="width: 200px;"/>
+                class="mx-auto mb-2" style="width: 200px; height: 200px;"/>
                   <div class="card-body">
                     <h5 class="card-title" th:text="${#strings.length(deck.title) > 10 ? #strings.substring(deck.title,0,10) + '...' : deck.title}"></h5>
                     <p class="card-text" th:text="${#strings.length(deck.description) > 40 ? #strings.substring(deck.description,0,40) + '...' : deck.description}"></p>

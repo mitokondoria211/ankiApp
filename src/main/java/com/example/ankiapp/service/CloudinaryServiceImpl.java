@@ -72,19 +72,6 @@ public class CloudinaryServiceImpl implements CloudinaryService{
     @Override
     public String uploadDeckImageFile(MultipartFile file, String username, Long deckId) {
     	String publicId ="users/" + username + "/decks/deck_" + deckId;
-//        try {
-//            
-//            Map uploadResult = cloudinary.uploader().upload(
-//                file.getBytes(), 
-//                ObjectUtils.asMap(
-//                	"public_id", publicId,
-//                	"trasformation", new Transformation().quality("auto").fetchFormat("auto")
-//                )
-//             );
-//            return uploadResult.get("secure_url").toString();
-//        }catch (IOException e) {
-//            throw new RuntimeException("ファイルのアップロードに失敗しました", e);
-//        }
     	
     	return uploadImage(file, publicId);
 
@@ -138,33 +125,12 @@ public class CloudinaryServiceImpl implements CloudinaryService{
     @Override
     public String uploadQuestionCardImage(MultipartFile file, String username, Long deckId, Long cardId) {
         String publicId = "users/" + username + "/decks/deck_" + deckId + "/card_" + cardId +"_question";
-//        try {
-//            Map uploadResult = cloudinary.uploader().upload(
-//                    file.getBytes(), 
-//                    ObjectUtils.asMap(
-//                        "public_id", publicId,
-//                        "trasformation", new Transformation().quality("auto").fetchFormat("auto")
-//                    	)
-//                    );
-//            return uploadResult.get("secure_url").toString();
-//        }catch (IOException e) {
-//            throw new RuntimeException("ファイルのアップロードに失敗しました", e);
-//        }
         return uploadImage(file, publicId);
     }
     
     @Override
     public String uploadAnswerCardImage(MultipartFile file, String username, Long deckId, Long cardId) {
         String publicId = "users/" + username + "/decks/deck_" + deckId + "/card_" + cardId +"_answer";
-//        try {
-//            Map uploadResult = cloudinary.uploader().upload(
-//                    file.getBytes(), 
-//                    ObjectUtils.asMap( "public_id", publicId)
-//                    );
-//            return uploadResult.get("secure_url").toString();
-//        }catch (IOException e) {
-//            throw new RuntimeException("ファイルのアップロードに失敗しました", e);
-//        }
         return uploadImage(file, publicId);
     }
     
@@ -173,10 +139,14 @@ public class CloudinaryServiceImpl implements CloudinaryService{
             Map uploadResult = cloudinary.uploader().upload(
                 file.getBytes(), 
                 ObjectUtils.asMap( 
-                	"public_id", publicId,
-                	"trasformation", new Transformation().
-                	quality("auto").
-                	fetchFormat("auto")
+                	"public_id",
+                	 publicId,
+                	"transformation", 
+                	new Transformation()
+                	.width(800)
+                    .crop("scale") // 比率を保って縮小
+                    .quality("auto")
+                    .fetchFormat("auto")
                 )
             );
             return uploadResult.get("secure_url").toString();

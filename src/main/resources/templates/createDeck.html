@@ -40,12 +40,12 @@
                 </div>
                 <div class="mt-4 mb-4">
                     <div class="mb-3"><label class="fw-bold">デッキ画像</label></div>
-                    <input type="file" th:field="*{imageFile}">
+                    <input type="file" id="deckImage" th:field="*{imageFile}">
                 </div>
                 <input class="btn btn-success" type ="submit" value="作成">
             </div>
         </form>
     </div>
-    
+	<script type="text/javascript" th:src="@{/js/upload.js}"></script>
 </body>
 </html>
