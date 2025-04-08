@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>デッキ編集</title>
+<title>デッキ更新</title>
 </head>
 <body>
     <div th:insert="~{common/sourceList :: sourceList}"></div>
@@ -61,12 +61,13 @@
                                       class="mx-auto mb-4 col-6"/>
                         </div>
                     </div>
-                    <input type="file" th:field="*{imageFile}">
+                    <input class="input-image" type="file" th:field="*{imageFile}">
                 </div>
             </div>
             <div class="mb-4">
                 <input type="submit" class="btn btn-success" value="更新">
             </div>
         </form>
+		<script type="text/javascript" th:src="@{/js/upload.js}"></script>
 </body>
 </html>

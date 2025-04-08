@@ -22,7 +22,7 @@
             <h2 class="h5 mb-3">暗記カード・デッキ管理はこちら</h2>
             <a th:href="@{/deckList}" class="btn btn-secondary me-2">デッキ管理</a>
             <a th:href="@{/cardList}" class="btn btn-success ms-2">カード管理</a>
-            <a th:href="@{/upload}" class="btn btn-success ms-2">アップロード</a>
+<!--            <a th:href="@{/upload}" class="btn btn-success ms-2">アップロード</a>-->
         </div>
         
         <th:block th:if="${hasUserManageAuth}">
@@ -30,6 +30,6 @@
             <a th:href="@{/userList}" class="btn btn-danger">ユーザー管理</a>
         </th:block>
     </div>
-	<a th:href="@{/login}">▶ ログイン画面はこちら</a>
+<!--	<a th:href="@{/login}">▶ ログイン画面はこちら</a>-->
 </body>
 </html>

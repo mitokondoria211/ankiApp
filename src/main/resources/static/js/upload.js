@@ -1,33 +1,38 @@
 /**
  * 
  */
+const quality = 0.6;
+const maxWidth = 800;
+const maxSizeMB = 5;
 
-document.getElementById('deckImage').addEventListener('change', function (e) {
-  const file = e.target.files[0];
+function compressAndReplace(input) {
+  const file = input.files[0];
   if (!file) return;
 
-  // 元の画像サイズ（参考）
-  const originalSizeMB = file.size / (1024 * 1024);
-
   new Compressor(file, {
-    quality: 0.6,
-    maxWidth: 800,
+    quality: quality,
+    maxWidth: maxWidth,
     success(result) {
       const compressedSizeMB = result.size / (1024 * 1024);
-      if (compressedSizeMB > 5) {
-        alert('圧縮後も5MBを超えているため、アップロードできません。');
-        e.target.value = ''; // 選択をリセット
+      if (compressedSizeMB > maxSizeMB) {
+        alert('圧縮後も5MBを超えているためアップロードできません。');
+        input.value = '';
         return;
       }
 
-      // 圧縮後のファイルをフォームデータに上書き（必要な場合）
+      // 圧縮されたファイルで置き換える
       const dataTransfer = new DataTransfer();
       const compressedFile = new File([result], file.name, { type: result.type });
       dataTransfer.items.add(compressedFile);
-      e.target.files = dataTransfer.files;
+      input.files = dataTransfer.files;
     },
     error(err) {
-      console.error(err.message);
+      console.error('圧縮エラー:', err.message);
     }
   });
+}
+
+// すべての画像inputに適用
+document.querySelectorAll('.image-input').forEach(input => {
+  input.addEventListener('change', () => compressAndReplace(input));
 });
