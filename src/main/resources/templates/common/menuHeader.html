@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
+	<div th:insert="~{common/sourceList :: sourceList}"></div>
+	
     <nav class="navbar" th:fragment="menuHeader">
         <div class="container" >
                 <div class="vertical-menu ">
                     <ul class="list-group">
-<!--                      <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/deckMenu}">デッキ</a></li>-->
-<!--                      <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/cardMenu}">カード</a></li>-->
-<!--                      <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/cardDisplay}">練習</a></li>-->
-<!--                      <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/selectDeck}">問題挑戦</a></li>-->
-                      <li class="list-group-item"><a th:href="@{/deckMenu}">デッキ</a></li>
-                      <li class="list-group-item"><a th:href="@{/cardMenu}">カード</a></li>
-                      <li class="list-group-item"><a th:href="@{/cardDisplay}">練習</a></li>
-                      <li class="list-group-item"><a th:href="@{/selectDeck}">問題挑戦</a></li>
-                      <!--                      <li class="list-group-item list-group-item-success list-group-item-action"><a th:href="@{/selectDeck}">ナビゲーション</a></li>-->
+                      <li class="list-group-item include"><a th:href="@{/deckMenu}"><i data-lucide="layers"></i>デッキ</a></li>
+                      <li class="list-group-item"><a th:href="@{/cardMenu}"><i data-lucide="credit-card"></i>カード</a></li>
+                      <li class="list-group-item"><a th:href="@{/cardDisplay}"><i data-lucide="repeat"></i>練習</a></li>
+                      <li class="list-group-item"><a th:href="@{/selectDeck}"><i data-lucide="target"></i>問題挑戦</a></li>
+					  <li class="list-group-item"><a th:href="@{/selectDeck}"><i data-lucide="help-circle"></i>問題挑戦</a></li>
                     </ul>
                     
                     <ul class="list-group list-user-group">
@@ -26,6 +24,12 @@
                 </div>
         </div>
     </nav>
-    
+	<script th:src="@{/js/lucide.min.js}"></script>
+	<script src="https://unpkg.com/lucide@latest"></script>
+	<script>
+	  document.addEventListener("DOMContentLoaded", function () {
+	    lucide.createIcons();
+	  });
+	</script>
 </body>
 </html>

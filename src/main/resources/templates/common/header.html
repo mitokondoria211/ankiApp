@@ -10,19 +10,9 @@
                 
                  <input type="submit" class="btn btn-danger ms-2 logout-btn" value="ログアウト"/>
             </form>
-<!--            <p>現在時刻は[<span id="real-time"></span>]です</p>-->
         </div>
 	</nav>
-<!--    <script th:inline="javascript">-->
-<!--      function updateTime() {-->
-<!--        const now = new Date();-->
-<!--        const timeString = now.toLocaleString('ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit' });-->
-<!--        document.getElementById('real-time').textContent = timeString;-->
-<!--      }-->
 
-<!--      setInterval(updateTime, 1000);-->
-<!--      updateTime();-->
-<!--    </script>-->
 <script type= "text/javascript" th:src="@{/js/time.js}"></script>
 </body>
 </html>

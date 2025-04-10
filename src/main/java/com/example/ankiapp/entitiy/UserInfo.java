@@ -1,10 +1,12 @@
 package com.example.ankiapp.entitiy;
 
 import java.time.LocalDateTime;
+
 import com.example.ankiapp.constant.db.AuthorityKind;
 import com.example.ankiapp.constant.db.UserStatusKind;
 import com.example.ankiapp.entitiy.converter.UserAuthorityConverter;
 import com.example.ankiapp.entitiy.converter.UserStatusConverter;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -76,6 +78,10 @@ public class UserInfo {
     /**最終更新ユーザー*/
     @Column(name= "update_user", nullable = false)
     private String updateUser;
+    
+    /**仮登録完了かどうか*/
+    @Column(name = "is_signup_completed")
+    private boolean isSignupCompleted;
 	
 	/**
 	 * デフォルトコンストラクタ
@@ -91,7 +97,7 @@ public class UserInfo {
 	
 	public UserInfo incrementLoginFailureCount() {
 		return new UserInfo(loginId, password, mailAddress, oneTimeCode, oneTimeCodeSendTime, ++loginFailureCount, 
-		        accountLockedTime, userStatusKind, authorityKind,signupCompleted, createTime, updateTime, updateUser);
+		        accountLockedTime, userStatusKind, authorityKind,signupCompleted, createTime, updateTime, updateUser, isSignupCompleted);
 	}
 	
 	/**
@@ -102,7 +108,7 @@ public class UserInfo {
 	
 	public UserInfo resetLoginFailureInfo() {
 		return new UserInfo(loginId, password, mailAddress, oneTimeCode, oneTimeCodeSendTime, 0, null, userStatusKind, authorityKind, 
-		        signupCompleted, createTime, updateTime, updateUser);
+		        signupCompleted, createTime, updateTime, updateUser, isSignupCompleted);
 	}
 	
 	/**
@@ -114,7 +120,7 @@ public class UserInfo {
 	public UserInfo updateAccountLocked() {
 	
 		return new UserInfo(loginId, password, mailAddress, oneTimeCode, oneTimeCodeSendTime, 0, LocalDateTime.now(), userStatusKind, authorityKind, 
-		        signupCompleted, createTime, updateTime, updateUser);
+		        signupCompleted, createTime, updateTime, updateUser, isSignupCompleted);
 	}
 
 }

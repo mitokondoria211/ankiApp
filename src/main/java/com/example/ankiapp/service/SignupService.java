@@ -1,10 +1,7 @@
 package com.example.ankiapp.service;
 
-import java.util.Optional;
 import com.example.ankiapp.constant.SignupResult;
 import com.example.ankiapp.dto.SignupInfo;
-import com.example.ankiapp.entitiy.UserInfo;
-import com.example.ankiapp.form.SignupForm;
 
 /**
  * ユーザー登録画面Serviceインターフェース
@@ -23,7 +20,7 @@ public interface SignupService {
      * @param form 入力情報
      * @return 登録情報(ユーザー情報Entity)、既に同じユーザIDで登録がある場合はEmpty
      */
-    public Optional <UserInfo> resistUserInfo(SignupForm form);
+//    public Optional <UserInfo> resistUserInfo(SignupForm form);
 
     public SignupResult signup(SignupInfo map);
 }

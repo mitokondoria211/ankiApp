@@ -3,22 +3,23 @@ package com.example.ankiapp.service;
 import java.text.MessageFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import com.example.ankiapp.constant.MessageConst;
 import com.example.ankiapp.constant.SignupResult;
 import com.example.ankiapp.constant.db.AuthorityKind;
 import com.example.ankiapp.constant.db.UserStatusKind;
 import com.example.ankiapp.dto.SignupInfo;
 import com.example.ankiapp.entitiy.UserInfo;
-import com.example.ankiapp.form.SignupForm;
 import com.example.ankiapp.repository.UserInfoRepository;
 import com.example.ankiapp.utilty.AppUtility;
 import com.github.dozermapper.core.Mapper;
+
 import lombok.RequiredArgsConstructor;
 
 
@@ -57,23 +58,23 @@ public class SignupServiceImpl implements SignupService {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
-	public Optional <UserInfo> resistUserInfo(SignupForm form) {
-		var 	userInfoExistedOpt =repository.findById(form.getLoginId());
-		if(userInfoExistedOpt.isPresent()) {
-			return Optional.empty();
-		}
-		var userInfo = mapper.map(form, UserInfo.class);
-		var encodedPassword = passwordEncoder.encode(form.getPassword());
-		userInfo.setPassword(encodedPassword);
-		userInfo.setUserStatusKind(UserStatusKind.ENABLED);
-		userInfo.setAuthorityKind(AuthorityKind.ANKI_MANEGER);
-		userInfo.setCreateTime(LocalDateTime.now());
-		userInfo.setUpdateTime(LocalDateTime.now());
-		userInfo.setUpdateUser(form.getLoginId());
-
-		return Optional.of(repository.save(userInfo));
-	}
+//	@Override
+//	public Optional <UserInfo> resistUserInfo(SignupForm form) {
+//		var 	userInfoExistedOpt =repository.findById(form.getLoginId());
+//		if(userInfoExistedOpt.isPresent()) {
+//			return Optional.empty();
+//		}
+//		var userInfo = mapper.map(form, UserInfo.class);
+//		var encodedPassword = passwordEncoder.encode(form.getPassword());
+//		userInfo.setPassword(encodedPassword);
+//		userInfo.setUserStatusKind(UserStatusKind.ENABLED);
+//		userInfo.setAuthorityKind(AuthorityKind.ANKI_MANEGER);
+//		userInfo.setCreateTime(LocalDateTime.now());
+//		userInfo.setUpdateTime(LocalDateTime.now());
+//		userInfo.setUpdateUser(form.getLoginId());
+//
+//		return Optional.of(repository.save(userInfo));
+//	}
 
     @Override
     public SignupResult signup(SignupInfo dto) {
@@ -151,6 +152,8 @@ public class SignupServiceImpl implements SignupService {
         }
         return sb.toString();
     }
+    
+    
 	
 
 }

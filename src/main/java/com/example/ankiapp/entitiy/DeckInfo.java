@@ -1,7 +1,9 @@
 package com.example.ankiapp.entitiy;
 
 import java.time.LocalDateTime;
+
 import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -58,7 +60,6 @@ public class DeckInfo {
     /**更新日*/
     @Column(name = "updated_at")
     @UpdateTimestamp
-    private LocalDateTime updatedAt;
-    
+    private LocalDateTime updatedAt; 
     
 }
