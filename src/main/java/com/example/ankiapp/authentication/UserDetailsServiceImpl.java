@@ -1,6 +1,7 @@
 package com.example.ankiapp.authentication;
 
 import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
@@ -10,7 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+
+import com.example.ankiapp.entitiy.UserInfo;
 import com.example.ankiapp.repository.UserInfoRepository;
+
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -53,8 +57,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        var userInfo = repository.findById(username)
+        UserInfo userInfo = repository.findById(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
+        
+        //仮登録のみで本登録が完了していないユーザーはログイン不可とする
+        if (!userInfo.isSignupCompleted()) {
+        	throw new UsernameNotFoundException("Registration not completed");
+        }
 
         var accountLockedTime = userInfo.getAccountLockedTime();
         boolean isAccountLocked = accountLockedTime != null

@@ -80,7 +80,7 @@ public class UserInfo {
     private String updateUser;
     
     /**仮登録完了かどうか*/
-    @Column(name = "is_signup_completed")
+    @Column(name = "is_signup_completed", nullable = false)
     private boolean isSignupCompleted;
 	
 	/**

@@ -5,14 +5,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.example.ankiapp.constant.SessionKeyConst;
 import com.example.ankiapp.constant.SignupConfirmStatus;
 import com.example.ankiapp.constant.UrlConst;
 import com.example.ankiapp.constant.ViewNameConst;
 import com.example.ankiapp.service.SignupConfirmService;
 import com.example.ankiapp.utilty.AppUtility;
+
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.var;
 
 /**
  * ユーザー登録コントローラー
