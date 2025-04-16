@@ -47,7 +47,7 @@ public class UserInfo {
     
 	/**ログイン失敗回数*/
 	@Column(name = "login_failure_count")
-	private int loginFailureCount;
+	private int loginFailureCount = 0;
 	
 	/**アカウントロック日時*/
 	@Column(name = "account_locked_time")
@@ -64,8 +64,8 @@ public class UserInfo {
 	private AuthorityKind authorityKind;
 	
 	/**登録完了*/
-	@Column(name = "signup_completed")
-	private boolean signupCompleted = false;
+	@Column(name = "is_signup_completed")
+	private boolean signupCompleted;
 	
 	   /**登録日時*/
     @Column(name = "create_time", nullable = false)
@@ -78,10 +78,6 @@ public class UserInfo {
     /**最終更新ユーザー*/
     @Column(name= "update_user", nullable = false)
     private String updateUser;
-    
-    /**仮登録完了かどうか*/
-    @Column(name = "is_signup_completed", nullable = false)
-    private boolean isSignupCompleted;
 	
 	/**
 	 * デフォルトコンストラクタ
@@ -97,7 +93,7 @@ public class UserInfo {
 	
 	public UserInfo incrementLoginFailureCount() {
 		return new UserInfo(loginId, password, mailAddress, oneTimeCode, oneTimeCodeSendTime, ++loginFailureCount, 
-		        accountLockedTime, userStatusKind, authorityKind,signupCompleted, createTime, updateTime, updateUser, isSignupCompleted);
+		        accountLockedTime, userStatusKind, authorityKind,signupCompleted, createTime, updateTime, updateUser);
 	}
 	
 	/**
@@ -108,7 +104,7 @@ public class UserInfo {
 	
 	public UserInfo resetLoginFailureInfo() {
 		return new UserInfo(loginId, password, mailAddress, oneTimeCode, oneTimeCodeSendTime, 0, null, userStatusKind, authorityKind, 
-		        signupCompleted, createTime, updateTime, updateUser, isSignupCompleted);
+		        signupCompleted, createTime, updateTime, updateUser);
 	}
 	
 	/**
@@ -120,7 +116,7 @@ public class UserInfo {
 	public UserInfo updateAccountLocked() {
 	
 		return new UserInfo(loginId, password, mailAddress, oneTimeCode, oneTimeCodeSendTime, 0, LocalDateTime.now(), userStatusKind, authorityKind, 
-		        signupCompleted, createTime, updateTime, updateUser, isSignupCompleted);
+		        signupCompleted, createTime, updateTime, updateUser);
 	}
 
 }

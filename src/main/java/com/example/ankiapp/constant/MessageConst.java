@@ -137,10 +137,13 @@ public class MessageConst {
 
     public static final String DECKLIST_DELETE_IMAGE_FAILED = "deckListDeleteImageFailed";
 
-    public static final String CARDLIST_IMAGE_DELETE_FAILED = "cardListImageDeleteFailed"
-            ;
+    public static final String CARDLIST_IMAGE_DELETE_FAILED = "cardListImageDeleteFailed";
+            
+    /** ワンタイムコード再送成功メッセージID */
+    public static final String SIGNUP_CONFIRM_RESEND_SUCCESS = "signup.confirm.resend.success";
 
-   
+	/** ワンタイムコード再送失敗メッセージID */
+	public static final String SIGNUP_CONFIRM_RESEND_FAILURE = "signup.confirm.resend.failure";
 
 
 }   

@@ -3,7 +3,6 @@ package com.example.ankiapp.service;
 import java.text.MessageFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
@@ -87,7 +86,7 @@ public class SignupServiceImpl implements SignupService {
             return SignupResult.FAILURE_BY_SIGNUP_PROCEEDING;
         }
         
-        var oneTimeCode = generatedRandomString();
+        var oneTimeCode = AppUtility.generatedRandomString(oneTimeCodeLength);
         var signupInfo = editSignupInfo(dto, oneTimeCode);
         try {
             repository.save(signupInfo);
@@ -144,14 +143,7 @@ public class SignupServiceImpl implements SignupService {
         return userInfo;
     }
 
-    private String generatedRandomString() {
-        var sb = new StringBuilder();
-        for (int i = 0; i < oneTimeCodeLength; i++) {
-            var randomNum = ThreadLocalRandom.current().nextInt(10);
-            sb.append(randomNum);
-        }
-        return sb.toString();
-    }
+    
     
     
 	

@@ -62,7 +62,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         
         //仮登録のみで本登録が完了していないユーザーはログイン不可とする
         if (!userInfo.isSignupCompleted()) {
-        	throw new UsernameNotFoundException("Registration not completed");
+        	throw new UsernameNotFoundException(username);
         }
 
         var accountLockedTime = userInfo.getAccountLockedTime();
@@ -74,8 +74,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .authorities(userInfo.getAuthorityKind().getCode()).
                 disabled(userInfo.getUserStatusKind().isDisabled())
                 .accountLocked(isAccountLocked)
-                // .accountExpired(true) ※アカウント有効期限切れか
-                // .credentialsExpired(true) ※アカウント有効期限切れか
                 .build();
     }
 
@@ -89,15 +87,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @EventListener
     public void handle(AuthenticationFailureBadCredentialsEvent event) {
-        var loginId = event.getAuthentication().getName();
-        repository.findById(loginId).ifPresent(userInfo -> {
-            repository.save(userInfo.incrementLoginFailureCount());
+    	var loginId = event.getAuthentication().getName();
+		repository.findById(loginId).ifPresent(userInfo -> {
+			if (!userInfo.isSignupCompleted()) {
+				return;
+			}
+			repository.save(userInfo.incrementLoginFailureCount());
 
-            var isReachFailureCount = userInfo.getLoginFailureCount() == lockingBorderCount;
-            if (isReachFailureCount) {
-                repository.save(userInfo.updateAccountLocked());
-            }
-        });
+			var isReachFailureCount = userInfo.getLoginFailureCount() == lockingBorderCount;
+			if (isReachFailureCount) {
+				repository.save(userInfo.updateAccountLocked());
+			}
+		});
     }
 
     /**

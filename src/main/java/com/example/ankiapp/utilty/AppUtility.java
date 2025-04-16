@@ -1,6 +1,7 @@
 package com.example.ankiapp.utilty;
 
 import java.util.Locale;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,5 +44,14 @@ public class AppUtility {
     public static String getUsername() {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         return userName;
+    }
+    
+    public static String generatedRandomString(int oneTimeCodeLength) {
+        var sb = new StringBuilder();
+        for (int i = 0; i < oneTimeCodeLength; i++) {
+            var randomNum = ThreadLocalRandom.current().nextInt(10);
+            sb.append(randomNum);
+        }
+        return sb.toString();
     }
 }

@@ -35,10 +35,15 @@
         <div class="mt-3">
             <input type="submit" class="btn btn-primary" value="確認">
         </div>
+		ji
         <div class="mt-3">
             <a th:href="@{/login}">▶ログイン画面へ戻る</a>
         </div>
     </form>
+	<!-- ワンタイムコード再送フォーム -->
+	<form th:action="@{/signupConfirm/resend}" method="post" class="mt-3">
+	    <button type="submit" class="btn btn-secondary">コードを再送する</button>
+	 </form>
 </div>
 </body>
 </html>
