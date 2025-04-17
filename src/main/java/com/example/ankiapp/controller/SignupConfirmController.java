@@ -2,6 +2,7 @@ package com.example.ankiapp.controller;
 
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -10,7 +11,6 @@ import com.example.ankiapp.constant.MessageConst;
 import com.example.ankiapp.constant.SessionKeyConst;
 import com.example.ankiapp.constant.SignupConfirmStatus;
 import com.example.ankiapp.constant.UrlConst;
-import com.example.ankiapp.constant.ViewNameConst;
 import com.example.ankiapp.service.SignupConfirmService;
 import com.example.ankiapp.utilty.AppUtility;
 
@@ -34,16 +34,29 @@ public class SignupConfirmController {
 	/**メッセージソース*/
 	private final MessageSource messageSource;
 
-	/**
-	 * 画面の初期表示を行います。
-	 * 
-	 * @param oneTimeCode ワンタイムコード
-	 * @param redirectAttirbutes リダイレクト用モデル
-	 * @return ユーザー本登録完了画面
-	 */
-	@GetMapping(UrlConst.SIGNUP_CONFIRM)
-	public String view() {
-		return ViewNameConst.SIGNUP_CONFIRM;
+	@GetMapping("/signupConfirm")
+	public String view(Model model, RedirectAttributes redirectAttributes) {
+	    // セッションからログインIDを取得
+	    var loginId = (String) session.getAttribute(SessionKeyConst.ONE_TIME_AUTH_LOGIN_ID);
+	    
+	    if (loginId == null) {
+	        // セッションにログインIDがない場合
+	        redirectAttributes.addFlashAttribute("errorMsg", 
+	            "無効な操作です。ログイン画面から仮登録ユーザー向けのフォームをご利用ください。");
+	        return "redirect:/login";
+	    }
+	    
+	    // サービスを使用して仮登録状態をチェック（念のため）
+	    boolean isTemporary = service.isTemporaryRegistrationUser(loginId);
+	    if (!isTemporary) {
+	        // 仮登録状態でない場合（既に本登録完了など）
+	        session.removeAttribute(SessionKeyConst.ONE_TIME_AUTH_LOGIN_ID);
+	        redirectAttributes.addFlashAttribute("errorMsg", 
+	            "既に本登録が完了しているか、ユーザーが存在しません。");
+	        return "redirect:/login";
+	    }
+	    
+	    return "signupConfirm";
 	}
 
 	@PostMapping(UrlConst.SIGNUP_CONFIRM)
@@ -100,6 +113,6 @@ public class SignupConfirmController {
 		    redirectAttributes.addFlashAttribute("isError", isError);
 		    
 		    // デバッグ用にリダイレクト先を明示的に指定
-		    return "redirect:" + UrlConst.SIGNUP_CONFIRM;
+		    return AppUtility.doRedirect(UrlConst.SIGNUP_CONFIRM); 
 	}
 }

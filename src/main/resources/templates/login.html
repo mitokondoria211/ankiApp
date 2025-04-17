@@ -34,6 +34,21 @@
 			</div>
 		</form>
 		<a th:href="@{/signup}">▶ ユーザー登録はこちら</a>
+		<!-- 既存のログインフォームの後に追加 -->
+		<div class="mt-4">
+		    <h5>仮登録中の方はこちら</h5>
+		    <form th:action="@{/login/temporary}" method="post">
+		        <div class="col-3 mx-auto">
+		            <label for="tempLoginId">ログインID：</label>
+		            <input class="form-control" type="text" id="tempLoginId" name="loginId">
+		        </div>
+		        <div class="mt-2">
+		            <button type="submit" class="btn btn-outline-primary">
+		                ワンタイムコード入力画面へ
+		            </button>
+		        </div>
+		    </form>
+		</div>
         <script th:inline="javascript">
                 function togglePassword() {
                     var passwordField = document.getElementById("password");

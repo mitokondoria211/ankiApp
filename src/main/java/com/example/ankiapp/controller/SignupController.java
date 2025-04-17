@@ -92,7 +92,8 @@ public class SignupController {
 		session.setAttribute(SessionKeyConst.ONE_TIME_AUTH_LOGIN_ID, form.getLoginId());
 		return AppUtility.doRedirect(UrlConst.SIGNUP_CONFIRM);
 	}
-
+	
+	
 	/**
 	 * メッセージIDを使ってプロパティファイルからメッセージを取得し、画面に表示します。
 	 * 

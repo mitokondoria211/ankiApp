@@ -5,9 +5,15 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.example.ankiapp.constant.SessionKeyConst;
 import com.example.ankiapp.constant.UrlConst;
 import com.example.ankiapp.constant.ViewNameConst;
 import com.example.ankiapp.form.LoginForm;
+import com.example.ankiapp.service.SignupConfirmService;
+
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +27,8 @@ public class LoginController {
     
 	/**セッション情報*/
 	private final HttpSession session;
+	
+	private final SignupConfirmService signupConfirmService;
 	
 	/**
      * 画面の初期表示を行います。
@@ -46,5 +54,30 @@ public class LoginController {
 		var errorInfo = (Exception)session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 		model.addAttribute("errorMsg", errorInfo.getMessage());
 		return ViewNameConst.LOGIN;
+	}
+	
+	/**
+	 * 仮登録ユーザーをワンタイムコード入力画面に誘導します
+	 */
+	@PostMapping("/login/temporary")
+	public String redirectToSignupConfirm(String loginId, RedirectAttributes redirectAttributes) {
+	    // サービスを使用して仮登録状態をチェック
+	    boolean isTemporary = signupConfirmService.isTemporaryRegistrationUser(loginId);
+	    
+	    if (isTemporary) {
+	        // 仮登録状態の場合
+	        session.setAttribute(SessionKeyConst.ONE_TIME_AUTH_LOGIN_ID, loginId);
+	        
+	        redirectAttributes.addFlashAttribute("message", 
+	            "ワンタイムコードを入力して本登録を完了してください。");
+	        redirectAttributes.addFlashAttribute("isError", false);
+	        
+	        return "redirect:/signupConfirm";
+	    }
+	    
+	    // 仮登録状態でない場合
+	    redirectAttributes.addFlashAttribute("errorMsg", 
+	        "入力されたログインIDは仮登録状態ではありません。");
+	    return "redirect:/login";
 	}
 }

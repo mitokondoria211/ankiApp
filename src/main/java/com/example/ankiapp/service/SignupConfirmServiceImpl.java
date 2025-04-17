@@ -106,6 +106,14 @@ public class SignupConfirmServiceImpl implements SignupConfirmService{
         return mailSendService.sendMail(userInfo.getMailAddress(), mailSubject, mailText);
     }
     
+    @Override
+    public boolean isTemporaryRegistrationUser(String loginId) {
+        var userInfoOpt = repository.findById(loginId);
+        
+        // ユーザーが存在し、仮登録状態（signup_completed = false）の場合はtrue
+        return userInfoOpt.isPresent() && !userInfoOpt.get().isSignupCompleted();
+    }
+    
     
 
 }
