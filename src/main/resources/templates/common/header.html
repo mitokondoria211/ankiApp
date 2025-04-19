@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<body>
-    <nav class="navbar navbar-dark header fixed-top" th:fragment="header">
-        <div class="container-fluid">	
-            <a class="navbar-brand" th:href="@{/menu}">暗記アプリ</a>
-            <form th:action="@{/logout}" method="post">
-                
-                <span class="text-light" th:text="|ログインID： ${#authentication.principal.username}|"></span>
-                
-                 <input type="submit" class="btn btn-danger ms-2 logout-btn" value="ログアウト"/>
-            </form>
-        </div>
-	</nav>
+<nav class="navbar navbar-dark header fixed-top" style="height:70px;" th:fragment="header">
+  <div class="container-fluid">
+    
+    <a class="navbar-brand" th:href="@{/menu}">暗記アプリ</a>
+    
+    <form th:action="@{/logout}" method="post" class="d-flex align-items-center">
+      <span class="text-light me-2" th:text="|ログインID： ${#authentication.principal.username}|"></span>
+      <input type="submit" class="btn btn-danger logout-btn" value="ログアウト"/>
+    </form>
+  </div>
+</nav>
 
 <script type= "text/javascript" th:src="@{/js/time.js}"></script>
 </body>

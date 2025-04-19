@@ -5,9 +5,9 @@
 	
     <nav class="navbar" th:fragment="menuHeader">
         <div class="container" >
-                <div class="vertical-menu ">
+                <div class="vertical-menu" id="sideMenu">
                     <ul class="list-group">
-                      <li class="list-group-item include"><a th:href="@{/deckMenu}"><i data-lucide="layers"></i>デッキ</a></li>
+                      <li class="list-group-item include"><a th:href="@{/deckMenu}"><i data-lucide="folder"></i>デッキ</a></li>
                       <li class="list-group-item"><a th:href="@{/cardMenu}"><i data-lucide="credit-card"></i>カード</a></li>
                       <li class="list-group-item"><a th:href="@{/cardDisplay}"><i data-lucide="repeat"></i>練習</a></li>
                       <li class="list-group-item"><a th:href="@{/selectDeck}"><i data-lucide="target"></i>問題挑戦</a></li>
@@ -31,5 +31,6 @@
 	    lucide.createIcons();
 	  });
 	</script>
+	
 </body>
 </html>

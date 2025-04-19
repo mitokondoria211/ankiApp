@@ -81,13 +81,82 @@ body {
 /*.list-user-group-bottom {*/
     
 /*}*/
+/* --- ハンバーガー用 --- */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 2000;
+  background-color: #0d9488;
+  border: none;
+  color: white;
+  padding: 10px 12px;
+  border-radius: 6px;
+}
 
+.menu-toggle {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 1.8rem;
+  padding: 6px 12px;
+  margin-right: 10px;
+  z-index: 2000;
+  display: none;
+}
 
 svg.lucide {
-	stroke: red !important;
-/*  stroke: #0d9488;  目立つティール系カラーなど */
-  width: 20px;
-  height: 20px;
-  vertical-align: middle;
-  margin-right: 6px;
+	  stroke: #0d9488 !important;
+	  width: 20px;
+	  height: 20px;
+	  vertical-align: middle;
+	  margin-right: 6px;
+	}
+
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .vertical-menu {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    width: 75%;
+    z-index: 1500;
+  }
+
+  .vertical-menu.open {
+    transform: translateX(0);
+  }
+
+  body {
+    margin-left: 0 !important;
+  }
+  
+  
 }
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .vertical-menu {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    width: 75%;
+    z-index: 1500;
+  }
+
+  .vertical-menu.open {
+    transform: translateX(0);
+  }
+
+  body {
+    margin-left: 0 !important;
+  }
+}
+
+	

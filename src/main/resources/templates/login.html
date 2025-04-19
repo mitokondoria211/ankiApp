@@ -1,64 +1,92 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ログイン画面</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ログイン画面</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 </head>
 <body>
     <div th:insert="~{common/sourceList :: sourceList}"></div>
     <div th:replace="~{common/messageIcon :: messageIcon}"></div>
-    <div class="container-fluid text-center">
-        <h2 class="mb-3 mt-3">ログイン画面</h2>
-		<div class="alert  d-flex align-items-center mx-auto " th:classappend='alert-danger' role="alert" th:if="${errorMsg != null}" style="width: 250px;">
-			<svg class="bi flex-shrink-0 me-2" width="24" height="24">
-				<use xlink:href="#exclamation-triangle-fill"/>
-			</svg>
-			<span th:text="${errorMsg}"></span>
-		</div>
-		<form class="form-group text-center" th:action ="@{/login}" method="post" th:object = "${loginForm}">
-			<div class="col-3 col-md-2 col-xxl-1 text-start mx-auto">
-				<p><label for="loginId">ログインID：</label>
-				<input class="form-control" type ="text" th:field="*{loginId}">
-			</div>
-			<div class="col-3 col-md-2 col-xxl-1 text-start mx-auto">
-				<p><label for="password">パスワード：</label>
-				<input class="form-control" type ="password" th:field="*{password}">
-                <lable>
-                    <input type="checkbox" id="showPassword" onclick="togglePassword()">
-                    パスワードを表示する
-                </lable>
-			</div>
-			<div>
-				<p><input class="btn btn-primary" type ="submit" value="ログイン">
-			</div>
-		</form>
-		<a th:href="@{/signup}">▶ ユーザー登録はこちら</a>
-		<!-- 既存のログインフォームの後に追加 -->
-		<div class="mt-4">
-		    <h5>仮登録中の方はこちら</h5>
-		    <form th:action="@{/login/temporary}" method="post">
-		        <div class="col-3 mx-auto">
-		            <label for="tempLoginId">ログインID：</label>
-		            <input class="form-control" type="text" id="tempLoginId" name="loginId">
-		        </div>
-		        <div class="mt-2">
-		            <button type="submit" class="btn btn-outline-primary">
-		                ワンタイムコード入力画面へ
-		            </button>
-		        </div>
-		    </form>
-		</div>
-        <script th:inline="javascript">
-                function togglePassword() {
-                    var passwordField = document.getElementById("password");
-                    if (passwordField.type === "password") {
-                        passwordField.type = "text ";
-                    } else {
-                        passwordField.type = "password";
-                    }
-                }
-        </script>
-	</div>
+
+    <div class="container py-4">
+        <h2 class="text-center mb-4">ログイン画面</h2>
+
+        <!-- エラーメッセージ -->
+        <div class="alert alert-danger d-flex align-items-center justify-content-center mx-auto" 
+             role="alert" th:if="${errorMsg != null}" style="max-width: 300px;">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+                <use xlink:href="#exclamation-triangle-fill"/>
+            </svg>
+            <span th:text="${errorMsg}"></span>
+        </div>
+
+        <!-- ログインフォーム -->
+        <form th:action="@{/login}" method="post" th:object="${loginForm}" class="mx-auto" style="max-width: 400px;">
+            <div class="mb-3">
+                <label for="loginId" class="form-label">ログインID</label>
+                <input type="text" class="form-control" th:field="*{loginId}" id="loginId">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">パスワード</label>
+                <input type="password" class="form-control" th:field="*{password}" id="password">
+                <div class="form-check mt-2">
+                    <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePassword()">
+                    <label class="form-check-label" for="showPassword">パスワードを表示する</label>
+                </div>
+            </div>
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary">ログイン</button>
+            </div>
+        </form>
+
+        <div class="text-center mb-4">
+            <a th:href="@{/signup}">▶ ユーザー登録はこちら</a>
+        </div>
+
+        <!-- 仮登録フォーム -->
+        <div class="text-center mt-4">
+            <h5>仮登録中の方はこちら</h5>
+            <form th:action="@{/login/temporary}" method="post" class="mx-auto" style="max-width: 400px;">
+                <div class="mb-3">
+                    <label for="tempLoginId" class="form-label">ログインID</label>
+                    <input type="text" class="form-control" id="tempLoginId" name="loginId">
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-outline-primary">ワンタイムコード入力画面へ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 使い方セクション -->
+    <div class="container my-5 p-4 border rounded bg-light">
+        <h4 class="mb-3">このアプリの使い方</h4>
+        <ol>
+            <li><strong>ユーザー登録：</strong>「ユーザー登録」ボタンからアカウントを作成。</li>
+            <li><strong>ログイン：</strong>登録したIDとパスワードでログイン。</li>
+            <li><strong>データの登録・編集：</strong>ログイン後、データの登録・編集が可能。</li>
+            <li><strong>ログアウト：</strong>ナビゲーションの「ログアウト」ボタンから。</li>
+        </ol>
+        <p class="mt-2">
+            ※デモアカウントも利用可能：ID <code>demo</code> / PW <code>demo1234</code>
+        </p>
+    </div>
+
+    <!-- フッター -->
+    <footer class="text-center text-muted py-3 border-top">
+        <small>© 2025 ただひと Portfolio App. All rights reserved.</small>
+    </footer>
+
+    <script th:inline="javascript">
+        function togglePassword() {
+            var passwordField = document.getElementById("password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
 </body>
-</html>
