@@ -4,18 +4,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>カードメニュー</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/menu.css}">
 </head>
 <body>
     <div th:insert="~{common/sourceList :: sourceList}"></div>
     <div th:replace="~{common/header :: header}"></div>
-    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
-    <div class = "container-fluid mx-auto text-center mt-5">
-        <h1 class="text-center py-3">カードメニュー</h1>
-    <div class="mt-3">
-        <a th:href="@{/cardEditor}" class="btn btn-secondary mr-3">カード作成</a>
-<!--        <a th:href="@{/cardFromCsv}" class="btn btn-secondary mx-3">カードファイル取得</a>-->
-        <a th:href="@{/cardList}" class="btn btn-secondary">カード管理</a>
-    </div>
-    <div></div>
+	<div class="container d-flex">
+		<div th:replace="~{common/sideMenu :: sideMenu}"></div>
+		<main class = "container mt-5 main-content">
+			<div class="row gy-4 d-flex justify-content-center mx-auto">
+				<h1 class="text-center py-3">カードメニュー</h1>
+				<div class="col-12">
+					<div class="menu-card text-center">
+					  <h2 class="h5 mb-4">カードメニュー</h2>
+					  <div class="row g-3 justify-content-center">
+						<div class="col-12 col-sm-6">
+						  <a th:href="@{/cardEditor}" class="btn btn-outline-secondary menu-btn">
+						    <i data-lucide="edit-3" class="me-2"></i>カード作成
+						  </a>
+						</div>
+						<div class="col-12 col-sm-6">
+						  <a th:href="@{/cardList}" class="btn btn-success text-white menu-btn">
+						    <i data-lucide="list" class="me-2"></i>カード管理
+						  </a>
+						</div>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+	<!-- Lucide icon 起動 -->
+	<script src="https://unpkg.com/lucide@latest"></script>
+	<script>
+	    lucide.createIcons();
+	</script>
+
 </body>
 </html>

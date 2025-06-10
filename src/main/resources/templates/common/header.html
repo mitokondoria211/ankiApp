@@ -5,12 +5,14 @@
     <a class="navbar-brand" th:href="@{/menu}">暗記アプリ</a>
     
     <form th:action="@{/logout}" method="post" class="d-flex align-items-center">
-      <span class="text-light me-2" th:text="|ログインID： ${#authentication.principal.username}|"></span>
+      <span class="text-light me-2" th:text="|ログインID： ${#authentication.principal.username}|"
+	  	style=" max-width: 150px; text-overflow: ellipsis;"></span>
       <input type="submit" class="btn btn-danger logout-btn" value="ログアウト"/>
     </form>
   </div>
 </nav>
 
 <script type= "text/javascript" th:src="@{/js/time.js}"></script>
+
 </body>
 </html>

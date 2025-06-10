@@ -33,6 +33,12 @@ public class CloudinaryServiceImpl implements CloudinaryService{
     @Value("${default.image}")
     private String defaultImg;
     
+    @Value("${cloudinary.upload.format}")
+    private String uploadFormat;
+
+    @Value("${cloudinary.upload.quality}")
+    private String uploadQuality;
+    
     @Override
     public String uploadFile(MultipartFile file, String customName) {
         try {
@@ -139,8 +145,9 @@ public class CloudinaryServiceImpl implements CloudinaryService{
             Map uploadResult = cloudinary.uploader().upload(
                 file.getBytes(), 
                 ObjectUtils.asMap( 
-                	"public_id",
-                	 publicId,
+                	"public_id",publicId,
+                	"format", uploadFormat,
+                    "quality", uploadQuality,
                 	"transformation", 
                 	new Transformation()
                 	.width(800)

@@ -9,8 +9,8 @@
     <div th:insert="~{common/sourceList :: sourceList}"></div>
     
     <div th:replace="~{common/messageIcon :: messageIcon}"></div>
-    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
-    <div class = "container-fluid mx-auto text-center w-75">
+    <div th:replace="~{common/sideMenu :: sideMenu}"></div>
+    <div class = "container-fluid mx-auto text-center main-content">
         <h1 class="text-center mt-5 pt-3 h2">カード更新</h1>
         <div th:replace="~{common/header :: header}"></div>
         <div class="alert  d-flex align-items-center mx-auto col-5" 
@@ -120,6 +120,11 @@
         </form>
 		<script type="text/javascript" th:src="@{/js/upload.js}"></script>
     
-    
+		<!-- Lucide icon 起動 -->
+		<script src="https://unpkg.com/lucide@latest"></script>
+		<script>
+		    lucide.createIcons();
+		</script>
+
 </body>
 </html>

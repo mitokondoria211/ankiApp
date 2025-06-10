@@ -8,8 +8,8 @@
 <body>
     <div th:insert="~{common/sourceList :: sourceList}"></div>
     <div th:replace="~{common/header :: header}"></div>
-    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
-    <div class = "container mx-auto text-center content  w-75 bg-white mt-5 pt-3">
+    <div th:replace="~{common/sideMenu :: sideMenu}"></div>
+    <div class = "container mx-auto text-center content  main-content bg-white mt-5 pt-3">
         <h1 th:text="' デッキ:' + ${deck.title}" class="h2">挑戦確認</h1>
         <div class="w-50 mx-auto">
             <h2 class="mt-5 h4">デッキ挑戦</h2>
@@ -43,5 +43,11 @@
                 </div>
         </div>  
     </div>
+	<!-- Lucide icon 起動 -->
+	<script src="https://unpkg.com/lucide@latest"></script>
+	<script>
+	    lucide.createIcons();
+	</script>
+
 </body>
 </html>

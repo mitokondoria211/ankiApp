@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div th:insert="~{common/sourceList :: sourceList}"></div>
+		
+		<aside class="side-menu" id="sideMenu" th:fragment="sideMenu">
+	      <div class="menu-toggle-container">
+		    <button class="menu-toggle" id="toggleBtn" onclick="toggleSideMenu()">
+		      <i data-lucide="menu" class="toggle-icon" id="menuIcon"></i>
+		    </button>
+		  </div>
+		  <div class="container">
+		    <ul class="list-group">
+		      <li class="list-group-item include"><a th:href="@{/deckMenu}"><i data-lucide="folder"></i>デッキ</a></li>
+		      <li class="list-group-item"><a th:href="@{/cardMenu}"><i data-lucide="credit-card"></i>カード</a></li>
+		      <li class="list-group-item"><a th:href="@{/cardDisplay}"><i data-lucide="repeat"></i>練習</a></li>
+		      <li class="list-group-item"><a th:href="@{/selectDeck}"><i data-lucide="target"></i>問題挑戦</a></li>
+		      <li class="list-group-item"><a th:href="@{/selectDeck}"><i data-lucide="help-circle"></i>使い方</a></li>
+		    </ul>
+		    <ul class="list-group list-user-group">
+		      <li class="list-group-item"><a th:href="@{/menu}"><i data-lucide="home"></i>トップメニュー</a></li>
+		      <li class="list-group-item"><a th:href="@{/signup}"><i data-lucide="user-plus"></i>ユーザー登録</a></li>
+		    </ul>
+		  </div>
+		</aside>
+    </body>
+</html>

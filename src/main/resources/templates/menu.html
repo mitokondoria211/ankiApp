@@ -15,14 +15,15 @@
 
   <div th:insert="~{common/sourceList :: sourceList}"></div>
   <div th:replace="~{common/header :: header}"></div>
-  <div th:replace="~{common/menuHeader :: menuHeader}"></div>
+  <div class="container d-flex">
+	<div th:replace="~{common/sideMenu :: sideMenu}"></div>
 
-  <main class="container menu-section">
-    <h1 class="text-center mb-5 fw-bold">トップメニュー</h1>
-
-    <div class="row gy-4 justify-content-center">
+	<main class="container main-content">
+	  
+	  <div class="row gy-4 d-flex justify-content-center mx-auto">
 		<!-- 問題挑戦・練習 -->
-		<div class="col-12 col-md-8">
+		<h1 class="top-menu-title text-center mt-5 fw-bold">トップメニュー</h1>
+		<div class="col-12">
 		  <div class="menu-card text-center">
 		    <h2 class="h5 mb-4">問題挑戦・練習</h2>
 		    <div class="row g-3 justify-content-center">
@@ -39,63 +40,65 @@
 		    </div>
 		  </div>
 		</div>	
-      <!-- デッキ作成・カード作成 -->
-      <div class="col-12 col-md-8">
-        <div class="menu-card text-center">
-          <h2 class="h5 mb-4">暗記カード・デッキ作成</h2>
-          <div class="row g-3 justify-content-center">
-            <div class="col-12 col-sm-6">
-              <a th:href="@{/createDeck}" class="btn btn-outline-secondary menu-btn">
-                <i data-lucide="folder-plus" class="me-2"></i>デッキ作成
-              </a>
-            </div>
-            <div class="col-12 col-sm-6">
-              <a th:href="@{/cardEditor}" class="btn btn-success text-white menu-btn">
-                <i data-lucide="edit-3" class="me-2"></i>カード作成
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+	    <!-- デッキ作成・カード作成 -->
+	    <div class="col-12">
+	      <div class="menu-card text-center">
+	        <h2 class="h5 mb-4">暗記カード・デッキ作成</h2>
+	        <div class="row g-3 justify-content-center">
+	          <div class="col-12 col-sm-6">
+	            <a th:href="@{/createDeck}" class="btn btn-outline-secondary menu-btn">
+	              <i data-lucide="folder-plus" class="me-2"></i>デッキ作成
+	            </a>
+	          </div>
+	          <div class="col-12 col-sm-6">
+	            <a th:href="@{/cardEditor}" class="btn btn-success text-white menu-btn">
+	              <i data-lucide="edit-3" class="me-2"></i>カード作成
+	            </a>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
 
-      <!-- デッキ管理・カード管理 -->
-      <div class="col-12 col-md-8">
-        <div class="menu-card text-center">
-          <h2 class="h5 mb-4">暗記カード・デッキ管理</h2>
-          <div class="row g-3 justify-content-center">
-            <div class="col-12 col-sm-6">
-              <a th:href="@{/deckList}" class="btn btn-outline-secondary menu-btn">
-                <i data-lucide="folder-cog" class="me-2"></i>デッキ管理
-              </a>
-            </div>
-            <div class="col-12 col-sm-6">
-              <a th:href="@{/cardList}" class="btn btn-success text-white menu-btn">
-                <i data-lucide="list" class="me-2"></i>カード管理
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+	    <!-- デッキ管理・カード管理 -->
+	    <div class="col-12">
+	      <div class="menu-card text-center">
+	        <h2 class="h5 mb-4">暗記カード・デッキ管理</h2>
+	        <div class="row g-3 justify-content-center">
+	          <div class="col-12 col-sm-6">
+	            <a th:href="@{/deckList}" class="btn btn-outline-secondary menu-btn">
+	              <i data-lucide="folder-cog" class="me-2"></i>デッキ管理
+	            </a>
+	          </div>
+	          <div class="col-12 col-sm-6">
+	            <a th:href="@{/cardList}" class="btn btn-success text-white menu-btn">
+	              <i data-lucide="list" class="me-2"></i>カード管理
+	            </a>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
 
-      <!-- ユーザー管理 -->
-      <th:block th:if="${hasUserManageAuth}">
-        <div class="col-12 col-md-8">
-          <div class="menu-card text-center">
-            <h2 class="h5 mb-4">ユーザー情報管理</h2>
-            <a th:href="@{/userList}" class="btn btn-danger menu-btn">
-              <i data-lucide="users" class="me-2"></i>ユーザー管理
-            </a>
-          </div>
-        </div>
-      </th:block>
+	    <!-- ユーザー管理 -->
+	    <th:block th:if="${hasUserManageAuth}">
+	      <div class="col-12 mb-5">
+	        <div class="menu-card text-center">
+	          <h2 class="h5 mb-4">ユーザー情報管理</h2>
+	          <a th:href="@{/userList}" class="btn btn-danger menu-btn">
+	            <i data-lucide="users" class="me-2"></i>ユーザー管理
+	          </a>
+	        </div>
+	      </div>
+	    </th:block>
 
-    </div>
-  </main>
+	  </div>
+	</main>
+  </div>
+
 
   <!-- Lucide icon 起動 -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
-    lucide.createIcons();
+  	    lucide.createIcons();
   </script>
 </body>
 </html>

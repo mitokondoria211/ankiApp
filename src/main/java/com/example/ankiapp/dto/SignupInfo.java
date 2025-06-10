@@ -15,6 +15,9 @@ public class SignupInfo {
     /**パスワード*/
     private String password;
     
+    /**確認パスワード*/
+	private String confirmPassword;
+    
     /**メールアドレス*/
     private String mailAddress;
 }

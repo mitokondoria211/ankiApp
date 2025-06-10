@@ -1,13 +1,9 @@
 @charset "UTF-8";
 
-body {
-  padding-top: 70px; /* ヘッダー高さ分 */
-/*  margin-left: 12%;   サイドメニュー分 */
-}
 
-.menu-section {
-  padding: 2rem;
-}
+/* 全体で横スクロールを防ぐ */
+
+
 
 .menu-card {
   background: #ffffff;
@@ -15,6 +11,8 @@ body {
   padding: 2rem;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   transition: all 0.3s ease;
+  margin: 0 auto;
+  max-width:500px;
 }
 
 .menu-card:hover {
@@ -29,9 +27,7 @@ body {
 }
 
 @media (max-width: 768px) {
-  body {
-    margin-left: 0;
-  }
+  
 
   .vertical-menu {
     position: relative;

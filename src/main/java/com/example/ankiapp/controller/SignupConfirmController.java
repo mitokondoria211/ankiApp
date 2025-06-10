@@ -33,6 +33,32 @@ public class SignupConfirmController {
 
 	/**メッセージソース*/
 	private final MessageSource messageSource;
+	
+	 /**
+     * 仮登録ユーザー認証画面の表示
+     * 
+     * @param model モデル
+     * @return 仮登録ユーザー認証画面
+     */
+    @GetMapping("/signupActivation")
+    public String viewActivation(Model model) {
+        return "signupActivation";
+    }
+    
+    /**
+     * 仮登録ユーザーをワンタイムコード入力画面に誘導します
+     * パスワード認証も追加
+     */
+//    @PostMapping("/login/temporary")
+//    public String redirectToSignupConfirm(String loginId, String password, RedirectAttributes redirectAttributes) {
+//        // パスワードの検証（パスワードが正しいかどうか）
+//        boolean isValidPassword = service.verifyTemporaryUserPassword(loginId, password);
+//        
+//        if (!isValidPassword) {
+//            redirectAttributes.addFlashAttribute("errorMsg", 
+//                "パスワードが正しくありません。");
+//            return "redirect:/signupActivation";
+//        }
 
 	@GetMapping("/signupConfirm")
 	public String view(Model model, RedirectAttributes redirectAttributes) {

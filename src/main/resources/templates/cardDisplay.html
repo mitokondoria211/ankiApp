@@ -14,80 +14,91 @@
 <body class="bg-body-secondary">
     <div th:insert="~{common/sourceList :: sourceList}"></div>
     <div th:replace="~{common/header :: header}"></div>
-    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
-    <div class = "container mx-auto text-center content w-75 bg-white pb-3">
-        <h1 class="text-center mt-5 pt-3">練習</h1>
-        <div th:if="${practiceForm.deckId == null && practiceForm.cardId == null}"
-                class="select-group">
-            
-            <h2 class="my-4 h3">デッキ選択</h2>
-            <form th:action="@{/cardDisplay/deck}" method="post" th:object="${practiceForm}">
-                
-                <div class="align-items-center d-flex flex-row mb-3 justify-content-center">
-                    <label class="col-form-label h4">デッキ：　</label>
-                    <div class="col-3">
-                        <select name="deckId" th:field="*{deckId}" class="form-select">
-                            <option th:each="deck   : ${deckInfos}"
-                                          th:value="${deck.deckId}"
-                                          th:text="${deck.title}"></option>
-                        </select>
-                    </div>
+	<div class="container d-flex">
+		<div th:replace="~{common/sideMenu :: sideMenu}"></div>
+		<main class = "container main-content bg-white pb-3">
+			<div class="row gy-4 d-flex justify-content-center mx-auto">
+				<h1 class="text-center mt-5 pt-3">練習</h1>
+				<div th:if="${practiceForm.deckId == null && practiceForm.cardId == null}"
+				        class="select-group">
+				    
+				    <h2 class="my-5 text-center h3">デッキ選択</h2>
+				    <form th:action="@{/cardDisplay/deck}" method="post" th:object="${practiceForm}">
+				        
+				        <div class="align-items-center d-flex flex-row my-5 justify-content-center select-form">
+				            <label class="col-form-label h4">デッキ：　</label>
+				            <div class="col-8 col-sm-4">
+				                <select name="deckId" th:field="*{deckId}" class="form-select">
+				                    <option th:each="deck   : ${deckInfos}"
+				                                  th:value="${deck.deckId}"
+				                                  th:text="${deck.title}"></option>
+				                </select>
+				            </div>
 
-                </div>
+				        </div>
 
-                <div class="mt-4"><button type="submit" class="btn btn-success">選択</button></div>
-            </form>
-        </div>
-        <div th:if="${practiceForm.deckId != null && practiceForm.cardId == null}"
-                class="select-group">
-            <h2 class="my-4 h3">カード選択</h2>
-            <form th:action="@{/cardDisplay/card}" method="post" th:object="${practiceForm}">
-                <input type="hidden" name="deckId" th:value="${deckId}" />
-                <div class="align-items-center d-flex flex-row mb-3 justify-content-center">
-                    <label class="col-form-label h4">カード：　</label>
-                    <div class="col-3">
-                        <select name="cardId" th:field="*{cardId}" class="form-select">
-                            <option th:each="card   : ${cardInfos}"
-                                          th:value="${card.cardId}"
-                                          th:text="${card.cardName}"></option>
-                        </select>
-                    </div>
+				        <div class="my-5 text-center"><button type="submit" class="btn btn-success">選択</button></div>
+				    </form>
+				</div>
+				<div th:if="${practiceForm.deckId != null && practiceForm.cardId == null}"
+				        class="select-group">
+				    <h2 class="my-5 text-center h3">カード選択</h2>
+				    <form th:action="@{/cardDisplay/card}" method="post" th:object="${practiceForm}">
+				        <input type="hidden" name="deckId" th:value="${deckId}" />
+				        <div class="align-items-center d-flex flex-row mb-3 justify-content-center select-form">
+				            <label class="col-form-label h4">カード：　</label>
+				            <div class="col-8 col-sm-4">
+				                <select name="cardId" th:field="*{cardId}" class="form-select">
+				                    <option th:each="card   : ${cardInfos}"
+				                                  th:value="${card.cardId}"
+				                                  th:text="${card.cardName}"></option>
+				                </select>
+				            </div>
 
-                </div>
-                <div class="mt-4"><button type="submit" class="btn btn-success">選択</button></div>
-            </form>
-        </div>
-        
-        
-        <div th:if="${practiceForm.deckId != null && practiceForm.cardId != null}">
-            <h2 th:text="'カード名：' + ${cardInfo.cardName}" class="h3 mt-4"></h2>
-            <h3 class="mt-3 mb-3 text-start">問題</h3>
-            <div class="text-start" style="background-color: #fffeed;">
-                
-                <p id="problemSection" th:utext="${cardInfo.question}" style="white-space:pre-wrap;">問題内容</p>
-                <div class="text-center" th:if="${cardInfo.questionImageUrl != null}">
-                    <img th:src="${cardInfo.questionImageUrl}" style="max-width: 75%;">
-                </div>
-            </div>
-            <div class="text-center">
-                    <button id="showAnswerButton" type="button" class="mt-3 btn btn-outline-danger">解答を表示</button>
-            </div>
-            
-            <div  id="answerSection" class="text-start mb-2">
-                <h3 class="mt-5 text-start">解答</h3>
-                <div style="background-color: #fffeed;">
-                    <p th:utext="${cardInfo.answer}" class="text-danger ms-2" style="white-space:pre-wrap;">解答内容</p>
-                    <div class="text-center" th:if="${cardInfo.answerImageUrl != null}">
-                        <img th:src="${cardInfo.answerImageUrl}" style="max-width: 75%;">
-                    </div>
-                </div>
+				        </div>
+				        <div class="my-5 text-center"><button type="submit" class="btn btn-success">選択</button></div>
+				    </form>
+				</div>
 
-            </div>
-            <form th:action="@{/cardDisplay}" method="get">
-                <div><button type="submit" class="mt-3 btn btn-success">デッキ選択に戻る</button></div>
-            </form>
-        </div>
-    </div>
+
+				<div th:if="${practiceForm.deckId != null && practiceForm.cardId != null}">
+				    <h2 th:text="'カード名：' + ${cardInfo.cardName}" class="h3 my-5 text-center"></h2>
+				    <h3 class="my-3 text-start">問題</h3>
+				    <div class="text-start py-3" style="background-color: #fffeed;">
+				        
+				        <p id="problemSection" th:utext="${cardInfo.question}" class="ms-2" style="white-space:pre-wrap;">問題内容</p>
+				        <div class="text-center" th:if="${cardInfo.questionImageUrl != null}">
+				            <img th:src="${cardInfo.questionImageUrl}" style="max-width: 75%;">
+				        </div>
+				    </div>
+				    <div class="text-center my-3">
+				            <button id="showAnswerButton" type="button" class="mt-3 btn btn-outline-danger">解答を表示</button>
+				    </div>
+				    
+				    <div id="answerSection" class="text-start my-3">
+				        <h3 class="mt-5 text-start">解答</h3>
+				        <div style="background-color: #fffeed;" class="text-start py-3">
+				            <p th:utext="${cardInfo.answer}" class="text-danger ms-2" style="white-space:pre-wrap;">解答内容</p>
+				            <div class="text-center" th:if="${cardInfo.answerImageUrl != null}">
+				                <img th:src="${cardInfo.answerImageUrl}" style="max-width: 75%;">
+				            </div>
+				        </div>
+
+				    </div>
+				    <form th:action="@{/cardDisplay}" method="get">
+				        <div class="text-center my-5"><button type="submit" class="mt-3 btn btn-success">デッキ選択に戻る</button></div>
+				    </form>
+				</div>
+			</div>
+
+		</main>
+	</div>
+
     <script type="text/javascript" th:src="@{/js/cardDisplay.js}"></script>
+	<!-- Lucide icon 起動 -->
+	<script src="https://unpkg.com/lucide@latest"></script>
+	<script>
+	    lucide.createIcons();
+	</script>
 </body>
 </html>

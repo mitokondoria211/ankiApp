@@ -7,9 +7,9 @@
 <body class="bg-body-secondary">
     <div th:insert="~{common/sourceList :: sourceList}"></div>
     <div th:replace="~{common/header :: header}"></div>
-    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
+    <div th:replace="~{common/sideMenu :: sideMenu}"></div>
     <div th:replace="~{common/messageIcon :: messageIcon}"></div>
-    <div class = "container mx-auto text-center content w-75 bg-white pb-3">
+    <div class = "container mx-auto text-center content main-content bg-white pb-3">
         <h1 class="my-5 pt-3 h2">CSVからデータ取得</h1>
         <div class="alert  d-flex align-items-center mt-3 w-50 mx-auto"  role="alert"th:classappend="${isError ? 'alert-danger' : 'alert-primary'}" th:if="${message != null}">
                 <svg class="bi flex-shrink-0 me-2" width="24" height="24">

@@ -1,162 +1,247 @@
 @charset "UTF-8";
- .table-row-active {
+
+body {
+	margin-top: 70px;
+}
+
+.table-row-active {
     background-color: #cce5ff;
     --bs-table-bg-state:#cce5ff;
 }
 
+/* ヘッダー部分 - 70px固定 */
 .header {
     position: fixed;
     width: 100%;
-    background-color:#0d9488;
-/*    z-index: 100;*/
+    background-color: #0d9488;
+    height: 70px;
+    top: 0;
+    left: 0;
+    z-index: 1001;
 }
 
-body {
-/*    margin-left:200px;*/
-/*    padding-left:200px;*/
-}
-
-/*.content {*/
-/*        margin-left:200px;*/
-/*            padding-left:200px;*/
-/*margin: 0 auto;*/
-/*    width:90%;*/
-/*    box-sizing: border-box;*/
-/*    max-width: 1024px;*/
-/*    z-index: 10000;*/
-/*}*/
 .list-group-item {
     background-color: #D0F0E0;
-    color:#444444; 
-/*    color: #134e4a;   ティールの暗い色 */
+    color: #444444; 
 }
 
-.vertical-menu {
-/*    scroll-margin-top: 56px;*/
-/*    width: 200px;*/
+/* サイドメニュー部分 - 固定 */
+.side-menu {
     background-color: #D0F0E0;
-    color:#444444; 
+    color: #444444; 
     font-weight: bold;
-    width:12%;
+    width: 200px;
     position: fixed;
     left: 0;
-    top: 56px;
-    height: calc(100vh - 56px);
-    
-/*    background-color:#d1e7dd;*/
-/*    background-color:#a3cfbb;*/
-/*    background-color:rgb(128, 128, 128);*/
+     /* ヘッダー下に配置 */
+    height: calc(100vh - 70px);
     padding-top: 10px;
-/*    margin-top: 56px;*/
     z-index: 1000;
-    
-        /* Flexboxを使用して内部要素を配置 */
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;  /* 上部メニューと下部メニューを両端に配置 */
-    
+    padding-top:40px;
+    /* Flexboxを使用して内部要素を配置 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease-in-out;
+	touch-action: none;
+/*	position: sticky;*/
+	top: 70px; /* ヘッダーの高さ分 */
+/*	height: auto;*/
 }
-.vertical-menu a {
+
+.side-menu a {
     background-color: #f8f9fa;
-    color:#444444; 
+    color: #444444; 
     display: block;
-    padding: 10px;
+    padding: 5px;
     text-decoration: none;
     text-align: left;
-/*    margin: 10px 0;*/
 }
 
 .list-group:first-child {
     flex-grow: 0;
 }
+
 .list-user-group {
-    margin-top: auto;  /* 上部との空間を自動調整 */
-    margin-bottom: 20px;  /* 下部に余白を追加 */
-    border-top: 1px solid #8bc3a4;  /* 区切り線を追加 */
+    margin-top: auto;
+    margin-bottom: 20px;
+    border-top: 1px solid #8bc3a4;
     padding-top: 10px;
 }
-/*.list-user-group {*/
-/*    position: relative;*/
-/*}*/
-/*.list-user-group-bottom {*/
-    
-/*}*/
-/* --- ハンバーガー用 --- */
-.menu-toggle {
-  display: none;
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  z-index: 2000;
-  background-color: #0d9488;
-  border: none;
-  color: white;
-  padding: 10px 12px;
-  border-radius: 6px;
+
+/* メニュートグルボタンのコンテナ - サイドメニュー内側の右端に配置 */
+.menu-toggle-container {
+    position: absolute;
+    right: -40px; /* 右端から10pxの位置に */
+    top: 10px; /* 上から10pxの位置に */
+    z-index: 2001;
 }
 
+/* 丸いトグルボタン - レスポンシブ時のみ表示 */
 .menu-toggle {
-  background-color: transparent;
-  color: white;
-  border: none;
-  font-size: 1.8rem;
-  padding: 6px 12px;
-  margin-right: 10px;
-  z-index: 2000;
-  display: none;
+    background-color: #00A86B; /* ジェイドグリーン */
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%; /* 丸ボタン */
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: none; /* デフォルトでは非表示 */
+    transition: all 0.3s ease;
+/*    display: flex;*/
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-toggle:hover {
+	background-color: #009458; /* ジェイドグリーンの暗めバージョン */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.menu-toggle:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* トグルアイコンのスタイル */
+button.menu-toggle svg.lucide.toggle-icon {
+    stroke: white !important;
+    stroke-width: 2.5px !important;
+    width: 24px !important;
+    height: 24px !important;
+    margin: 0 !important;
+}
+
+.main-content {
+/*    padding-top: 30px;*/
+    margin-left: 200px;
+/*	  サイドメニュー幅分のマージン */
+    transition: margin-left 0.3s ease-in-out;
+	width: 100%;
+	box-sizing: border-box;
+	overflow-x: hidden;
+/*	overflow-y: visible;*/
 }
 
 svg.lucide {
-	  stroke: #0d9488 !important;
-	  width: 20px;
-	  height: 20px;
-	  vertical-align: middle;
-	  margin-right: 6px;
+    stroke: #0d9488 !important;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+.no-wrap {
+    white-space: nowrap;
+}
+
+/*#searchForm {*/
+/*  position: sticky;*/
+/*  top: 70px;  */
+/*  ヘッダー高さ */
+/*  z-index: 1000;*/
+/*  background-color: white;*/
+/*  padding-top: 10px;*/
+/*}*/
+
+.table-scroll-wrapper {
+    overflow-x: auto;
+/*	max-height: calc(100vh - 250px);*/
+/*	max-height: 500px;*/
+/*	overflow-y: visible;*/
+    max-width: 100%;
+}
+.table-scroll-wrapper .table {
+    width: max-content;
+    min-width: 300px;
+	margin-bottom: 0;
+}
+td, th {
+    word-break: break-word;
+}
+
+.table-scroll-wrapper thead th {
+  top:70px;
+  position: sticky;
+  background-color: white; /* ここは必須！ */
+  z-index: 1000;
+  border-bottom: 2px solid #dee2e6; /* Bootstrap風のボーダー */
+}
+
+/*.table-responsive {*/
+/*  overflow-x: auto;*/
+/*  display: block;*/
+/*  width: 100%;*/
+/*}*/
+
+/* メディアクエリ - レスポンシブ対応 */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0; /* サイドメニューを画面外に出すためマージンなし */
+		overflow-x: hidden;
+    }
+	
+    /* メニュートグルボタンを表示 */
+    .menu-toggle {
+         display: flex;/* flexに変更して中央揃え */
+    }
+
+    /* サイドメニューを初期状態で画面外に */
+    .side-menu {
+        transform: translateX(-100%);
+        width: 75%;
+/*		position: sticky;*/
+    }
+	.side-menu a {
+	    padding: 5px;
+		font-size:12px;
 	}
 
+    /* オープン状態のサイドメニュー */
+    .side-menu.open {
+        transform: translateX(0);
+    }
+	
+	/* メニューが開いているときのボタン位置 - 内側に移動 */
+	.side-menu.open .menu-toggle-container {
+	    right: 10px; /* メニューが開いたときは内側に配置 */
+	}
 
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
+    /* メニューオープン時の背景スクロール制御 */
+    body.menu-open {
+        overflow: hidden;
+    }
+	
+	.table-responsive {
+	  overflow-x: auto;
+	  margin-bottom: 0;
+	}
+	
+	.main-content {
+/*		 min-height: 100vh;  */
+		 /*仮に高さを大きくしてスクロールテスト */
+	}
 
-  .vertical-menu {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    width: 75%;
-    z-index: 1500;
-  }
-
-  .vertical-menu.open {
-    transform: translateX(0);
-  }
-
-  body {
-    margin-left: 0 !important;
-  }
-  
-  
+	body {
+/*	   overflow-y: auto !important;  menu-openでもスクロール可能にする */
+    }
+	
+	.select-form {
+		min-width: 300px;
+	}
+	
+	.table-scroll-wrapper {
+	   max-height: none;
+	   overflow-y: visible;
+	 }
 }
 
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
+/*body {*/
+/*  overflow: auto !important;*/
+/*  height: auto !important;*/
+/*}*/
 
-  .vertical-menu {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    width: 75%;
-    z-index: 1500;
-  }
-
-  .vertical-menu.open {
-    transform: translateX(0);
-  }
-
-  body {
-    margin-left: 0 !important;
-  }
-}
 
 	

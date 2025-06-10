@@ -23,7 +23,7 @@
         </div>
 
         <!-- ログインフォーム -->
-        <form th:action="@{/login}" method="post" th:object="${loginForm}" class="mx-auto" style="max-width: 400px;">
+        <form th:action="@{/login}" method="post" th:object="${loginForm}" class="mx-auto col-10 col-sm-8 col-md-6 col-lg-4">
             <div class="mb-3">
                 <label for="loginId" class="form-label">ログインID</label>
                 <input type="text" class="form-control" th:field="*{loginId}" id="loginId">
@@ -46,22 +46,25 @@
         </div>
 
         <!-- 仮登録フォーム -->
-        <div class="text-center mt-4">
-            <h5>仮登録中の方はこちら</h5>
-            <form th:action="@{/login/temporary}" method="post" class="mx-auto" style="max-width: 400px;">
-                <div class="mb-3">
-                    <label for="tempLoginId" class="form-label">ログインID</label>
-                    <input type="text" class="form-control" id="tempLoginId" name="loginId">
-                </div>
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-outline-primary">ワンタイムコード入力画面へ</button>
-                </div>
-            </form>
-        </div>
+<!--        <div class="text-center mt-4">-->
+<!--            <h5>仮登録中の方はこちら</h5>-->
+<!--            <form th:action="@{/login/temporary}" method="post" class="mx-auto" style="max-width: 400px;">-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="tempLoginId" class="form-label">ログインID</label>-->
+<!--                    <input type="text" class="form-control" id="tempLoginId" name="loginId">-->
+<!--                </div>-->
+<!--                <div class="d-grid">-->
+<!--                    <button type="submit" class="btn btn-outline-primary">ワンタイムコード入力画面へ</button>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--			<div class="text-center mb-3">-->
+<!--                <a th:href="@{/signupActovation} class="btn btn-primary">仮登録中の方はこちら</a>-->
+<!--            </div>-->
     </div>
 
     <!-- 使い方セクション -->
-    <div class="container my-5 p-4 border rounded bg-light">
+    <div class="container my-5 p-4 border rounded bg-light col-10 col-sm-8 col-md-6 col-lg-4">
         <h4 class="mb-3">このアプリの使い方</h4>
         <ol>
             <li><strong>ユーザー登録：</strong>「ユーザー登録」ボタンからアカウントを作成。</li>

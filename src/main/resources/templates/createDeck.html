@@ -8,10 +8,10 @@
 <body>
     <div th:insert="~{common/sourceList :: sourceList}"></div>
     <div th:replace="~{common/header :: header}"></div>
-    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
+    <div th:replace="~{common/sideMenu :: sideMenu}"></div>
     <div th:replace="~{common/messageIcon :: messageIcon}"></div>
-    <div class = "container-fluid mx-auto text-center mt-5 pt-3 w-75">
-        <h1 class="text-center  h2">デッキ作成</h1>
+    <div class = "container-fluid mx-auto text-center main-content">
+        <h1 class="text-center h2 pt-3">デッキ作成</h1>
         <div class="alert  d-flex mx-auto align-items-center col-6" 
                 th:classappend="${isError ? 'alert-danger' : 'alert-primary'}" 
                 role="alert" 
@@ -24,21 +24,21 @@
                 <span class="w-100 text-start ps-3" th:utext="${message}"></span>
             </div>
         </div>
-        <form class="form-group text-center" th:action ="@{/createDeck}" enctype="multipart/form-data" method="post" th:object = "${deckForm}">
-            <div class="mx-auto mt-4">
-                <div class="mt-4">
+        <form class="form-group" th:action ="@{/createDeck}" enctype="multipart/form-data" method="post" th:object = "${deckForm}">
+            <div class="mx-auto my-5">
+                <div class="">
                     <div>
                         <label class="fw-bold">タイトル</label>
                     </div>
-                    <input class="col-6"  type="text" th:field="*{title}">
+                    <input class="col-10 col-md-6"  type="text" th:field="*{title}">
                     <div class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
                 </div>
-                <div class="mt-4">
+                <div class="my-5">
                     <div><label class="fw-bold">説明</label></div>
-                    <textarea class="col-6" th:field="*{description}" style="white-space: pre-wrap;"></textarea>
+                    <textarea class="col-10 col-md-6" th:field="*{description}" style="white-space: pre-wrap;"></textarea>
                     <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
                 </div>
-                <div class="mt-4 mb-4">
+                <div class="my-5">
                     <div class="mb-3"><label class="fw-bold">デッキ画像</label></div>
                     <input class="image-input" type="file" id="deckImage" th:field="*{imageFile}">
                 </div>
@@ -47,5 +47,11 @@
         </form>
     </div>
 	<script type="text/javascript" th:src="@{/js/upload.js}"></script>
+	<!-- Lucide icon 起動 -->
+	<script src="https://unpkg.com/lucide@latest"></script>
+	<script>
+	    lucide.createIcons();
+	</script>
+
 </body>
 </html>

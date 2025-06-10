@@ -10,7 +10,7 @@
     <div th:replace="~{common/header :: header}"></div>
     <div th:replace="~{common/messageIcon :: messageIcon}"></div>
     <div th:replace="~{common/menuHeader :: menuHeader}"></div>
-    <div class = "container-fluid mx-auto text-center w-75">
+    <div class = "container-fluid mx-auto text-center main-content">
         <h1 class="text-center mt-5 h2">デッキ更新</h1>
         <div class="alert  d-flex mx-auto align-items-center col-6" 
                 th:classappend="${isError ? 'alert-danger' : 'alert-primary'}" 
@@ -25,49 +25,58 @@
             </div>
         </div>
         <h3 th:text="'デッキ：' + ${deckInfo.title} + ' の更新'" class="mx-auto col-6"></h3>
-        <form th:action="@{/updateDeck}" method="post" enctype="multipart/form-data" th:object="${deckUpdateForm}">
-            <input type="hidden" th:field="*{deckId}" />
-            <div class="mt-3 " th:each="deck: ${deckInfo}">
-                <div class="mx-auto col-6 my-5 text-start">
-                    <h3 class="text-center h4">タイトル</h3>
-                    <label class="form-label fw-bold d-flex">
-                        <span class="flex-shrink-0">変更前： </span>
-                        <span th:text="${deck.title}" class="fw-normal text-break" style="white-space: pre-wrap;"></span>     
-                    </label>
-                    <input type="text"class="form-control" th:field="*{title}">
-                    <div class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
-                </div>
-                <div class="mx-auto col-6 text-start mt-3 mb-3">
-                    <h3 class="text-center h4">説明</h3>
-                    <label class="form-label fw-bold d-flex">
-                        <span class="flex-shrink-0">変更前：</span>
-                        <span th:text="${deck.description}" class="fw-normal text-break" style="white-space: pre-wrap;"></span>     
-                    </label>
-                    <textarea class="form-control" th:field="*{description}"style="white-space: pre-wrap;"></textarea>
-                    <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
-                </div>
-                <div class="my-5">
-                    <div>
-                        <h3 class="text-center h4 mb-3">画像</h3>
-                        <label  class="form-label fw-bold">変更前</label>
-                            
-                        <div th:if="${deck.imageUrl == null}" 
-                                class="my-4">
-                            画像なし
-                        </div>
-                        <div th:unless="${deck.imageUrl == null}">
-                            <img th:src="${deck.imageUrl}" 
-                                      alt="Deck Image" 
-                                      class="mx-auto mb-4 col-6"/>
-                        </div>
-                    </div>
-                    <input class="input-image" type="file" th:field="*{imageFile}">
-                </div>
-            </div>
-            <div class="mb-4">
-                <input type="submit" class="btn btn-success" value="更新">
-            </div>
-        </form>
+		<div class="w-75">
+			<form th:action="@{/updateDeck}" method="post" enctype="multipart/form-data" th:object="${deckUpdateForm}">
+			    <input type="hidden" th:field="*{deckId}" />
+			    <div class="mt-3 " th:each="deck: ${deckInfo}">
+			        <div class="mx-auto  my-5 text-start">
+			            <h3 class="text-center h4">タイトル</h3>
+			            <label class="form-label fw-bold d-flex">
+			                <span class="flex-shrink-0">変更前： </span>
+			                <span th:text="${deck.title}" class="fw-normal text-break" style="white-space: pre-wrap;"></span>     
+			            </label>
+			            <input type="text"class="form-control" th:field="*{title}">
+			            <div class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+			        </div>
+			        <div class="mx-auto  text-start mt-3 mb-3">
+			            <h3 class="text-center h4">説明</h3>
+			            <label class="form-label fw-bold d-flex">
+			                <span class="flex-shrink-0">変更前：</span>
+			                <span th:text="${deck.description}" class="fw-normal text-break" style="white-space: pre-wrap;"></span>     
+			            </label>
+			            <textarea class="form-control" th:field="*{description}"style="white-space: pre-wrap;"></textarea>
+			            <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+			        </div>
+			        <div class="my-5">
+			            <div>
+			                <h3 class="text-center h4 mb-3">画像</h3>
+			                <label  class="form-label fw-bold">変更前</label>
+			                    
+			                <div th:if="${deck.imageUrl == null}" 
+			                        class="my-4">
+			                    画像なし
+			                </div>
+			                <div th:unless="${deck.imageUrl == null}">
+			                    <img th:src="${deck.imageUrl}" 
+			                              alt="Deck Image" 
+			                              class="mx-auto mb-4 col-6"/>
+			                </div>
+			            </div>
+			            <input class="input-image" type="file" th:field="*{imageFile}">
+			        </div>
+			    </div>
+			    <div class="mb-4">
+			        <input type="submit" class="btn btn-success" value="更新">
+			    </div>
+			</form>
+		</div>
+
 		<script type="text/javascript" th:src="@{/js/upload.js}"></script>
+		<!-- Lucide icon 起動 -->
+		<script src="https://unpkg.com/lucide@latest"></script>
+		<script>
+		    lucide.createIcons();
+		</script>
+
 </body>
 </html>

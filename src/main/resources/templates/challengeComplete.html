@@ -7,8 +7,8 @@
 <body class="bg-body-secondary">
     <div th:insert="~{common/sourceList :: sourceList}"></div>
     <div th:replace="~{common/header :: header}"></div>
-    <div th:replace="~{common/menuHeader :: menuHeader}"></div>
-    <div class="container mx-auto text-center content  w-75 bg-white mt-5">
+    <div th:replace="~{common/sideMenu :: sideMenu}"></div>
+    <div class="container mx-auto text-center content main-content bg-white mt-5">
         <h1 class="text-3xl font-bold text-center mb-8">挑戦完了</h1>
         
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 text-center ">
@@ -35,5 +35,11 @@
         </div>
 
     </div>
+	<!-- Lucide icon 起動 -->
+	<script src="https://unpkg.com/lucide@latest"></script>
+	<script>
+	    lucide.createIcons();
+	</script>
+
 </body>
 </html>
