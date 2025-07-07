@@ -23,7 +23,7 @@
 | バックエンド | Java / Spring Boot / Spring Security / JPA（Hibernate） |
 | フロントエンド | Thymeleaf / HTML / CSS / Bootstrap / JavaScript（jQuery） |
 | データベース | PostgreSQL |
-| インフラ | Heroku（本番環境） / Amazon S3（画像保存） |
+| インフラ | Heroku（本番環境） / **Cloudinary（画像保存）** |
 | その他 | Lombok / Dozer / MultipartFile / WebP対応 / モバイル対応（レスポンシブ） |
 
 ---
@@ -79,26 +79,27 @@
 |------|-----|
 | アプリURL | 非公開（開発者デモ希望の方はご連絡ください） |
 | GitHub | https://github.com/yourname/ankiapp |
-| ER図・画面遷移図 | 準備中 or ポートフォリオ内に記載 |
+| ER図・画面遷移図 | 準備中 or ポートフォリオ内に記載予定 |
 
 ---
 
 ## ✅ 工夫した点
 
-- **Spring Security** を用いた権限別UIとルート管理  
-- **画像アップロード最適化**：WebP形式＋S3保存  
-- **レスポンシブ対応**：Bootstrap 5を使用しスマホでも操作しやすく  
-- **フラグメント化**：共通ヘッダー・サイドバーの再利用で保守性向上  
-- **例外処理**：アップロード失敗時の例外処理（MaxUploadSize等）
+- **Cloudinary** を使用して画像をクラウドに保存（容量節約＆CDN配信）  
+- アップロード画像を **WebP形式に変換** し、通信量を最適化  
+- **Spring Security** によるユーザー/管理者の権限制御と画面制御  
+- Bootstrap + jQuery による **モーダル表示・レスポンシブ対応**  
+- HTML共通部分を**フラグメント化**して、メンテナンス性を向上  
+- **例外処理**：アップロード失敗・バリデーションエラーを丁寧に処理  
 
 ---
 
 ## 🧪 今後の課題
 
-- 出題履歴をグラフ化して見える化（Chart.js等）  
-- 「今日の学習まとめ」通知機能（メール or 画面表示）  
-- 画像アップロードの容量制限強化とUI改善  
-- Docker対応とクラウド環境の移行（Heroku → ECS等）
+- 出題履歴の可視化（Chart.jsなどでグラフ表示）  
+- カード使用頻度・正答率に基づいた出題の自動調整（簡単・難しい）  
+- Docker対応・ECSなどへのインフラ移行検討  
+- Cloudinaryの使用制限対策（無料枠上限）
 
 ---
 
@@ -110,5 +111,6 @@
 📱 X（旧Twitter）: [@yourhandle](https://twitter.com/yourhandle)
 
 ---
+
 
 このアプリケーションのログイン機能は、「文系卒凡才SEのJava教室」の記事を参考にし、改良を加えました。それ以外の部分は作成しました# ankiApp
