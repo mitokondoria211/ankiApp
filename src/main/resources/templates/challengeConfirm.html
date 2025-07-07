@@ -11,14 +11,14 @@
     <div th:replace="~{common/sideMenu :: sideMenu}"></div>
     <div class = "container mx-auto text-center content  main-content bg-white mt-5 pt-3">
         <h1 th:text="' デッキ:' + ${deck.title}" class="h2">挑戦確認</h1>
-        <div class="w-50 mx-auto">
-            <h2 class="mt-5 h4">デッキ挑戦</h2>
-            <div class="pb-3 mx-auto border">
+        <div class="col-10 col-md-6 mx-auto">
+            <h2 class="my-5 h4">デッキ挑戦</h2>
+            <div class="mt- pb-3 mx-auto border">
                 <form th:action="@{/challengeConfirm/{deckId}(deckId=${deck.deckId})}" 
                 post="get" th:object="${challengeConfirmForm}">
                     <div class="mt-5 select-group d-flex align-items-center justify-content-center">
                         <label class="fw-bold col-form-label">カード評価：</label>
-                        <div class="col-3">
+                        <div class="">
                             <select th:field="*{cardResult}" class="form-select">
                                 <option th:each="result: ${cardResults}"
                                               th:value="${result}"
@@ -35,14 +35,15 @@
                                 <label class="fw-bold">出題数:  </label>
                                 <input type="hidden" name="cardResult" th:value="${cardResult}" th:field="*{cardResult}">
                                 <input type="number" th:min="1" th:max="${cardSize}" th:value="${cardSize}" th:field="*{size}">
-                                <div>
-                                    <button type="submit" class="btn btn-outline-success mt-3">挑戦</button>
+                                <div class="mt-5 mb-3">
+                                    <button type="submit" class="btn btn-outline-success">挑戦</button>
                                 </div>   
                         </form>
                     </div>
                 </div>
         </div>  
     </div>
+	<div th:replace="~{common/modal :: modal}"></div>
 	<!-- Lucide icon 起動 -->
 	<script src="https://unpkg.com/lucide@latest"></script>
 	<script>

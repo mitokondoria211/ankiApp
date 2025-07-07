@@ -281,7 +281,7 @@ public class CardDisplayController {
                                  .map(CardAnswerResult::getRating)
                                  .toArray(String[]::new);
         
-        model.addAttribute("deckInfo", deckInfo);
+        model.addAttribute("deck", deckInfo);
         model.addAttribute("cardInfos", cardInfos);
         model.addAttribute("totalCards", cardInfos.size());
         model.addAttribute("cardRating", ratings);

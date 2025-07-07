@@ -35,3 +35,18 @@ function editSelectedCardId(row) {
         }
     });
 }
+
+//上下のスクロールバー連動
+$(function () {
+    //「対象要素.on( イベント名, 関数 )」
+    //イベント名がscrollなので、画面がスクロールした時に発動
+  $("#scrollbar, #scrollbox").on("scroll", function () {
+    if ($(this).attr("id") === "scrollbar") {
+        //scrollLeftでスクロール量を取得
+      $("#scrollbox").scrollLeft($(this).scrollLeft());
+    } else {
+      $("#scrollbar").scrollLeft($(this).scrollLeft());
+    }
+  });
+});
+

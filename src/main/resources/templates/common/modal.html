@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:insert="~{common/sourceList :: sourceList}"></div>
+	<div class="modal fade" id="howToUseModal" tabindex="-1"
+	 aria-labelledby="howToUseModalLabel" aria-hidden="true"
+	 th:fragment="modal">
+	    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+	        <div class="modal-content">
+
+	            <!-- モーダルヘッダー -->
+	            <div class="modal-header">
+	                <h1 class="modal-title fs-5" id="howToUseModalLabel">
+	                    使い方
+	                </h1>
+	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+	            </div>
+
+	            <!-- モーダル本体 -->
+	            <div class="modal-body">
+
+	                <!-- スクリーンショット表示 -->
+	                <div class="screenshot-container">
+	                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320' viewBox='0 0 400 320'%3E%3Crect width='400' height='320' fill='%23f8f9fa' stroke='%23dee2e6' stroke-width='1'/%3E%3Ctext x='200' y='40' text-anchor='middle' font-family='sans-serif' font-size='20' font-weight='bold' fill='%23333'%3Eデッキ作成%3C/text%3E%3Ctext x='50' y='80' font-family='sans-serif' font-size='14' fill='%23555'%3Eタイトル%3C/text%3E%3Crect x='50' y='90' width='300' height='30' fill='white' stroke='%23ccc'/%3E%3Ctext x='50' y='140' font-family='sans-serif' font-size='14' fill='%23555'%3E説明%3C/text%3E%3Crect x='50' y='150' width='300' height='60' fill='white' stroke='%23ccc'/%3E%3Ctext x='50' y='235' font-family='sans-serif' font-size='14' fill='%23555'%3Eデッキ画像%3C/text%3E%3Crect x='50' y='245' width='100' height='30' fill='%23e9ecef' stroke='%23adb5bd'/%3E%3Ctext x='100' y='262' text-anchor='middle' font-family='sans-serif' font-size='12' fill='%23495057'%3Eファイルを選択%3C/text%3E%3Ctext x='160' y='262' font-family='sans-serif' font-size='12' fill='%236c757d'%3E選択されていません%3C/text%3E%3Crect x='170' y='285' width='60' height='25' rx='4' fill='%2328a745'/%3E%3Ctext x='200' y='300' text-anchor='middle' font-family='sans-serif' font-size='14' fill='white'%3E作成%3C/text%3E%3C/svg%3E"
+	                        alt="デッキ作成画面のスクリーンショット" />
+	                    <div style="margin-top: 8px;">
+	                        <small class="text-muted">↑ デッキ作成画面の例</small>
+	                    </div>
+	                </div>
+
+	                <!-- ステップ説明 -->
+	                <div class="instruction-card">
+	                    <div class="instruction-title">
+	                        デッキは、学習カードをまとめるフォルダのようなものです。<br>
+	                        「英単語」や「歴史年号」など、テーマ別に作成できます。
+	                    </div>
+	                    <div class="instruction-content">
+	                        一覧から挑戦したいデッキを選び、「挑戦する」ボタンを押します。<br>
+	                        各デッキには、タイトル・説明・登録カード数（出題数）が表示されます。
+	                        <div class="feature-list">
+	                            <div class="feature-item">• <span class="feature-name">作成：</span>
+	                                タイトル・説明・画像を入力して新しいデッキを登録します。</div>
+	                            <div class="feature-item">• <span class="feature-name">一覧表示：</span>
+	                                登録済みデッキが確認でき、検索・並び替えも可能です。</div>
+	                            <div class="feature-item">• <span class="feature-name">編集／削除：</span>
+	                                 内容の変更や不要なデッキの削除も行えます。</div><div class="feature-item">• <span class="feature-name">作成：</span>タイトル・説明・画像を入力して新しいデッキを登録します。</div>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="instruction-card">
+	                    <div class="instruction-title">
+	                        カードの使い方
+	                    </div>
+	                    <div class="instruction-content">
+	                        カードは、1つの問題とその答えのセットです。
+	                        <br>各カードは特定のデッキに所属しています。
+	                        <div class="feature-list">
+	                            <div class="feature-item">• <span class="feature-name">作成：</span>
+	                                カード名・問題・解答・画像（任意）を入力して登録します。
+	                            </div>
+	                            <div class="feature-item">• <span class="feature-name">一覧表示：</span>
+	                                問題内容や評価を一覧で確認できます。
+	                            </div>
+	                            <div class="feature-item">• <span class="feature-name">編集／削除：</span>
+	                                 登録済みのカードはいつでも修正・削除が可能です。
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="instruction-card">
+	                    <div class="instruction-title">
+	                        🔄 練習
+	                    </div>
+	                    <div class="instruction-content">
+	                        カードを1枚ずつ選んで練習できます。<br>
+	                        問題→解答の確認を通じて学習を進めます。
+	                    </div>
+	                </div>
+	                <div class="instruction-card">
+	                    <div class="instruction-title">
+	                        🎯 問題挑戦の使い方
+	                    </div>
+	                    <div class="instruction-content">
+	                        問題挑戦では、1つのデッキを選択し、その中のカードを評価ごとに分類して出題・確認できます。<br>
+	                        苦手なカードの復習や、正解済みカードの確認に便利です。
+	                        <div class="feature-list">
+	                            <div class="feature-item">• <span class="feature-name">デッキ選択：</span>
+	                                出題対象のデッキを1つ選びます。
+	                            </div>
+	                            <div class="feature-item">• <span class="feature-name">カード評価で絞り込み：</span>
+	                                「未評価」「正解（正解・簡単）」「不正解（もう一度・不正解・難しい）」などで出題カードを分類できます。
+	                            </div>
+	                            <div class="feature-item">• <span class="feature-name">出題数を設定： </span>
+	                                 挑戦したい枚数を自由に指定可能です。
+	                            </div>
+	                            <div class="feature-item">• <span class="feature-name">回答・評価： </span>
+	                                 問題を見て答えを確認後、自分の理解度に応じて評価をつけます。
+	                            </div>
+	                            <div class="feature-item">• <span class="feature-name">挑戦結果を表示： </span>
+	                                 最後に、各評価ごとの件数が表示され、学習の進捗が確認できます。
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="instruction-card">
+	                    <div class="instruction-title">
+	                        ❓ 使い方
+	                    </div>
+	                    <div class="instruction-content">
+	                        このアプリの操作方法や画面の説明を確認できます。<br>
+	                        初めて使う方や操作に迷ったときに参考になります。
+	                    </div>
+	                </div>
+	                <div class="instruction-card">
+	                    <div class="instruction-title">
+	                        🏠 トップメニュー
+	                    </div>
+	                    <div class="instruction-content">
+	                        カードを1枚ずつ選んで練習できます。<br>
+	                        問題→解答の確認を通じて学習を進めます。
+	                    </div>
+	                </div>
+
+	                <div class="instruction-card">
+	                    <div class="instruction-title">
+	                        👤 ユーザー登録
+	                    </div>
+	                    <div class="instruction-content">
+	                        新規ユーザーの登録や、ログイン情報の管理ができます。<br>
+	                        初めて利用する方はこちらから登録してください。
+	                    </div>
+	                </div>
+	            </div>
+
+
+	            <!-- 補足セクション -->
+	            <!-- <div class="step-section alert-section">
+	      <div class="step-title">
+	        💡 補足
+	      </div>
+	      <p class="step-description">
+	        作成したデッキは後から編集もできます。まずは気軽に1つ作ってみましょう！
+	      </p>
+	    </div>
+
+	  </div> -->
+
+	        </div>
+	    </div>
+	</div>
+	
+</body>
+</html>

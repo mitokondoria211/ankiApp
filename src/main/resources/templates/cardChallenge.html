@@ -6,52 +6,58 @@
 <title>問題挑戦</title>
 
 </head>
-<body class="bg-body-secondary">
+<body class="bg-body-secondary body">
     <div th:insert="~{common/sourceList :: sourceList}"></div>
     <div th:replace="~{common/header :: header}"></div>
-    <div th:replace="~{common/sideMenu :: sideMenu}"></div>
-    <div class = "container mx-auto text-center content main-content bg-white">
+    
+    <div class="container d-flex min-vh-100">
+		<div th:replace="~{common/sideMenu :: sideMenu}"></div>
+		<main class="main-content bg-white px-3 ">
+			    <h1 th:text="${deck.title} + 'のデッキ'" class="text-center mt-5 pt-5"></h1>
+			        <div  id="cardContainer" class="text-start mx-auto">
+			            <div class="mt-4  d-flex justify-content-between">
+			                <h3 class="text-start h4" th:text="'問題 ' + (${cardIndex} + 1)"></h3>
+			                <p class="ms-auto fw-bold" th:text="'前回 :' + ${beforeResult}"></p>
+			            </div>
+			            <div id="question" class="font-semibold mb-4 ms-3 p-3" th:utext="${card.question}" style="background-color: #fffeed;  white-space:pre-wrap;"></div>
+			            <div class="text-center" th:if="${card.questionImageUrl != null}">
+			                <img th:src="${card.questionImageUrl}" style="max-width: 75%;">
+			            </div>
+			            
+			            <div class="text-center mt-5 pb-5">
+			                <button id="showAnswerButton" class="btn btn-outline-secondary">
+			                    解答表示
+			                </button>
+			            </div>
+			        
+			            <div id="answerContainer" class="hidden my-4" style="display: none;">
+			                <h3 class="h4">解答</h3>
+			                <p id="answer" class="p-3 text-danger ms-3"
+			                 th:utext="${card.answer}" style="background-color: #fffeed; white-space:pre-wrap;"></p>
+			                <div class="text-center " th:if="${card.answerImageUrl != null}">
+			                    <img th:src="${card.answerImageUrl}" style="max-width: 75%;">
+			                </div>
+			                <div class="text-center mt-5 ">
+			                    <form th:action="@{/cardChallenge/{deckId}/{cardIndex}/result(deckId=${deck.deckId},cardIndex=${cardIndex})}"
+			                     method="post" class="pb-5">
+			<!--                        <input type="hidden" name="result" id="result"/>-->
+			                        <button type="submit" name="result" value="again"
+									 class="btn btn-outline-secondary m-2">もう一度</button>
+			                        <button type="submit" name="result" value="difficult"
+									 class="btn btn-outline-secondary m-2">難しい</button>
+			                        <button type="submit" name="result" value="incorrect"
+									 class="btn btn-outline-secondary m-2">不正解</button>
+			                        <button type="submit" name="result" value="correct"
+									 class="btn btn-outline-secondary m-2">正解</button>
+			                        <button type="submit" name="result" value="easy"
+									 class="btn btn-outline-secondary m-2">簡単</button>
+			                    </form> 
+			            </div>
+			        </div>
+		</main>
+	</div>
+	<div th:replace="~{common/modal :: modal}"></div>
 
-	<form class="container" th:object=${cardDisplayForm}>
-	    
-	</form>
-
-    <h1 th:text="${deck.title} + 'のデッキ'" class="text-center mt-5"></h1>
-        <div  id="cardContainer" class="text-start mx-auto">
-            <div class="mt-4  d-flex">
-                <h2 class="text-start h4" th:text="'問題 ' + (${cardIndex} + 1)"></h2>
-                <p class="ms-auto fw-bold" th:text="'前回 :' + ${beforeResult}"></p>
-            </div>
-            <p  id="question" class="text-xl font-semibold mb-4 ms-1 pt-3 pb-3" th:utext="${card.question}" style="background-color: #fffeed;  white-space:pre-wrap;"></p>
-            <div class="text-center" th:if="${card.questionImageUrl != null}">
-                <img th:src="${card.questionImageUrl}" style="max-width: 75%;">
-            </div>
-            
-            <div class="text-center mt-5 pb-5">
-                <button id="showAnswerButton" class="btn btn-outline-secondary col-3">
-                    解答表示
-                </button>
-            </div>
-        
-            <div id="answerContainer" class="hidden mt-4 mb-4 " style="display: none;">
-                <p class="h4">解答</p>
-                <div id="answer" class="mt-2 ms-1 text-danger"
-                 th:utext="${card.answer}" style="background-color: #fffeed; white-space:pre-wrap;"></div>
-                <div class="text-center " th:if="${card.answerImageUrl != null}">
-                    <img th:src="${card.answerImageUrl}" style="max-width: 75%;">
-                </div>
-                <div class="text-center mt-5 ">
-                    <form th:action="@{/cardChallenge/{deckId}/{cardIndex}/result(deckId=${deck.deckId},cardIndex=${cardIndex})}"
-                     method="post" class="pb-5">
-<!--                        <input type="hidden" name="result" id="result"/>-->
-                        <button type="submit" name="result" value="again" class="btn btn-outline-secondary me-2">もう一度</button>
-                        <button type="submit" name="result" value="difficult" class="btn btn-outline-secondary me-2">難しい</button>
-                        <button type="submit" name="result" value="incorrect" class="btn btn-outline-secondary me-2">不正解</button>
-                        <button type="submit" name="result" value="correct" class="btn btn-outline-secondary me-2">正解</button>
-                        <button type="submit" name="result" value="easy" class="btn btn-outline-secondary me-2">簡単</button>
-                    </form> 
-            </div>
-        </div>
         <script>
             document.getElementById('showAnswerButton').addEventListener('click', function() {
                 document.getElementById('answerContainer').style.display = 'block';

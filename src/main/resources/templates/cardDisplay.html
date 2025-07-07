@@ -17,8 +17,16 @@
 	<div class="container d-flex">
 		<div th:replace="~{common/sideMenu :: sideMenu}"></div>
 		<main class = "container main-content bg-white pb-3">
+			<div class="d-flex justify-content-center align-items-center pt-3">
+			    <h2 class="me-3">練習</h2>
+			    <button type="button" 
+			            title="使い方"
+						class="help-button"
+						data-bs-toggle="modal" data-bs-target="#practiceModal">
+			        ?
+			    </button>
+			</div>
 			<div class="row gy-4 d-flex justify-content-center mx-auto">
-				<h1 class="text-center mt-5 pt-3">練習</h1>
 				<div th:if="${practiceForm.deckId == null && practiceForm.cardId == null}"
 				        class="select-group">
 				    
@@ -66,7 +74,7 @@
 				    <h3 class="my-3 text-start">問題</h3>
 				    <div class="text-start py-3" style="background-color: #fffeed;">
 				        
-				        <p id="problemSection" th:utext="${cardInfo.question}" class="ms-2" style="white-space:pre-wrap;">問題内容</p>
+				        <div id="problemSection" th:utext="${cardInfo.question}" class="ms-2 py-3" style="white-space:pre-wrap;">問題内容</div>
 				        <div class="text-center" th:if="${cardInfo.questionImageUrl != null}">
 				            <img th:src="${cardInfo.questionImageUrl}" style="max-width: 75%;">
 				        </div>
@@ -78,7 +86,7 @@
 				    <div id="answerSection" class="text-start my-3">
 				        <h3 class="mt-5 text-start">解答</h3>
 				        <div style="background-color: #fffeed;" class="text-start py-3">
-				            <p th:utext="${cardInfo.answer}" class="text-danger ms-2" style="white-space:pre-wrap;">解答内容</p>
+				            <div th:utext="${cardInfo.answer}" class="text-danger ms-2 py-3" style="white-space:pre-wrap;">解答内容</div>
 				            <div class="text-center" th:if="${cardInfo.answerImageUrl != null}">
 				                <img th:src="${cardInfo.answerImageUrl}" style="max-width: 75%;">
 				            </div>
@@ -92,8 +100,10 @@
 			</div>
 
 		</main>
+		
 	</div>
-
+	<div th:replace="~{common/modal :: modal}"></div>
+	<div th:replace="~{modal/practiceModal :: practiceModal}"></div>
     <script type="text/javascript" th:src="@{/js/cardDisplay.js}"></script>
 	<!-- Lucide icon 起動 -->
 	<script src="https://unpkg.com/lucide@latest"></script>

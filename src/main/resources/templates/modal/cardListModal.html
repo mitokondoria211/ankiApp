@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+  <style>
+    /* モーダルヘッダーのカスタマイズ */
+    .modal-header {
+      background-color: #27ae60;
+      color: white;
+      border-bottom: none;
+    }
+
+    /* ×ボタンの色を白に */
+    .modal-header .btn-close {
+      filter: invert(1) grayscale(100%) brightness(200%);
+    }
+
+    /* モーダル本体の余白 */
+    .modal-body {
+      padding: 24px;
+    }
+
+    /* スクリーンショット表示エリア */
+    .screenshot-container {
+      text-align: center;
+      margin-bottom: 24px;
+      padding: 16px;
+      background-color: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+    }
+
+    .screenshot-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 各ステップのスタイル */
+    .step-section {
+      margin-bottom: 20px;
+      padding: 16px;
+      background-color: #fff;
+      border: 1px solid #e9ecef;
+      border-left: 4px solid #27ae60;
+      border-radius: 8px;
+    }
+
+    .instruction-card {
+      text-align: left;
+      margin-bottom: 20px;
+      padding: 16px;
+      background-color: #fff;
+      border: 1px solid #e9ecef;
+      border-left: 4px solid #27ae60;
+      border-radius: 8px;
+    }
+
+    .step-title {
+      font-weight: 600;
+      color: #27ae60;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .instruction-title {
+      font-weight: 600;
+      color: #27ae60;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .step-description {
+      color: #6c757d;
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
+
+    .instruction-content {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .feature-list {
+      margin-top: 0.5rem;
+      padding-left: 1rem;
+    }
+
+    .feature-item {
+      margin-bottom: 0.3rem;
+      color: #555;
+    }
+
+    .feature-name {
+      font-weight: bold;
+      color: #333;
+    }
+
+    /* 補足セクション */
+    .alert-section {
+      background-color: #e8f5e8;
+      color: #333;
+      border: none;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+
+    .alert-title {
+      color:#2e7d32;
+    }
+
+    .tip-section .step-title {
+      color: #155724;
+    }
+
+    /* 開くボタンのスタイル */
+    .btn-success-custom {
+      background-color: #27ae60;
+      border: none;
+      padding: 12px 32px;
+      font-weight: 500;
+      color: white;
+    }
+
+    .btn-success-custom:hover {
+      background-color: #219a52;
+    }
+
+    /* メインタイトルの色 */
+    .text-success {
+      color: #27ae60 !important;
+    }
+
+    /* スマホ対応 */
+    @media (max-width: 576px) {
+      body {
+        padding: 20px;
+      }
+
+      .modal-dialog {
+        margin: 8px;
+      }
+
+      .step-section {
+        padding: 12px;
+      }
+
+      .modal-body {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- モーダル -->
+  <div class="modal fade" id="cardListModal" tabindex="-1"
+   aria-labelledby="cardListModalLabel" aria-hidden="true"
+   th:fragment="cardListModal">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-content">
+
+        <!-- モーダルヘッダー -->
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="cardListModalLabel">
+            カード管理の使い方
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+        </div>
+
+        <!-- モーダル本体 -->
+        <div class="modal-body">
+
+          <!-- スクリーンショット表示 -->
+          <div class="screenshot-container">
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320' viewBox='0 0 400 320'%3E%3Crect width='400' height='320' fill='%23f8f9fa' stroke='%23dee2e6' stroke-width='1'/%3E%3Ctext x='200' y='40' text-anchor='middle' font-family='sans-serif' font-size='20' font-weight='bold' fill='%23333'%3Eデッキ作成%3C/text%3E%3Ctext x='50' y='80' font-family='sans-serif' font-size='14' fill='%23555'%3Eタイトル%3C/text%3E%3Crect x='50' y='90' width='300' height='30' fill='white' stroke='%23ccc'/%3E%3Ctext x='50' y='140' font-family='sans-serif' font-size='14' fill='%23555'%3E説明%3C/text%3E%3Crect x='50' y='150' width='300' height='60' fill='white' stroke='%23ccc'/%3E%3Ctext x='50' y='235' font-family='sans-serif' font-size='14' fill='%23555'%3Eデッキ画像%3C/text%3E%3Crect x='50' y='245' width='100' height='30' fill='%23e9ecef' stroke='%23adb5bd'/%3E%3Ctext x='100' y='262' text-anchor='middle' font-family='sans-serif' font-size='12' fill='%23495057'%3Eファイルを選択%3C/text%3E%3Ctext x='160' y='262' font-family='sans-serif' font-size='12' fill='%236c757d'%3E選択されていません%3C/text%3E%3Crect x='170' y='285' width='60' height='25' rx='4' fill='%2328a745'/%3E%3Ctext x='200' y='300' text-anchor='middle' font-family='sans-serif' font-size='14' fill='white'%3E作成%3C/text%3E%3C/svg%3E"
+              alt="デッキ作成画面のスクリーンショット" />
+            <div style="margin-top: 8px;">
+              <small class="text-muted">↑ デッキ作成画面の例</small>
+            </div>
+          </div>
+
+          <!-- ステップ説明 -->
+          <div class="instruction-card">
+            <div class="instruction-title">
+              絞り込み検索
+            </div>
+            <div class="instruction-content">
+              登録されているデッキを効率的に見つけることができます。
+              <div class="feature-list">
+                <div class="feature-item">• <span class="feature-name">検索項目：</span>「カード名」「問題」「解答」などの項目を選択し、特定の条件でカードを検索できます。（部分一致で検索）</div>
+                <div class="feature-item">• <span class="feature-name">並び替え：</span>表示順を変更可能（「更新日順」「作成日順」など）</div>
+                <div class="feature-item">• 「検索」ボタンを押すと、条件に一致するカードだけが一覧に表示されます。</div>
+              </div>
+            </div>
+          </div>
+          <div class="instruction-card">
+            <div class="instruction-title">
+              カード一覧
+            </div>
+            <div class="instruction-content">
+              一覧には以下の情報が表示されます：
+              <div class="feature-list">
+                <div class="feature-item">• <span class="feature-name">No.：</span>番号</div>
+                <div class="feature-item">• <span class="feature-name">カード名：</span>カードのタイトル</div>
+                <div class="feature-item">• <span class="feature-name">問題：</span>カードに登録された問題内容</div>
+                <div class="feature-item">• <span class="feature-name">解答：</span>問題に対する解答</div>
+                <div class="feature-item">• <span class="feature-name">カード評価：</span>利用者による評価（※未評価の場合は「未評価」と表示）</div>
+                <div class="feature-item">• <span class="feature-name">デッキタイトル：</span>所属しているデッキの名前</div>
+                <div class="feature-item">• <span class="feature-name">作成日／更新日：</span>カードの作成・最終更新日時</div>
+              </div>
+              行をクリックすると、そのカードが選択状態になります。
+            </div>
+          </div>
+          <div class="instruction-card">
+            <div class="instruction-title">
+              操作ボタン
+            </div>
+            <div class="instruction-content">
+              選択したデッキに対して以下の操作が可能です：
+              <div class="feature-list">
+                <div class="feature-item">• <span class="feature-name">編集ボタン：</span>選択したカードの編集画面（カード更新画面）へ遷移</div>
+                <div class="feature-item">• <span class="feature-name">削除ボタン：</span>選択したカードを削除（削除前に確認ダイアログが表示され、削除するボタンを押すと削除されます）
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="instruction-card alert-section">
+            <div class="alert-title">
+              ※ 重要な注意点
+            </div>
+            <div class="instruction-content">
+              <div class="feature-list">
+                <div class="feature-item">• カードを選択するには、一覧の行をクリックしてください。</div>
+                <div class="feature-item">• 一覧が表示されない場合は、検索条件を確認してください。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- 補足セクション -->
+        <!-- <div class="step-section alert-section">
+          <div class="step-title">
+            💡 補足
+          </div>
+          <p class="step-description">
+            作成したデッキは後から編集もできます。まずは気軽に1つ作ってみましょう！
+          </p>
+        </div>
+
+      </div> -->
+
+    </div>
+  </div>
+  </div>
+
+</body>
+
+</html>

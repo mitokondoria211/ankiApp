@@ -11,10 +11,18 @@
 	
     <div class ="container my-5  d-flex">
 		<div th:replace="~{common/sideMenu :: sideMenu}"></div>
-		<main class="container main-content">
-			<h1 class="h2 text-center my-5">デッキ選択</h1>
+		<main class="main-content">
+			<div class="d-flex justify-content-center align-items-center pt-3">
+			    <h2 class="me-3">デッキ選択</h2>
+			    <button type="button" 
+			            title="使い方"
+						class="help-button"
+						data-bs-toggle="modal" data-bs-target="#challengeModal">
+			        ?
+			    </button>
+			</div>
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center d-flex flex-wrap justify-content-center my-3" >
-			    <div th:each="deck, iterStat : ${deckInfos}" class="card ms-5 mb-5" style="width: 18rem; height: 24rem;">
+			    <div th:each="deck, iterStat : ${deckInfos}" class="card ms-3 mb-3" style="width: 18rem; height: 24rem;">
 			        <img th:src="${deckImageUrls[iterStat.index]}" alt="Deck Image" 
 			        class="mx-auto mb-2" style="width: 200px; height: 200px; object-fit: cover;"/>
 			          <div class="card-body">
@@ -28,6 +36,8 @@
 		</main>
 
     </div>
+	<div th:replace="~{common/modal :: modal}"></div>
+	<div th:replace="~{modal/challengeModal :: challengeModal}"></div>
 	<!-- Lucide icon 起動 -->
 	<script src="https://unpkg.com/lucide@latest"></script>
 	<script>

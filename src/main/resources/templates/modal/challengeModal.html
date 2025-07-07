@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <style>
+
+        /* モーダルヘッダーのカスタマイズ */
+        .modal-header {
+            background-color: #27ae60;
+            color: white;
+            border-bottom: none;
+        }
+
+        /* ×ボタンの色を白に */
+        .modal-header .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+
+        /* モーダル本体の余白 */
+        .modal-body {
+            padding: 24px;
+        }
+
+        /* スクリーンショット表示エリア */
+        .screenshot-container {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 16px;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+        }
+
+        .screenshot-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 各ステップのスタイル */
+        .step-section {
+            margin-bottom: 20px;
+            padding: 16px;
+            background-color: #fff;
+            border: 1px solid #e9ecef;
+            border-left: 4px solid #27ae60;
+            border-radius: 8px;
+        }
+
+        .instruction-card {
+            text-align: left;
+            margin-bottom: 20px;
+            padding: 16px;
+            background-color: #fff;
+            border: 1px solid #e9ecef;
+            border-left: 4px solid #27ae60;
+            border-radius: 8px;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: #27ae60;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .instruction-title {
+            font-weight: 600;
+            color: #27ae60;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .step-description {
+            color: #6c757d;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        .instruction-content {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .feature-list {
+            margin-top: 0.5rem;
+            padding-left: 1rem;
+        }
+
+        .feature-item {
+            margin-bottom: 0.3rem;
+            color: #555;
+        }
+
+        .feature-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .tip-section {
+            background-color: #d4edda;
+            color: #155724;
+            border: none;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .tip-section .step-title {
+            color: #155724;
+        }
+
+        /* 補足セクション */
+        .alert-section {
+            background-color: #e8f5e8;
+            color: #333;
+            border: none;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .alert-title {
+            color: #2e7d32;
+        }
+
+        .tip-section .step-title {
+            color: #155724;
+        }
+
+        /* 開くボタンのスタイル */
+        .btn-success-custom {
+            background-color: #27ae60;
+            border: none;
+            padding: 12px 32px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .btn-success-custom:hover {
+            background-color: #219a52;
+        }
+
+        /* メインタイトルの色 */
+        .text-success {
+            color: #27ae60 !important;
+        }
+
+        /* スマホ対応 */
+        @media (max-width: 576px) {
+            body {
+                padding: 20px;
+            }
+
+            .modal-dialog {
+                margin: 8px;
+            }
+
+            .step-section {
+                padding: 12px;
+            }
+
+            .modal-body {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- モーダル -->
+    <div class="modal fade" id="challengeModal" tabindex="-1" 
+	aria-labelledby="challengeModalLabel" aria-hidden="true"
+	th:fragment="challengeModal">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- モーダルヘッダー -->
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="howToUseModalLabel">
+                        問題挑戦の使い方
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+                </div>
+
+                <!-- モーダル本体 -->
+                <div class="modal-body">
+
+                    <!-- スクリーンショット表示 -->
+                    <div class="screenshot-container">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320' viewBox='0 0 400 320'%3E%3Crect width='400' height='320' fill='%23f8f9fa' stroke='%23dee2e6' stroke-width='1'/%3E%3Ctext x='200' y='40' text-anchor='middle' font-family='sans-serif' font-size='20' font-weight='bold' fill='%23333'%3Eデッキ作成%3C/text%3E%3Ctext x='50' y='80' font-family='sans-serif' font-size='14' fill='%23555'%3Eタイトル%3C/text%3E%3Crect x='50' y='90' width='300' height='30' fill='white' stroke='%23ccc'/%3E%3Ctext x='50' y='140' font-family='sans-serif' font-size='14' fill='%23555'%3E説明%3C/text%3E%3Crect x='50' y='150' width='300' height='60' fill='white' stroke='%23ccc'/%3E%3Ctext x='50' y='235' font-family='sans-serif' font-size='14' fill='%23555'%3Eデッキ画像%3C/text%3E%3Crect x='50' y='245' width='100' height='30' fill='%23e9ecef' stroke='%23adb5bd'/%3E%3Ctext x='100' y='262' text-anchor='middle' font-family='sans-serif' font-size='12' fill='%23495057'%3Eファイルを選択%3C/text%3E%3Ctext x='160' y='262' font-family='sans-serif' font-size='12' fill='%236c757d'%3E選択されていません%3C/text%3E%3Crect x='170' y='285' width='60' height='25' rx='4' fill='%2328a745'/%3E%3Ctext x='200' y='300' text-anchor='middle' font-family='sans-serif' font-size='14' fill='white'%3E作成%3C/text%3E%3C/svg%3E"
+                            alt="デッキ作成画面のスクリーンショット" />
+                        <div style="margin-top: 8px;">
+                            <small class="text-muted">↑ デッキ作成画面の例</small>
+                        </div>
+                    </div>
+
+                    <!-- ステップ説明 -->
+                    <div class="instruction-card">
+                        <div class="instruction-title">
+                            ① デッキ選択
+                        </div>
+                        <div class="instruction-content">
+                            一覧から挑戦したいデッキを選び、「挑戦する」ボタンを押します。<br>
+                            各デッキには、タイトル・説明・登録カード数（出題数）が表示されます。
+                        </div>
+                    </div>
+                    <div class="instruction-card">
+                        <div class="instruction-title">
+                            ② 出題条件の設定（デッキ挑戦）
+                        </div>
+                        <div class="instruction-content">
+                            出題するカードの条件を次のように設定できます。
+                            <div class="feature-list">
+                                <div class="feature-item">• <span class="feature-name">カード評価の選択：</span>
+                                    <div class="feature-list">
+                                        カードに付けられた評価に応じて出題対象を絞ることができます。
+                                        <div class="feature-item">• 「未選択」を選ぶと、すべてのカードが出題対象になります。</div>
+                                        <div class="feature-item">• 「未評価」を選ぶと、まだ一度も評価されていないカードのみが出題されます。</div>
+                                        <div class="feature-item">• 「正解」を選ぶと、「正解」または「簡単」と評価されたカードが対象になります。</div>
+                                        <div class="feature-item">• 「不正解」を選ぶと、「もう一度」「不正解」「難しい」と評価されたカードが対象になります。</div>
+                                    </div>
+                                </div>
+                                <div class="feature-item">• <span class="feature-name">出題数：</span>出題するカードの枚数を入力してください。
+                                </div>
+                                <div class="feature-item">• <span class="feature-name">説明：</span>デッキの詳細情報</div>
+                            </div>
+                            設定が完了したら、「挑戦」ボタンを押して問題に進みます。
+                        </div>
+                    </div>
+                    <div class="instruction-card">
+                        <div class="instruction-title">
+                            ③ 問題に回答・評価
+                        </div>
+                        <div class="instruction-content">
+                            カードに登録された問題が1枚ずつ表示されます。「解答を表示」ボタンを押して答えを確認した後、自分の理解度に応じて以下の評価を選択します：
+                            <div class="feature-list">
+                                <div class="feature-item">• もう一度</div>
+                                <div class="feature-item">• 難しい</div>
+                                <div class="feature-item">• 不正解</div>
+                                <div class="feature-item">• 正解</div>
+                                <div class="feature-item">• 簡単</div>
+                            </div>
+                        </div>
+                        ※画面上部には、前回そのカードに付けた評価も表示されます。
+                    </div>
+                    <div class="instruction-card">
+                        <div class="instruction-title">
+                            ③ 問題に回答・評価
+                        </div>
+                        <div class="instruction-content">
+                            カードに登録された問題が1枚ずつ表示されます。「解答を表示」ボタンを押して答えを確認した後、自分の理解度に応じて以下の評価を選択します：
+                            <div class="feature-list">
+                                <div class="feature-item">• もう一度</div>
+                                <div class="feature-item">• 難しい</div>
+                                <div class="feature-item">• 不正解</div>
+                                <div class="feature-item">• 正解</div>
+                                <div class="feature-item">• 簡単</div>
+                            </div>
+                        </div>
+                        ※画面上部には、前回そのカードに付けた評価も表示されます。
+                    </div>
+                    <div class="instruction-card tip-section">
+                        <div class="tip-title">
+                            💡 活用ポイント
+                        </div>
+                        <div class="instruction-content">
+                            <div class="feature-list">
+                                <div class="feature-item">• 「未評価」で初めてのカードを練習したり、「不正解」で苦手カードを集中的に復習することができます。</div>
+                                <div class="feature-item">• 評価をうまく活用することで、自分に合った学習スタイルを作れます。</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 補足セクション -->
+                <!-- <div class="step-section alert-section">
+          <div class="step-title">
+            💡 補足
+          </div>
+          <p class="step-description">
+            作成したデッキは後から編集もできます。まずは気軽に1つ作ってみましょう！
+          </p>
+        </div>
+
+      </div> -->
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

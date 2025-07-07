@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  
+  <style>
+    /* モーダルヘッダーのカスタマイズ */
+    .modal-header {
+      background-color: #27ae60;
+      color: white;
+      border-bottom: none;
+    }
+
+    /* ×ボタンの色を白に */
+    .modal-header .btn-close {
+      filter: invert(1) grayscale(100%) brightness(200%);
+    }
+
+    /* モーダル本体の余白 */
+    .modal-body {
+      padding: 24px;
+    }
+
+    /* スクリーンショット表示エリア */
+    .screenshot-container {
+      text-align: center;
+      margin-bottom: 24px;
+      padding: 16px;
+      background-color: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+    }
+
+    .screenshot-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* 各ステップのスタイル */
+    .step-section {
+      text-align: left;
+      margin-bottom: 20px;
+      padding: 16px;
+      background-color: #fff;
+      border: 1px solid #e9ecef;
+      border-left: 4px solid #27ae60;
+      border-radius: 8px;
+    }
+
+    .step-title {
+      font-weight: 600;
+      color: #27ae60;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .step-description {
+      color: #6c757d;
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
+
+    /* 補足セクション */
+    .tip-section {
+      background-color: #d4edda;
+      color: #155724;
+      border: none;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+
+    .tip-section .step-title {
+      color: #155724;
+    }
+
+    /* 開くボタンのスタイル */
+    .btn-success-custom {
+      background-color: #27ae60;
+      border: none;
+      padding: 12px 32px;
+      font-weight: 500;
+      color: white;
+    }
+
+    .btn-success-custom:hover {
+      background-color: #219a52;
+    }
+
+    /* メインタイトルの色 */
+    .text-success {
+      color: #27ae60 !important;
+    }
+
+    /* スマホ対応 */
+    @media (max-width: 576px) {
+      body {
+        padding: 20px;
+      }
+      
+      .modal-dialog {
+        margin: 8px;
+      }
+      
+      .step-section {
+        padding: 12px;
+      }
+      
+      .modal-body {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- モーダル -->
+<div class="modal fade" id="practiceModal"
+ tabindex="-1" aria-labelledby="practiceModalLabel" aria-hidden="true"
+ th:fragment="practiceModal">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered"
+  >
+    <div class="modal-content">
+      
+      <!-- モーダルヘッダー -->
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="practiceModalLabel">
+          練習の使い方
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+      </div>
+      
+      <!-- モーダル本体 -->
+      <div class="modal-body">
+        
+        <!-- スクリーンショット表示 -->
+        <div class="screenshot-container">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320' viewBox='0 0 400 320'%3E%3Crect width='400' height='320' fill='%23f8f9fa' stroke='%23dee2e6' stroke-width='1'/%3E%3Ctext x='200' y='40' text-anchor='middle' font-family='sans-serif' font-size='20' font-weight='bold' fill='%23333'%3Eデッキ作成%3C/text%3E%3Ctext x='50' y='80' font-family='sans-serif' font-size='14' fill='%23555'%3Eタイトル%3C/text%3E%3Crect x='50' y='90' width='300' height='30' fill='white' stroke='%23ccc'/%3E%3Ctext x='50' y='140' font-family='sans-serif' font-size='14' fill='%23555'%3E説明%3C/text%3E%3Crect x='50' y='150' width='300' height='60' fill='white' stroke='%23ccc'/%3E%3Ctext x='50' y='235' font-family='sans-serif' font-size='14' fill='%23555'%3Eデッキ画像%3C/text%3E%3Crect x='50' y='245' width='100' height='30' fill='%23e9ecef' stroke='%23adb5bd'/%3E%3Ctext x='100' y='262' text-anchor='middle' font-family='sans-serif' font-size='12' fill='%23495057'%3Eファイルを選択%3C/text%3E%3Ctext x='160' y='262' font-family='sans-serif' font-size='12' fill='%236c757d'%3E選択されていません%3C/text%3E%3Crect x='170' y='285' width='60' height='25' rx='4' fill='%2328a745'/%3E%3Ctext x='200' y='300' text-anchor='middle' font-family='sans-serif' font-size='14' fill='white'%3E作成%3C/text%3E%3C/svg%3E" 
+               alt="デッキ作成画面のスクリーンショット" />
+          <div style="margin-top: 8px;">
+            <small class="text-muted">↑ デッキ作成画面の例</small>
+          </div>
+        </div>
+
+        <!-- ステップ説明 -->
+        <div class="step-section">
+          <div class="step-title">
+           ① デッキを選択
+          </div>
+          <p class="step-description">
+            最初の画面で、学習したいデッキをプルダウンから選び、「選択」ボタンを押します。
+          </p>
+        </div>
+
+        <div class="step-section">
+          <div class="step-title">
+            ② カードを選択
+          </div>
+          <p class="step-description">
+            次に、選択したデッキに登録されているカード一覧から1枚を選び、「選択」ボタンを押します。
+          </p>
+        </div>
+
+        <div class="step-section">
+          <div class="step-title">
+            ③ 問題に答える
+          </div>
+          <p class="step-description">
+            選んだカードの問題が表示されます。<br>
+            内容を確認したら「解答を表示」ボタンを押すことで、登録された解答を確認できます。
+          </p>
+        </div>
+
+        <!-- 補足セクション -->
+        <div class="step-section tip-section">
+          <div class="step-title">
+            🔁学習を繰り返す場合
+          </div>
+          <p class="step-description">
+            画面下部の「デッキ選択に戻る」ボタンを押すと、別のカードやデッキを選び直すことができます。
+          </p>
+        </div>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

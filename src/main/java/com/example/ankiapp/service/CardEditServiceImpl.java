@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import com.example.ankiapp.constant.CardCreateResult;
@@ -73,6 +74,7 @@ public class CardEditServiceImpl implements CardEditService{
             repository.save(cardInfo);
             
         } catch(DataIntegrityViolationException e) {
+        	TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // ← これが重要
             return CardCreateResult.FAILURE_BY_DB_ERROR;
         } catch(MaxUploadSizeExceededException e) {
             return CardCreateResult.FAILURE_BY_IMAGE_SIZE_ERROR;
@@ -121,6 +123,7 @@ public class CardEditServiceImpl implements CardEditService{
             //再度レポジトリに保存
             repository.save(cardInfo);
         }catch(DataIntegrityViolationException e) {
+        	TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return CardUpadateResult.FAILURE_BY_DB_ERROR;
         }catch(RuntimeException e) {
             return CardUpadateResult.FAILURE_BY_IMAGE_ERROR;

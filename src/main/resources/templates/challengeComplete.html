@@ -1,45 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>チャレンジ完了</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body class="bg-body-secondary">
-    <div th:insert="~{common/sourceList :: sourceList}"></div>
-    <div th:replace="~{common/header :: header}"></div>
-    <div th:replace="~{common/sideMenu :: sideMenu}"></div>
-    <div class="container mx-auto text-center content main-content bg-white mt-5">
-        <h1 class="text-3xl font-bold text-center mb-8">挑戦完了</h1>
-        
-        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 text-center ">
-            <h2 class="my-5">全ての問題を解き終わりました。</h2>
-            <div th:if="${cardResults != null and cardResults.length > 0}" 
-                class="text-center d-flex justify-content-center mt-3"
-                 style="background-color: #fffeed;">
-                <ul class="pl-5 mt-3" th:each="result, iterStat : ${cardResults}"  th:if="${iterStat.index > 0}">
-                    <li  class="mb-2  text-center me-2" style="list-style: none;">
-                        <span th:text="${cardRating[iterStat.index]}" style="font-weight: bold;"></span>: 
-                        <span th:text="${result}"></span> 
-                    </li>
-                </ul>
-                
-            </div>
-            
-            <p class="mt-4 fw-bold">合計カード数: <span th:text="${totalCards}"></span> 枚</p>
 
-        </div>
-        <div class="pb-3">
-            <a th:href="@{/selectDeck}" class="btn btn-outline-success">
-                 デッキ選択に戻る
-            </a>
-        </div>
-
+<body class="bg-body-secondary body">
+	<div th:insert="~{common/sourceList :: sourceList}"></div>
+	<div th:replace="~{common/header :: header}"></div>
+    <div class="container d-flex">
+		<div th:replace="~{common/sideMenu :: sideMenu}"></div>
+		<main class="main-content bg-white min-vh-100">
+			<h1 class="text-3xl font-bold text-center mb-8 my-5 py-5">挑戦完了</h1>
+			<div class="bg-white shadow-md rounded px-8 pt-6 mb-4 text-center ">
+			    <div th:if="${cardResults != null and cardResults.length > 0}" class="text-center dflex-wrap justify-content-center mt-3" style="background-color: #fffeed;">
+			        <ul class="list-unstyled d-flex flex-wrap justify-content-center gap-4 fs-5">
+			            <li class="badge text-white p-3" style="background-color: #5a7262;">もう一度：
+			                <span th:text="${cardResults[1]}"></span>
+			            </li>
+			            <li class="badge text-white p-3" style="background-color: #5c8a8a;">難しい：
+			                <span th:text="${cardResults[2]}"></span>
+			            </li>
+			            <li class="badge text-white p-3" style="background-color: #b95555;">不正解：
+			                <span th:text="${cardResults[3]}"></span>
+			            </li>
+			            <li class="badge text-white p-3" style="background-color: #34a07b;">正解：
+			                <span th:text="${cardResults[4]}"></span>
+			            </li>
+			            <li class="badge text-dark p-3" style="background-color: #cde8dc;">簡単：
+			                <span th:text="${cardResults[5]}"></span>
+			            </li>
+			        </ul>
+			    </div>
+			    <p class="mt-4 fw-bold">
+					合計カード数:<span th:text="${totalCards}"></span>枚
+				</p>
+			        
+			    <div class="pb-3">
+			        <a th:href="@{/selectDeck}" class="btn btn-outline-success">デッキ選択に戻る</a>
+			    </div>
+			</div>
+		</main>
     </div>
-	<!-- Lucide icon 起動 -->
-	<script src="https://unpkg.com/lucide@latest"></script>
-	<script>
-	    lucide.createIcons();
-	</script>
-
+    <!-- Lucide icon 起動 -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+    lucide.createIcons();
+    </script>
 </body>
+
 </html>
