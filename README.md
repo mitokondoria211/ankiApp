@@ -20,7 +20,7 @@
 
 | 分類 | 使用技術 |
 |------|----------|
-| バックエンド | Java / Spring Boot / Spring Security / JPA（Hibernate）/ <img src="https://img.shields.io/badge/-Java-007396.svg?logo=java&style=plastic"> |
+| バックエンド | Java / Spring Boot / Spring Security / JPA（Hibernate） |
 | フロントエンド | Thymeleaf / HTML / CSS / Bootstrap / JavaScript（jQuery） |
 | データベース | PostgreSQL |
 | インフラ | Heroku（本番環境） / **Cloudinary（画像保存）** |
