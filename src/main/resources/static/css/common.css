@@ -29,13 +29,15 @@ li {
 }
 
 .list-group-item {
-    background-color: #D0F0E0;
+/*    background-color: #D0F0E0;*/
+	border-radius: 12px;
+	margin: 4px 12px;
     color: #444444; 
 }
 
 /* サイドメニュー部分 - 固定 */
 .side-menu {
-    background-color: #D0F0E0;
+    background-color: #ccfbf1;
     color: #444444; 
     font-weight: bold;
     width: 200px;
@@ -43,6 +45,7 @@ li {
     left: 0;
      /* ヘッダー下に配置 */
     height: calc(100vh - 70px);
+/*	height: 100vh;*/
     padding-top: 10px;
     z-index: 1000;
     padding-top:40px;
@@ -57,8 +60,50 @@ li {
 /*	height: auto;*/
 }
 
+.nav-menu {
+	padding: 0;
+/*	color: #333;*/
+}
+
+.nav-item {
+            display: flex;
+            align-items: center;
+            color: #0f766e;
+            text-decoration: none;
+            padding: 12px 20px !important;
+            margin: 4px 12px !important;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            gap: 12px !important;
+            background-color: white;
+            border: 1px solid rgba(13, 148, 136, 0.2);
+}
+
+.top-menu {
+	background-color:white;
+	margin: 0px !important;
+	padding: 0 !important;
+	gap: 4px !important;
+}
+.top-menu li:first-child {
+	margin:0;
+}
+
+.top-menu li {
+	width: 100%;
+	margin: 4px 0;
+}
+
+.top-menu li a{
+	width: 100%;
+	background-color:white;
+	margin: 0px !important;
+	gap: 4px;
+}
+
 .side-menu a {
-    background-color: #f8f9fa;
+/*    background-color: #f8f9fa;*/
     color: #444444; 
     display: block;
     padding: 5px;
@@ -66,8 +111,12 @@ li {
     text-align: left;
 }
 
-.list-group:first-child {
-    flex-grow: 0;
+.list-group{
+	background: none;
+    border:none !important;
+	gap: 4px;
+	padding: 0 12px;
+	
 }
 
 .list-user-group {

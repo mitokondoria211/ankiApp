@@ -8,9 +8,9 @@
 <body>
 	<div th:insert="~{common/sourceList :: sourceList}"></div>
 	<div th:replace="~{common/messageIcon :: messageIcon}"></div>
-	<div class="container-fluid text-center">
+	<div class="container text-center">
 		<h2 class="mb-3 mt-3">ユーザー登録画面</h2>
-		<div class="alert  d-flex align-items-center mx-auto col-6 col-md-4 col-xxl-2" th:classappend="${isError ? 'alert-danger' : 'alert-primary'}" role="alert" 
+		<div class="alert  d-flex align-items-center col-10 col-sm-8 col-md-6 col-lg-4" th:classappend="${isError ? 'alert-danger' : 'alert-primary'}" role="alert" 
         th:if="${message != null}" >
 			<svg class="bi flex-shrink-0 me-2" width="24" height="24">
 				<use xlink:href="#exclamation-triangle-fill" th:if="${isError}"/>
@@ -18,32 +18,34 @@
 			</svg>
 			<span th:text="${message}"></span>
 		</div>
-		<form class="form-group" th:action ="@{/signup}" method="post" th:object = "${signupForm}">
-			<div class="col-6 col-md-4 col-xxl-2 text-start mx-auto">
-				<p><label for="loginId">ログインID：</label>
+		<form class="form-group col-10 col-sm-8 col-md-6 col-lg-4 mx-auto" th:action ="@{/signup}"
+		 method="post" th:object = "${signupForm}">
+			<div class="text-start mb-3">
+				<label for="loginId">ログインID</label>
 				<input class="form-control" type ="text" th:field="*{loginId}">
                 <span class="text-danger"th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}"></span>
 			</div>
-		            <div class="col-6 col-md-4 col-xxl-2 text-start mx-auto">
-				<p><label for="password">パスワード：</label>
+		    <div class="text-start mb-3">
+				<label for="password">パスワード</label>
 				<input class="form-control" type ="password" th:field="*{password}">
-                <lable>
+                <label>
                     <input type="checkbox" id="showPassword" onclick="togglePassword()">
                     パスワードを表示する
-                </lable>
+                </label>
                 <br>
                 <span class="text-danger text-start" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
 			</div>
             
-            <div class="col-6 col-md-4 col-xxl-2 text-start mx-auto">
-                <p><label for="mailAddress">メールアドレス：</label>
+            <div class="text-start mx-auto">
+                <p><label for="mailAddress">メールアドレス</label>
                 <input class="form-control" type ="text" th:field="*{mailAddress}">
                 <span class="text-danger" th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}"></span>
             </div>
-			<div>
-				<p><input class="btn btn-primary" type ="submit" value="ユーザー登録">
+			<div class="d-grid my-5">
+				<input class="btn btn-primary" type ="submit" value="ユーザー登録">
 			</div>
 		</form>
+
 		<a th:href="@{/login}">▶ ログイン済みはこちら</a>
         <script th:inline="javascript">
                 function togglePassword() {
@@ -55,7 +57,6 @@
                     }
                 }
         </script>
-<!--		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
 	</div>
 </body>
 </html>

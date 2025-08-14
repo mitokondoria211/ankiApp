@@ -113,6 +113,12 @@ public class SignupConfirmServiceImpl implements SignupConfirmService{
         // ユーザーが存在し、仮登録状態（signup_completed = false）の場合はtrue
         return userInfoOpt.isPresent() && !userInfoOpt.get().isSignupCompleted();
     }
+
+	@Override
+	public boolean verifyTemporaryUserPassword(String loginId, String password) {
+		// TODO 自動生成されたメソッド・スタブ
+		return false;
+	}
     
     
 

@@ -59,7 +59,8 @@ public class SignupConfirmController {
 //                "パスワードが正しくありません。");
 //            return "redirect:/signupActivation";
 //        }
-
+//        return "signupConfirm";
+//    }
 	@GetMapping("/signupConfirm")
 	public String view(Model model, RedirectAttributes redirectAttributes) {
 	    // セッションからログインIDを取得

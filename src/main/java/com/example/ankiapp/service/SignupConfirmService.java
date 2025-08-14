@@ -15,4 +15,5 @@ public interface SignupConfirmService {
      * @return 仮登録状態かどうか
      */
 	boolean isTemporaryRegistrationUser(String loginId);
+	boolean verifyTemporaryUserPassword(String loginId, String password);
 }

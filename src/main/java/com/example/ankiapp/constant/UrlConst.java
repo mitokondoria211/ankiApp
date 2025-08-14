@@ -30,7 +30,7 @@ public class UrlConst {
 
     /** 認証不要画面 */
     public static final String[] NO_AUTHENTICATION = { LOGIN, SIGNUP, SIGNUP_CONFIRM, SIGNUP_COMPLETION,
-            "/webjars/**", "/css/**" , "/js/**", "/upload/**",SIGNUP_CONFIRM + "/resend","/login/temporary"};
+            "/webjars/**", "/css/**" , "/js/**", "/upload/**",SIGNUP_CONFIRM + "/resend","/login/temporary","signupActivation"};
 
     public static final String CARD_EDITOR = "/cardEditor";
     

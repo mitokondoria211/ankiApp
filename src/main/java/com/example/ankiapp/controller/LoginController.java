@@ -59,25 +59,28 @@ public class LoginController {
 	/**
 	 * 仮登録ユーザーをワンタイムコード入力画面に誘導します
 	 */
-	@PostMapping("/login/temporary")
+	@PostMapping("/signupActivation")
 	public String redirectToSignupConfirm(String loginId, RedirectAttributes redirectAttributes) {
 	    // サービスを使用して仮登録状態をチェック
 	    boolean isTemporary = signupConfirmService.isTemporaryRegistrationUser(loginId);
 	    
-	    if (isTemporary) {
-	        // 仮登録状態の場合
-	        session.setAttribute(SessionKeyConst.ONE_TIME_AUTH_LOGIN_ID, loginId);
-	        
-	        redirectAttributes.addFlashAttribute("message", 
-	            "ワンタイムコードを入力して本登録を完了してください。");
-	        redirectAttributes.addFlashAttribute("isError", false);
-	        
-	        return "redirect:/signupConfirm";
+	    if (!isTemporary) {
+		    // 仮登録状態でない場合
+		    redirectAttributes.addFlashAttribute("errorMsg", 
+		        "入力されたログインIDは仮登録状態ではありません。");
+		    return "redirect:/signupActivation";
 	    }
 	    
-	    // 仮登録状態でない場合
-	    redirectAttributes.addFlashAttribute("errorMsg", 
-	        "入力されたログインIDは仮登録状態ではありません。");
-	    return "redirect:/login";
+        // 仮登録状態の場合
+        session.setAttribute(SessionKeyConst.ONE_TIME_AUTH_LOGIN_ID, loginId);
+        
+        redirectAttributes.addFlashAttribute("message", 
+            "ワンタイムコードを入力して本登録を完了してください。");
+        redirectAttributes.addFlashAttribute("isError", false);
+        
+        return "redirect:/signupConfirm";
+
+	    
+
 	}
 }

@@ -8,10 +8,11 @@ public class PasswordGenerator {
 		// 「BCrypt」のインスタンス化
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		// 入力値
-		String rawPassword = "demo1234";
+		String rawPassword = "password";
 		// パスワードをハッシュ化
 		String encodedPassword = encoder.encode(rawPassword);
 		// 表示
 		System.out.println("ハッシュ化されたパスワード" + encodedPassword);
+		System.out.println(encoder.matches(rawPassword, encodedPassword));
 	}
 }
