@@ -80,9 +80,9 @@
 |------|-----|
 | アプリURL | https://ankiapp-mito-023b4fd905bf.herokuapp.com |
 | GitHub | https://github.com/mitokondoria211/ankiapp |
-| ER図| 準備中 or ポートフォリオ内に記載予定 |
+| ER図| ![暗記アプリ drawio](https://github.com/user-attachments/assets/63064209-c27e-4725-9dcf-57fb52af13fc)  |
 
-![暗記アプリ drawio](https://github.com/user-attachments/assets/63064209-c27e-4725-9dcf-57fb52af13fc)
+
 
 ---
 
@@ -117,6 +117,7 @@
 
 
 このアプリケーションのログイン機能は、「文系卒凡才SEのJava教室」の記事を参考にし、改良を加えました。それ以外の部分は作成しました# ankiApp
+
 
 
 
