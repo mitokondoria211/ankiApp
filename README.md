@@ -80,7 +80,8 @@
 |------|-----|
 | アプリURL | https://ankiapp-mito-023b4fd905bf.herokuapp.com |
 | GitHub | https://github.com/mitokondoria211/ankiapp |
-| ER図・画面遷移図 | 準備中 or ポートフォリオ内に記載予定 |
+| ER図| 準備中 or ポートフォリオ内に記載予定 |
+<img width="884" height="204" alt="image" src="https://github.com/user-attachments/assets/3e295bb8-c254-41cf-b18c-2b00f87fa0f3" />
 
 ---
 
