@@ -1,112 +1,82 @@
 <!DOCTYPE html>
 <html lang="ja">
 <body>
-<!-- モーダル -->
-<div class="modal fade" id="createCardModal"
- tabindex="-1" aria-labelledby="createCardModalLabel"
-  aria-hidden="true"
-  th:fragment="createCardModal">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
-    <div class="modal-content">
-      
-      <!-- モーダルヘッダー -->
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="createCardModalLabel">
-          カード作成の使い方
-        </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
-      </div>
-      
-      <!-- モーダル本体 -->
-      <div class="modal-body">
-        
-        <!-- スクリーンショット表示 -->
-        <div class="screenshot-container">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320' viewBox='0 0 400 320'%3E%3Crect width='400' height='320' fill='%23f8f9fa' stroke='%23dee2e6' stroke-width='1'/%3E%3Ctext x='200' y='40' text-anchor='middle' font-family='sans-serif' font-size='20' font-weight='bold' fill='%23333'%3Eデッキ作成%3C/text%3E%3Ctext x='50' y='80' font-family='sans-serif' font-size='14' fill='%23555'%3Eタイトル%3C/text%3E%3Crect x='50' y='90' width='300' height='30' fill='white' stroke='%23ccc'/%3E%3Ctext x='50' y='140' font-family='sans-serif' font-size='14' fill='%23555'%3E説明%3C/text%3E%3Crect x='50' y='150' width='300' height='60' fill='white' stroke='%23ccc'/%3E%3Ctext x='50' y='235' font-family='sans-serif' font-size='14' fill='%23555'%3Eデッキ画像%3C/text%3E%3Crect x='50' y='245' width='100' height='30' fill='%23e9ecef' stroke='%23adb5bd'/%3E%3Ctext x='100' y='262' text-anchor='middle' font-family='sans-serif' font-size='12' fill='%23495057'%3Eファイルを選択%3C/text%3E%3Ctext x='160' y='262' font-family='sans-serif' font-size='12' fill='%236c757d'%3E選択されていません%3C/text%3E%3Crect x='170' y='285' width='60' height='25' rx='4' fill='%2328a745'/%3E%3Ctext x='200' y='300' text-anchor='middle' font-family='sans-serif' font-size='14' fill='white'%3E作成%3C/text%3E%3C/svg%3E" 
-               alt="デッキ作成画面のスクリーンショット" />
-          <div style="margin-top: 8px;">
-            <small class="text-muted">↑ デッキ作成画面の例</small>
-          </div>
-        </div>
+    <!-- モーダル -->
+    <div class="modal fade" id="createCardModal" tabindex="-1"
+    aria-labelledby="createCardModalLabel" aria-hidden="true"
+    th:fragment="createCardModal">
+        <div
+        class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+                <!-- モーダルヘッダー -->
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5"
+                        id="createCardModalLabel">カード作成の使い方</h1>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="閉じる"></button>
+            </div> <!-- モーダル本体 -->
+                <div class="modal-body">
+                    <!-- スクリーンショット表示 -->
+                    <div class="screenshot-container"><img
+                        th:src="@{/images/createCard.png}"
+                        alt="デッキ作成画面のスクリーンショット" />
+                        <div style="margin-top: 8px;"><small
+                            class="text-muted">↑ カード作成画面の例</small></div></div> <!-- ステップ説明 -->
+                    <div class="step-section">
+                        <div class="step-title">① デッキを選択</div>
+                        <p class="step-description">
+                            カードを登録したいデッキをプルダウンから選択します。あらかじめデッキが作成されている必要があります。
+                        </p>
+                </div>
 
-        <!-- ステップ説明 -->
-        <div class="step-section">
-          <div class="step-title">
-            ① デッキを選択
-          </div>
-          <p class="step-description">
-            カードを登録したいデッキをプルダウンから選択します。あらかじめデッキが作成されている必要があります。
-          </p>
-        </div>
+                    <div class="step-section">
+                        <div class="step-title">② 問題を入力</div>
+                        <p class="step-description">
+                            カードのタイトル（識別しやすい名前）を入力します。例：「be動詞」「鎌倉幕府の成立」など。
+                        </p>
+                </div>
 
-        <div class="step-section">
-          <div class="step-title">
-            ② 問題を入力
-          </div>
-          <p class="step-description">
-            カードのタイトル（識別しやすい名前）を入力します。例：「be動詞」「鎌倉幕府の成立」など。
-          </p>
-        </div>
+                    <div class="step-section">
+                        <div class="step-title">③ デッキ画像を選ぶ（任意）</div>
+                        <p class="step-description">
+                            「出題したい内容を入力します。テキスト形式で自由に記述できます。</p>
+                </div>
 
-        <div class="step-section">
-          <div class="step-title">
-            ③ デッキ画像を選ぶ（任意）
-          </div>
-          <p class="step-description">
-            「出題したい内容を入力します。テキスト形式で自由に記述できます。
-          </p>
-        </div>
+                    <div class="step-section">
+                        <div class="step-title">④ 問題画像を選択（任意）</div>
+                        <p class="step-description">
+                            問題に関連する画像をアップロードできます。画像が不要な場合は空欄のままで構いません。</p>
+                </div>
 
-        <div class="step-section">
-          <div class="step-title">
-            ④ 問題画像を選択（任意）
-          </div>
-          <p class="step-description">
-            問題に関連する画像をアップロードできます。画像が不要な場合は空欄のままで構いません。
-          </p>
-        </div>
+                    <div class="step-section">
+                        <div class="step-title">⑤ 解答を入力</div>
+                        <p class="step-description">
+                            問題に対する正しい答えや説明を入力します。</p>
+                </div>
 
-        <div class="step-section">
-          <div class="step-title">
-            ⑤ 解答を入力
-          </div>
-          <p class="step-description">
-            問題に対する正しい答えや説明を入力します。
-          </p>
-        </div>
+                    <div class="step-section">
+                        <div class="step-title">⑥ 解答画像を選択（任意）</div>
+                        <p class="step-description">
+                            解答の補足として画像をアップロードできます。図解や視覚的な説明を加えたい場合に便利です。
+                        </p>
+                </div>
 
-        <div class="step-section">
-          <div class="step-title">
-           ⑥ 解答画像を選択（任意）
-          </div>
-          <p class="step-description">
-           解答の補足として画像をアップロードできます。図解や視覚的な説明を加えたい場合に便利です。
-          </p>
-        </div>
+                    <div class="step-section">
+                        <div class="step-title">⑦ 「作成」ボタンをクリック</div>
+                        <p class="step-description">
+                            すべての入力が完了したら「作成」ボタンを押して、カードを登録します。</p>
+                </div> <!-- 補足セクション -->
+                    <div class="step-section tip-section">
+                        <div class="step-title">💡 補足</div>
+                        <p class="step-description">
+                            画像やテキストの内容は後からでも編集できます。まずはシンプルなカードから作ってみましょう！
+                        </p>
+                </div>
 
-        <div class="step-section">
-          <div class="step-title">
-            ⑦ 「作成」ボタンをクリック
-          </div>
-          <p class="step-description">
-            すべての入力が完了したら「作成」ボタンを押して、カードを登録します。
-          </p>
-        </div>
+            </div>
 
-        <!-- 補足セクション -->
-        <div class="step-section tip-section">
-          <div class="step-title">
-            💡 補足
-          </div>
-          <p class="step-description">
-            画像やテキストの内容は後からでも編集できます。まずはシンプルなカードから作ってみましょう！
-          </p>
         </div>
-
-      </div>
-      
     </div>
-  </div>
 </div>
 
 </body>
