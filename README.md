@@ -21,9 +21,9 @@
 | 分類 | 使用技術 |
 |------|----------|
 | バックエンド | Java / Spring Boot / Spring Security / JPA（Hibernate） |
-| フロントエンド | Thymeleaf / HTML / CSS / Bootstrap / JavaScript（jQuery） |
+| フロントエンド | Thymeleaf / HTML / CSS / Bootstrap /j Query|
 | データベース | PostgreSQL |
-| インフラ | Heroku（本番環境） / **Cloudinary（画像保存）** |
+| インフラ | Heroku（本番環境） / Cloudinary（画像保存） |
 | その他 | Lombok / Dozer / MultipartFile / WebP対応 / モバイル対応（レスポンシブ） |
 
 ---
@@ -59,7 +59,8 @@
 - 出題画面：1枚ずつカード出題＆評価  
 - 管理画面：ユーザー・デッキの管理  
 
-※画像は別資料（ポートフォリオ用スライド等）で補足予定
+<img width="1879" height="752" alt="image" src="https://github.com/user-attachments/assets/e198d456-8ad8-4f41-a388-db94535a4f68" />
+
 
 ---
 
@@ -77,8 +78,8 @@
 
 | 項目 | URL |
 |------|-----|
-| アプリURL | 非公開（開発者デモ希望の方はご連絡ください） |
-| GitHub | https://github.com/yourname/ankiapp |
+| アプリURL | https://ankiapp-mito-023b4fd905bf.herokuapp.com |
+| GitHub | https://github.com/mitokondoria211/ankiapp |
 | ER図・画面遷移図 | 準備中 or ポートフォリオ内に記載予定 |
 
 ---
@@ -114,3 +115,4 @@
 
 
 このアプリケーションのログイン機能は、「文系卒凡才SEのJava教室」の記事を参考にし、改良を加えました。それ以外の部分は作成しました# ankiApp
+
