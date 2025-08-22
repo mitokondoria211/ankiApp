@@ -106,17 +106,8 @@
 
 ---
 
-## 📩 お問い合わせ
-
-開発やデモ希望、詳細確認などはお気軽にご連絡ください。
-
-📧 mail: example@example.com  
-📱 X（旧Twitter）: [@yourhandle](https://twitter.com/yourhandle)
-
----
-
-
 このアプリケーションのログイン機能は、「文系卒凡才SEのJava教室」の記事を参考にし、改良を加えました。それ以外の部分は作成しました# ankiApp
+
 
 
 
